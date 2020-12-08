@@ -1,0 +1,92 @@
+{
+  "type": "object",
+  "required": ["nodes", "sources", "generated_at"],
+  "properties": {
+    "nodes": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/CatalogTable" }
+    },
+    "sources": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/CatalogTable" }
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "errors": {
+      "oneOf": [
+        { "type": "array", "items": { "type": "string" } },
+        { "type": "null" }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "description": "CatalogResults(nodes: Dict[str, dbt.contracts.results.CatalogTable], sources: Dict[str, dbt.contracts.results.CatalogTable], generated_at: datetime.datetime, errors: Union[List[str], NoneType], _compile_results: Union[Any, NoneType] = None)",
+  "definitions": {
+    "CatalogTable": {
+      "type": "object",
+      "required": ["metadata", "columns", "stats"],
+      "properties": {
+        "metadata": { "$ref": "#/definitions/TableMetadata" },
+        "columns": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/ColumnMetadata" }
+        },
+        "stats": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/StatsItem" }
+        },
+        "unique_id": { "oneOf": [{ "type": "string" }, { "type": "null" }] }
+      },
+      "additionalProperties": false,
+      "description": "CatalogTable(metadata: dbt.contracts.results.TableMetadata, columns: Dict[str, dbt.contracts.results.ColumnMetadata], stats: Dict[str, dbt.contracts.results.StatsItem], unique_id: Union[str, NoneType] = None)"
+    },
+    "TableMetadata": {
+      "type": "object",
+      "required": ["type", "schema", "name"],
+      "properties": {
+        "type": { "type": "string" },
+        "database": { "oneOf": [{ "type": "string" }, { "type": "null" }] },
+        "schema": { "type": "string" },
+        "name": { "type": "string" },
+        "comment": { "oneOf": [{ "type": "string" }, { "type": "null" }] },
+        "owner": { "oneOf": [{ "type": "string" }, { "type": "null" }] }
+      },
+      "additionalProperties": false,
+      "description": "TableMetadata(type: str, database: Union[str, NoneType], schema: str, name: str, comment: Union[str, NoneType], owner: Union[str, NoneType])"
+    },
+    "ColumnMetadata": {
+      "type": "object",
+      "required": ["type", "index", "name"],
+      "properties": {
+        "type": { "type": "string" },
+        "comment": { "oneOf": [{ "type": "string" }, { "type": "null" }] },
+        "index": { "type": "integer" },
+        "name": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "description": "ColumnMetadata(type: str, comment: Union[str, NoneType], index: int, name: str)"
+    },
+    "StatsItem": {
+      "type": "object",
+      "required": ["id", "label", "include"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "value": {
+          "oneOf": [
+            { "type": "boolean" },
+            { "type": "string" },
+            { "type": "number" },
+            { "type": "null" }
+          ]
+        },
+        "description": {
+          "oneOf": [{ "type": "string" }, { "type": "null" }]
+        },
+        "include": { "type": "boolean" }
+      },
+      "additionalProperties": false,
+      "description": "StatsItem(id: str, label: str, value: Union[bool, str, float, NoneType], description: Union[str, NoneType], include: bool)"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
