@@ -53,7 +53,7 @@
                 "generated_at": {
                     "type": "string",
                     "format": "date-time",
-                    "default": "2020-12-07T19:47:52.230085Z"
+                    "default": "2020-12-14T15:05:25.463221Z"
                 },
                 "invocation_id": {
                     "oneOf": [

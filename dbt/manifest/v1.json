@@ -221,7 +221,7 @@
                 "generated_at": {
                     "type": "string",
                     "format": "date-time",
-                    "default": "2020-12-07T19:47:52.301352Z"
+                    "default": "2020-12-14T15:05:25.471805Z"
                 },
                 "invocation_id": {
                     "oneOf": [
@@ -494,184 +494,6 @@
             },
             "additionalProperties": false,
             "description": "CompiledAnalysisNode(raw_sql: str, compiled: bool, database: Union[str, NoneType], schema: str, fqn: List[str], unique_id: str, package_name: str, root_path: str, path: str, original_file_path: str, name: str, resource_type: dbt.node_types.NodeType, alias: str, checksum: dbt.contracts.files.FileHash, config: dbt.contracts.graph.model_config.NodeConfig = <factory>, tags: List[str] = <factory>, refs: List[List[str]] = <factory>, sources: List[List[Any]] = <factory>, depends_on: dbt.contracts.graph.parsed.DependsOn = <factory>, description: str = '', columns: Dict[str, dbt.contracts.graph.parsed.ColumnInfo] = <factory>, meta: Dict[str, Any] = <factory>, docs: dbt.contracts.graph.unparsed.Docs = <factory>, patch_path: Union[str, NoneType] = None, build_path: Union[str, NoneType] = None, deferred: bool = False, unrendered_config: Dict[str, Any] = <factory>, compiled_sql: Union[str, NoneType] = None, extra_ctes_injected: bool = False, extra_ctes: List[dbt.contracts.graph.compiled.InjectedCTE] = <factory>, relation_name: Union[str, NoneType] = None)"
-        },
-        "BaseArtifactMetadata": {
-            "type": "object",
-            "required": [
-                "dbt_schema_version"
-            ],
-            "properties": {
-                "dbt_schema_version": {
-                    "type": "string"
-                },
-                "dbt_version": {
-                    "type": "string",
-                    "default": "0.19.0b1"
-                },
-                "generated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "default": "2020-12-07T19:47:52.235260Z"
-                },
-                "invocation_id": {
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "env": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "string"
-                    },
-                    "default": {}
-                }
-            },
-            "additionalProperties": false,
-            "description": "BaseArtifactMetadata(dbt_schema_version: str, dbt_version: str = '0.19.0b1', generated_at: datetime.datetime = <factory>, invocation_id: Union[str, NoneType] = <factory>, env: Dict[str, str] = <factory>)"
-        },
-        "PartialResult": {
-            "type": "object",
-            "required": [
-                "node"
-            ],
-            "properties": {
-                "node": {
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/CompiledAnalysisNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledDataTestNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledModelNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledHookNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledRPCNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledSchemaTestNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledSeedNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledSnapshotNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedAnalysisNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedDataTestNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedHookNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedModelNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedRPCNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedSchemaTestNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedSeedNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedSnapshotNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedSourceDefinition"
-                        }
-                    ]
-                },
-                "error": {
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "status": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ]
-                },
-                "execution_time": {
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
-                        }
-                    ],
-                    "default": 0
-                },
-                "thread_id": {
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "timing": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/TimingInfo"
-                    },
-                    "default": []
-                },
-                "fail": {
-                    "oneOf": [
-                        {
-                            "type": "boolean"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "warn": {
-                    "oneOf": [
-                        {
-                            "type": "boolean"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "description": "PartialResult(node: Union[dbt.contracts.graph.compiled.CompiledAnalysisNode, dbt.contracts.graph.compiled.CompiledDataTestNode, dbt.contracts.graph.compiled.CompiledModelNode, dbt.contracts.graph.compiled.CompiledHookNode, dbt.contracts.graph.compiled.CompiledRPCNode, dbt.contracts.graph.compiled.CompiledSchemaTestNode, dbt.contracts.graph.compiled.CompiledSeedNode, dbt.contracts.graph.compiled.CompiledSnapshotNode, dbt.contracts.graph.parsed.ParsedAnalysisNode, dbt.contracts.graph.parsed.ParsedDataTestNode, dbt.contracts.graph.parsed.ParsedHookNode, dbt.contracts.graph.parsed.ParsedModelNode, dbt.contracts.graph.parsed.ParsedRPCNode, dbt.contracts.graph.parsed.ParsedSchemaTestNode, dbt.contracts.graph.parsed.ParsedSeedNode, dbt.contracts.graph.parsed.ParsedSnapshotNode, dbt.contracts.graph.parsed.ParsedSourceDefinition], error: Union[str, NoneType] = None, status: Union[NoneType, str, int, bool] = None, execution_time: Union[str, int] = 0, thread_id: Union[str, NoneType] = None, timing: List[dbt.contracts.results.TimingInfo] = <factory>, fail: Union[bool, NoneType] = None, warn: Union[bool, NoneType] = None)"
         },
         "FileHash": {
             "type": "object",
@@ -4707,7 +4529,7 @@
                 "generated_at": {
                     "type": "string",
                     "format": "date-time",
-                    "default": "2020-12-07T19:47:52.233299Z"
+                    "default": "2020-12-14T15:05:25.466725Z"
                 },
                 "invocation_id": {
                     "oneOf": [
@@ -4734,17 +4556,26 @@
             "type": "object",
             "required": [
                 "unique_id",
-                "error",
-                "state"
+                "status"
             ],
             "properties": {
                 "unique_id": {
                     "type": "string"
                 },
                 "error": {
-                    "type": "string"
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
-                "state": {
+                "status": {
                     "type": "string",
                     "enum": [
                         "runtime error"
@@ -4752,7 +4583,7 @@
                 }
             },
             "additionalProperties": false,
-            "description": "SourceFreshnessRuntimeError(unique_id: str, error: str, state: dbt.contracts.results.FreshnessErrorEnum)"
+            "description": "SourceFreshnessRuntimeError(unique_id: str, error: Union[str, int, NoneType], status: dbt.contracts.results.FreshnessErrorEnum)"
         },
         "SourceFreshnessOutput": {
             "type": "object",
@@ -4761,7 +4592,7 @@
                 "max_loaded_at",
                 "snapshotted_at",
                 "max_loaded_at_time_ago_in_s",
-                "state",
+                "status",
                 "criteria"
             ],
             "properties": {
@@ -4779,12 +4610,13 @@
                 "max_loaded_at_time_ago_in_s": {
                     "type": "number"
                 },
-                "state": {
+                "status": {
                     "type": "string",
                     "enum": [
                         "pass",
                         "warn",
-                        "error"
+                        "error",
+                        "runtime error"
                     ]
                 },
                 "criteria": {
@@ -4792,7 +4624,7 @@
                 }
             },
             "additionalProperties": false,
-            "description": "SourceFreshnessOutput(unique_id: str, max_loaded_at: datetime.datetime, snapshotted_at: datetime.datetime, max_loaded_at_time_ago_in_s: float, state: dbt.contracts.graph.unparsed.FreshnessStatus, criteria: dbt.contracts.graph.unparsed.FreshnessThreshold)"
+            "description": "SourceFreshnessOutput(unique_id: str, max_loaded_at: datetime.datetime, snapshotted_at: datetime.datetime, max_loaded_at_time_ago_in_s: float, status: dbt.contracts.results.FreshnessStatus, criteria: dbt.contracts.graph.unparsed.FreshnessThreshold)"
         },
         "Time": {
             "type": "object",
@@ -4912,184 +4744,6 @@
             },
             "additionalProperties": true,
             "description": "SourceConfig(*args, **kwds)"
-        },
-        "TimingInfo": {
-            "type": "object",
-            "required": [
-                "name"
-            ],
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "started_at": {
-                    "oneOf": [
-                        {
-                            "type": "string",
-                            "format": "date-time"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "completed_at": {
-                    "oneOf": [
-                        {
-                            "type": "string",
-                            "format": "date-time"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "description": "TimingInfo(name: str, started_at: Union[datetime.datetime, NoneType] = None, completed_at: Union[datetime.datetime, NoneType] = None)"
-        },
-        "WritableRunModelResult": {
-            "type": "object",
-            "required": [
-                "node"
-            ],
-            "properties": {
-                "node": {
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/CompiledAnalysisNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledDataTestNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledModelNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledHookNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledRPCNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledSchemaTestNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledSeedNode"
-                        },
-                        {
-                            "$ref": "#/definitions/CompiledSnapshotNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedAnalysisNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedDataTestNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedHookNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedModelNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedRPCNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedSchemaTestNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedSeedNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedSnapshotNode"
-                        },
-                        {
-                            "$ref": "#/definitions/ParsedSourceDefinition"
-                        }
-                    ]
-                },
-                "error": {
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "status": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
-                        },
-                        {
-                            "type": "boolean"
-                        }
-                    ]
-                },
-                "execution_time": {
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
-                        }
-                    ],
-                    "default": 0
-                },
-                "thread_id": {
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "timing": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/TimingInfo"
-                    },
-                    "default": []
-                },
-                "fail": {
-                    "oneOf": [
-                        {
-                            "type": "boolean"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "warn": {
-                    "oneOf": [
-                        {
-                            "type": "boolean"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "skip": {
-                    "type": "boolean",
-                    "default": false
-                }
-            },
-            "additionalProperties": false,
-            "description": "WritableRunModelResult(node: Union[dbt.contracts.graph.compiled.CompiledAnalysisNode, dbt.contracts.graph.compiled.CompiledDataTestNode, dbt.contracts.graph.compiled.CompiledModelNode, dbt.contracts.graph.compiled.CompiledHookNode, dbt.contracts.graph.compiled.CompiledRPCNode, dbt.contracts.graph.compiled.CompiledSchemaTestNode, dbt.contracts.graph.compiled.CompiledSeedNode, dbt.contracts.graph.compiled.CompiledSnapshotNode, dbt.contracts.graph.parsed.ParsedAnalysisNode, dbt.contracts.graph.parsed.ParsedDataTestNode, dbt.contracts.graph.parsed.ParsedHookNode, dbt.contracts.graph.parsed.ParsedModelNode, dbt.contracts.graph.parsed.ParsedRPCNode, dbt.contracts.graph.parsed.ParsedSchemaTestNode, dbt.contracts.graph.parsed.ParsedSeedNode, dbt.contracts.graph.parsed.ParsedSnapshotNode, dbt.contracts.graph.parsed.ParsedSourceDefinition], error: Union[str, NoneType] = None, status: Union[NoneType, str, int, bool] = None, execution_time: Union[str, int] = 0, thread_id: Union[str, NoneType] = None, timing: List[dbt.contracts.results.TimingInfo] = <factory>, fail: Union[bool, NoneType] = None, warn: Union[bool, NoneType] = None, skip: bool = False)"
         },
         "ParsedMacro": {
             "type": "object",

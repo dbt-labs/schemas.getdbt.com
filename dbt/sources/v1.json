@@ -44,7 +44,7 @@
                 "generated_at": {
                     "type": "string",
                     "format": "date-time",
-                    "default": "2020-12-07T19:47:52.233299Z"
+                    "default": "2020-12-14T15:05:25.466725Z"
                 },
                 "invocation_id": {
                     "oneOf": [
@@ -71,17 +71,26 @@
             "type": "object",
             "required": [
                 "unique_id",
-                "error",
-                "state"
+                "status"
             ],
             "properties": {
                 "unique_id": {
                     "type": "string"
                 },
                 "error": {
-                    "type": "string"
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
-                "state": {
+                "status": {
                     "type": "string",
                     "enum": [
                         "runtime error"
@@ -89,7 +98,7 @@
                 }
             },
             "additionalProperties": false,
-            "description": "SourceFreshnessRuntimeError(unique_id: str, error: str, state: dbt.contracts.results.FreshnessErrorEnum)"
+            "description": "SourceFreshnessRuntimeError(unique_id: str, error: Union[str, int, NoneType], status: dbt.contracts.results.FreshnessErrorEnum)"
         },
         "SourceFreshnessOutput": {
             "type": "object",
@@ -98,7 +107,7 @@
                 "max_loaded_at",
                 "snapshotted_at",
                 "max_loaded_at_time_ago_in_s",
-                "state",
+                "status",
                 "criteria"
             ],
             "properties": {
@@ -116,12 +125,13 @@
                 "max_loaded_at_time_ago_in_s": {
                     "type": "number"
                 },
-                "state": {
+                "status": {
                     "type": "string",
                     "enum": [
                         "pass",
                         "warn",
-                        "error"
+                        "error",
+                        "runtime error"
                     ]
                 },
                 "criteria": {
@@ -129,7 +139,7 @@
                 }
             },
             "additionalProperties": false,
-            "description": "SourceFreshnessOutput(unique_id: str, max_loaded_at: datetime.datetime, snapshotted_at: datetime.datetime, max_loaded_at_time_ago_in_s: float, state: dbt.contracts.graph.unparsed.FreshnessStatus, criteria: dbt.contracts.graph.unparsed.FreshnessThreshold)"
+            "description": "SourceFreshnessOutput(unique_id: str, max_loaded_at: datetime.datetime, snapshotted_at: datetime.datetime, max_loaded_at_time_ago_in_s: float, status: dbt.contracts.results.FreshnessStatus, criteria: dbt.contracts.graph.unparsed.FreshnessThreshold)"
         },
         "FreshnessThreshold": {
             "type": "object",
