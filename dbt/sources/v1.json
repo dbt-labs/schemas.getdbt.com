@@ -44,7 +44,7 @@
                 "generated_at": {
                     "type": "string",
                     "format": "date-time",
-                    "default": "2020-12-14T15:05:25.466725Z"
+                    "default": "2020-12-22T19:33:45.469603Z"
                 },
                 "invocation_id": {
                     "oneOf": [
@@ -108,7 +108,8 @@
                 "snapshotted_at",
                 "max_loaded_at_time_ago_in_s",
                 "status",
-                "criteria"
+                "criteria",
+                "adapter_response"
             ],
             "properties": {
                 "unique_id": {
@@ -136,10 +137,13 @@
                 },
                 "criteria": {
                     "$ref": "#/definitions/FreshnessThreshold"
+                },
+                "adapter_response": {
+                    "type": "object"
                 }
             },
             "additionalProperties": false,
-            "description": "SourceFreshnessOutput(unique_id: str, max_loaded_at: datetime.datetime, snapshotted_at: datetime.datetime, max_loaded_at_time_ago_in_s: float, status: dbt.contracts.results.FreshnessStatus, criteria: dbt.contracts.graph.unparsed.FreshnessThreshold)"
+            "description": "SourceFreshnessOutput(unique_id: str, max_loaded_at: datetime.datetime, snapshotted_at: datetime.datetime, max_loaded_at_time_ago_in_s: float, status: dbt.contracts.results.FreshnessStatus, criteria: dbt.contracts.graph.unparsed.FreshnessThreshold, adapter_response: Dict[str, Any])"
         },
         "FreshnessThreshold": {
             "type": "object",

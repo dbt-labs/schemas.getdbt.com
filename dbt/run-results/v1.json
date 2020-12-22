@@ -42,7 +42,7 @@
                 "generated_at": {
                     "type": "string",
                     "format": "date-time",
-                    "default": "2020-12-14T15:05:25.469730Z"
+                    "default": "2020-12-22T19:33:45.473197Z"
                 },
                 "invocation_id": {
                     "oneOf": [
@@ -72,6 +72,7 @@
                 "timing",
                 "thread_id",
                 "execution_time",
+                "adapter_response",
                 "unique_id"
             ],
             "properties": {
@@ -130,12 +131,15 @@
                         }
                     ]
                 },
+                "adapter_response": {
+                    "type": "object"
+                },
                 "unique_id": {
                     "type": "string"
                 }
             },
             "additionalProperties": false,
-            "description": "RunResultOutput(status: Union[dbt.contracts.results.RunStatus, dbt.contracts.results.TestStatus, dbt.contracts.results.FreshnessStatus], timing: List[dbt.contracts.results.TimingInfo], thread_id: str, execution_time: float, message: Union[str, int, NoneType], unique_id: str)"
+            "description": "RunResultOutput(status: Union[dbt.contracts.results.RunStatus, dbt.contracts.results.TestStatus, dbt.contracts.results.FreshnessStatus], timing: List[dbt.contracts.results.TimingInfo], thread_id: str, execution_time: float, message: Union[str, int, NoneType], adapter_response: Dict[str, Any], unique_id: str)"
         },
         "TimingInfo": {
             "type": "object",

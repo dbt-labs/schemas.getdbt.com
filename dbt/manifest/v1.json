@@ -221,7 +221,7 @@
                 "generated_at": {
                     "type": "string",
                     "format": "date-time",
-                    "default": "2020-12-14T15:05:25.471805Z"
+                    "default": "2020-12-22T19:33:45.475380Z"
                 },
                 "invocation_id": {
                     "oneOf": [
@@ -4529,7 +4529,7 @@
                 "generated_at": {
                     "type": "string",
                     "format": "date-time",
-                    "default": "2020-12-14T15:05:25.466725Z"
+                    "default": "2020-12-22T19:33:45.469603Z"
                 },
                 "invocation_id": {
                     "oneOf": [
@@ -4593,7 +4593,8 @@
                 "snapshotted_at",
                 "max_loaded_at_time_ago_in_s",
                 "status",
-                "criteria"
+                "criteria",
+                "adapter_response"
             ],
             "properties": {
                 "unique_id": {
@@ -4621,10 +4622,13 @@
                 },
                 "criteria": {
                     "$ref": "#/definitions/FreshnessThreshold"
+                },
+                "adapter_response": {
+                    "type": "object"
                 }
             },
             "additionalProperties": false,
-            "description": "SourceFreshnessOutput(unique_id: str, max_loaded_at: datetime.datetime, snapshotted_at: datetime.datetime, max_loaded_at_time_ago_in_s: float, status: dbt.contracts.results.FreshnessStatus, criteria: dbt.contracts.graph.unparsed.FreshnessThreshold)"
+            "description": "SourceFreshnessOutput(unique_id: str, max_loaded_at: datetime.datetime, snapshotted_at: datetime.datetime, max_loaded_at_time_ago_in_s: float, status: dbt.contracts.results.FreshnessStatus, criteria: dbt.contracts.graph.unparsed.FreshnessThreshold, adapter_response: Dict[str, Any])"
         },
         "Time": {
             "type": "object",
@@ -4980,6 +4984,10 @@
                     ],
                     "default": "exposure"
                 },
+                "description": {
+                    "type": "string",
+                    "default": ""
+                },
                 "maturity": {
                     "oneOf": [
                         {
@@ -4996,16 +5004,6 @@
                     ]
                 },
                 "url": {
-                    "oneOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
-                "description": {
                     "oneOf": [
                         {
                             "type": "string"
@@ -5044,7 +5042,7 @@
                 }
             },
             "additionalProperties": false,
-            "description": "ParsedExposure(fqn: List[str], unique_id: str, package_name: str, root_path: str, path: str, original_file_path: str, name: str, type: dbt.contracts.graph.unparsed.ExposureType, owner: dbt.contracts.graph.unparsed.ExposureOwner, resource_type: dbt.node_types.NodeType = <NodeType.Exposure: 'exposure'>, maturity: Union[dbt.contracts.graph.unparsed.MaturityType, NoneType] = None, url: Union[str, NoneType] = None, description: Union[str, NoneType] = None, depends_on: dbt.contracts.graph.parsed.DependsOn = <factory>, refs: List[List[str]] = <factory>, sources: List[List[str]] = <factory>)"
+            "description": "ParsedExposure(fqn: List[str], unique_id: str, package_name: str, root_path: str, path: str, original_file_path: str, name: str, type: dbt.contracts.graph.unparsed.ExposureType, owner: dbt.contracts.graph.unparsed.ExposureOwner, resource_type: dbt.node_types.NodeType = <NodeType.Exposure: 'exposure'>, description: str = '', maturity: Union[dbt.contracts.graph.unparsed.MaturityType, NoneType] = None, url: Union[str, NoneType] = None, depends_on: dbt.contracts.graph.parsed.DependsOn = <factory>, refs: List[List[str]] = <factory>, sources: List[List[str]] = <factory>)"
         },
         "ExposureOwner": {
             "type": "object",
