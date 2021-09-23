@@ -212,7 +212,7 @@
       "properties": {
         "dbt_schema_version": {
           "type": "string",
-          "default": "https://schemas.getdbt.com/dbt/manifest/v2.json"
+          "default": "https://schemas.getdbt.com/dbt/manifest/v3.json"
         },
         "dbt_version": {
           "type": "string",
@@ -221,7 +221,7 @@
         "generated_at": {
           "type": "string",
           "format": "date-time",
-          "default": "2021-09-23T16:30:03.938674Z"
+          "default": "2021-09-23T16:36:54.613508Z"
         },
         "invocation_id": {
           "oneOf": [
@@ -473,7 +473,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -952,7 +952,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -1289,7 +1289,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -1514,7 +1514,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -1749,7 +1749,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -1978,7 +1978,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -2241,7 +2241,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -2587,7 +2587,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -2808,7 +2808,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -2998,7 +2998,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -3188,7 +3188,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -3388,7 +3388,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -3578,7 +3578,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -3772,7 +3772,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -3973,7 +3973,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -4148,7 +4148,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         },
         "config_call_dict": {
           "type": "object",
@@ -4505,7 +4505,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         }
       },
       "additionalProperties": false,
@@ -4612,7 +4612,7 @@
         "generated_at": {
           "type": "string",
           "format": "date-time",
-          "default": "2021-09-23T16:30:03.934558Z"
+          "default": "2021-09-23T16:36:54.606283Z"
         },
         "invocation_id": {
           "oneOf": [
@@ -4918,7 +4918,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         }
       },
       "additionalProperties": false,
@@ -5140,7 +5140,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632414603
+          "default": 1632415014
         }
       },
       "additionalProperties": false,
@@ -5171,5 +5171,5 @@
     }
   },
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://schemas.getdbt.com/dbt/manifest/v2.json"
+  "$id": "https://schemas.getdbt.com/dbt/manifest/v3.json"
 }
