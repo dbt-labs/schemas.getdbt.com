@@ -35,7 +35,7 @@
       "properties": {
         "dbt_schema_version": {
           "type": "string",
-          "default": "https://schemas.getdbt.com/dbt/sources/v1.json"
+          "default": "https://schemas.getdbt.com/dbt/sources/v2.json"
         },
         "dbt_version": {
           "type": "string",
@@ -44,7 +44,7 @@
         "generated_at": {
           "type": "string",
           "format": "date-time",
-          "default": "2021-09-23T16:47:34.839598Z"
+          "default": "2021-09-23T17:10:56.444939Z"
         },
         "invocation_id": {
           "oneOf": [
@@ -207,5 +207,5 @@
     }
   },
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://schemas.getdbt.com/dbt/sources/v1.json"
+  "$id": "https://schemas.getdbt.com/dbt/sources/v2.json"
 }
