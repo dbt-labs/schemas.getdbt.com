@@ -216,12 +216,12 @@
         },
         "dbt_version": {
           "type": "string",
-          "default": "0.21.0b1"
+          "default": "0.21.0rc1"
         },
         "generated_at": {
           "type": "string",
           "format": "date-time",
-          "default": "2021-09-23T17:10:56.450019Z"
+          "default": "2021-09-24T13:29:14.317700Z"
         },
         "invocation_id": {
           "oneOf": [
@@ -473,7 +473,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -952,7 +952,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -1289,7 +1289,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -1514,7 +1514,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -1749,7 +1749,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -1978,7 +1978,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -2241,7 +2241,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -2587,7 +2587,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -2808,7 +2808,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -2998,7 +2998,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -3188,7 +3188,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -3388,7 +3388,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -3578,7 +3578,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -3772,7 +3772,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -3973,7 +3973,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -4148,7 +4148,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         },
         "config_call_dict": {
           "type": "object",
@@ -4505,7 +4505,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         }
       },
       "additionalProperties": false,
@@ -4607,12 +4607,12 @@
         },
         "dbt_version": {
           "type": "string",
-          "default": "0.21.0b1"
+          "default": "0.21.0rc1"
         },
         "generated_at": {
           "type": "string",
           "format": "date-time",
-          "default": "2021-09-23T17:10:56.444939Z"
+          "default": "2021-09-24T13:29:14.312598Z"
         },
         "invocation_id": {
           "oneOf": [
@@ -4633,7 +4633,7 @@
         }
       },
       "additionalProperties": false,
-      "description": "FreshnessMetadata(dbt_schema_version: str = <factory>, dbt_version: str = '0.21.0b1', generated_at: datetime.datetime = <factory>, invocation_id: Union[str, NoneType] = <factory>, env: Dict[str, str] = <factory>)"
+      "description": "FreshnessMetadata(dbt_schema_version: str = <factory>, dbt_version: str = '0.21.0rc1', generated_at: datetime.datetime = <factory>, invocation_id: Union[str, NoneType] = <factory>, env: Dict[str, str] = <factory>)"
     },
     "SourceFreshnessRuntimeError": {
       "type": "object",
@@ -4677,7 +4677,10 @@
         "max_loaded_at_time_ago_in_s",
         "status",
         "criteria",
-        "adapter_response"
+        "adapter_response",
+        "timing",
+        "thread_id",
+        "execution_time"
       ],
       "properties": {
         "unique_id": {
@@ -4708,10 +4711,22 @@
         },
         "adapter_response": {
           "type": "object"
+        },
+        "timing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimingInfo"
+          }
+        },
+        "thread_id": {
+          "type": "string"
+        },
+        "execution_time": {
+          "type": "number"
         }
       },
       "additionalProperties": false,
-      "description": "SourceFreshnessOutput(unique_id: str, max_loaded_at: datetime.datetime, snapshotted_at: datetime.datetime, max_loaded_at_time_ago_in_s: float, status: dbt.contracts.results.FreshnessStatus, criteria: dbt.contracts.graph.unparsed.FreshnessThreshold, adapter_response: Dict[str, Any])"
+      "description": "SourceFreshnessOutput(unique_id: str, max_loaded_at: datetime.datetime, snapshotted_at: datetime.datetime, max_loaded_at_time_ago_in_s: float, status: dbt.contracts.results.FreshnessStatus, criteria: dbt.contracts.graph.unparsed.FreshnessThreshold, adapter_response: Dict[str, Any], timing: List[dbt.contracts.results.TimingInfo], thread_id: str, execution_time: float)"
     },
     "Time": {
       "type": "object",
@@ -4734,6 +4749,41 @@
       },
       "additionalProperties": false,
       "description": "Time(count: int, period: dbt.contracts.graph.unparsed.TimePeriod)"
+    },
+    "TimingInfo": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "started_at": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completed_at": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "description": "TimingInfo(name: str, started_at: Union[datetime.datetime, NoneType] = None, completed_at: Union[datetime.datetime, NoneType] = None)"
     },
     "ExternalTable": {
       "type": "object",
@@ -4918,7 +4968,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         }
       },
       "additionalProperties": false,
@@ -5140,7 +5190,7 @@
         },
         "created_at": {
           "type": "integer",
-          "default": 1632417056
+          "default": 1632490154
         }
       },
       "additionalProperties": false,
