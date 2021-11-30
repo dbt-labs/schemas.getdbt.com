@@ -239,12 +239,12 @@
         },
         "dbt_version": {
           "type": "string",
-          "default": "1.0.0b2"
+          "default": "1.0.0rc2"
         },
         "generated_at": {
           "type": "string",
           "format": "date-time",
-          "default": "2021-11-09T08:19:04.721735Z"
+          "default": "2021-11-30T01:35:47.307789Z"
         },
         "invocation_id": {
           "oneOf": [
@@ -254,7 +254,8 @@
             {
               "type": "null"
             }
-          ]
+          ],
+          "default": "66dd78f0-c79a-4b06-81b1-99794345df16"
         },
         "env": {
           "type": "object",
@@ -499,7 +500,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.724886
+          "default": 1638236147.3118432
         },
         "config_call_dict": {
           "type": "object",
@@ -981,7 +982,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.727336
+          "default": 1638236147.314477
         },
         "config_call_dict": {
           "type": "object",
@@ -1321,7 +1322,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.7285042
+          "default": 1638236147.315979
         },
         "config_call_dict": {
           "type": "object",
@@ -1549,7 +1550,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.7297301
+          "default": 1638236147.317642
         },
         "config_call_dict": {
           "type": "object",
@@ -1787,7 +1788,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.7309592
+          "default": 1638236147.319278
         },
         "config_call_dict": {
           "type": "object",
@@ -2015,7 +2016,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.732193
+          "default": 1638236147.321433
         },
         "config_call_dict": {
           "type": "object",
@@ -2247,7 +2248,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.733535
+          "default": 1638236147.323731
         },
         "config_call_dict": {
           "type": "object",
@@ -2523,7 +2524,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.7355819
+          "default": 1638236147.326388
         },
         "config_call_dict": {
           "type": "object",
@@ -2872,7 +2873,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.736751
+          "default": 1638236147.328031
         },
         "config_call_dict": {
           "type": "object",
@@ -3096,7 +3097,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.737886
+          "default": 1638236147.329485
         },
         "config_call_dict": {
           "type": "object",
@@ -3289,7 +3290,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.7388532
+          "default": 1638236147.3306549
         },
         "config_call_dict": {
           "type": "object",
@@ -3482,7 +3483,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.740055
+          "default": 1638236147.332001
         },
         "config_call_dict": {
           "type": "object",
@@ -3685,7 +3686,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.741075
+          "default": 1638236147.333348
         },
         "config_call_dict": {
           "type": "object",
@@ -3878,7 +3879,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.7420402
+          "default": 1638236147.335125
         },
         "config_call_dict": {
           "type": "object",
@@ -4071,7 +4072,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.743006
+          "default": 1638236147.336567
         },
         "config_call_dict": {
           "type": "object",
@@ -4268,7 +4269,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.744006
+          "default": 1638236147.3383949
         },
         "config_call_dict": {
           "type": "object",
@@ -4482,7 +4483,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.745064
+          "default": 1638236147.339838
         },
         "config_call_dict": {
           "type": "object",
@@ -4660,7 +4661,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.747545
+          "default": 1638236147.3425322
         },
         "config_call_dict": {
           "type": "object",
@@ -5017,7 +5018,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.7493608
+          "default": 1638236147.345053
         }
       },
       "additionalProperties": false,
@@ -5127,12 +5128,12 @@
         },
         "dbt_version": {
           "type": "string",
-          "default": "1.0.0b2"
+          "default": "1.0.0rc2"
         },
         "generated_at": {
           "type": "string",
           "format": "date-time",
-          "default": "2021-11-09T08:19:04.717871Z"
+          "default": "2021-11-30T01:35:47.301745Z"
         },
         "invocation_id": {
           "oneOf": [
@@ -5142,7 +5143,8 @@
             {
               "type": "null"
             }
-          ]
+          ],
+          "default": "66dd78f0-c79a-4b06-81b1-99794345df16"
         },
         "env": {
           "type": "object",
@@ -5153,7 +5155,7 @@
         }
       },
       "additionalProperties": false,
-      "description": "FreshnessMetadata(dbt_schema_version: str = <factory>, dbt_version: str = '1.0.0b2', generated_at: datetime.datetime = <factory>, invocation_id: Union[str, NoneType] = <factory>, env: Dict[str, str] = <factory>)"
+      "description": "FreshnessMetadata(dbt_schema_version: str = <factory>, dbt_version: str = '1.0.0rc2', generated_at: datetime.datetime = <factory>, invocation_id: Union[str, NoneType] = <factory>, env: Dict[str, str] = <factory>)"
     },
     "SourceFreshnessRuntimeError": {
       "type": "object",
@@ -5499,7 +5501,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.75006
+          "default": 1638236147.345993
         }
       },
       "additionalProperties": false,
@@ -5723,7 +5725,7 @@
         },
         "created_at": {
           "type": "number",
-          "default": 1636445944.751032
+          "default": 1638236147.347234
         }
       },
       "additionalProperties": false,
@@ -5903,12 +5905,12 @@
           "default": []
         },
         "created_at": {
-          "type": "integer",
-          "default": 1636445944
+          "type": "number",
+          "default": 1638236147.348404
         }
       },
       "additionalProperties": false,
-      "description": "ParsedMetric(fqn: List[str], unique_id: str, package_name: str, root_path: str, path: str, original_file_path: str, model: str, name: str, description: str, label: str, type: str, sql: Union[str, NoneType], timestamp: Union[str, NoneType], filters: List[dbt.contracts.graph.unparsed.MetricFilter], time_grains: List[str], dimensions: List[str], resource_type: dbt.node_types.NodeType = <NodeType.Metric: 'metric'>, meta: Dict[str, Any] = <factory>, tags: List[str] = <factory>, sources: List[List[str]] = <factory>, depends_on: dbt.contracts.graph.parsed.DependsOn = <factory>, refs: List[List[str]] = <factory>, created_at: int = <factory>)"
+      "description": "ParsedMetric(fqn: List[str], unique_id: str, package_name: str, root_path: str, path: str, original_file_path: str, model: str, name: str, description: str, label: str, type: str, sql: Union[str, NoneType], timestamp: Union[str, NoneType], filters: List[dbt.contracts.graph.unparsed.MetricFilter], time_grains: List[str], dimensions: List[str], resource_type: dbt.node_types.NodeType = <NodeType.Metric: 'metric'>, meta: Dict[str, Any] = <factory>, tags: List[str] = <factory>, sources: List[List[str]] = <factory>, depends_on: dbt.contracts.graph.parsed.DependsOn = <factory>, refs: List[List[str]] = <factory>, created_at: float = <factory>)"
     },
     "MetricFilter": {
       "type": "object",
