@@ -178,3 +178,12 @@ body {
 .highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
 .highlight .vm { color: #bb60d5 } /* Name.Variable.Magic */
 .highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */
+
+@media screen and (max-width: 575px) {
+  body {
+    padding: 10px;
+  }
+  .pl-5, .px-5 {
+    padding: 10px !important;
+  }
+}
