@@ -1,141 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dbt JSON Schemas</title>
-    <style>
-      body {
-        background: #003645 !important;
-        color: #93a1a1;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        padding: 40px 20px;
-        text-align: center;
-      }
 
-      main {
-        font-size: 180%;
-      }
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dbt JSON Schemas</title>
+  <style>
+    body {
+      background: #003645 !important;
+      color: #93a1a1;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      padding: 40px 20px;
+      text-align: center;
+    }
 
-      h1 {
-        color: #fff;
-      }
+    main {
+      font-size: 180%;
+    }
 
-      i {
-        color: #719e07;
-      }
+    h1 {
+      color: #fff;
+    }
 
-      p {
-        margin-bottom: 2em;
-      }
+    i {
+      color: #719e07;
+    }
 
-      a {
-        color: #93a1a1;
-        text-decoration: none;
-      }
+    p {
+      margin-bottom: 2em;
+    }
 
-      a:hover {
-        color: #fff
-      }
+    a {
+      color: #93a1a1;
+      text-decoration: none;
+    }
 
-      ul {
-        list-style: none;
-        padding: 0;
-      }
+    a:hover {
+      color: #fff
+    }
 
-      ul li {
-        margin-bottom: 1em;
-      }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
 
-      footer {
-        margin-top: 10em;
-        font-size: 140%;
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <img src="static/dbt-logo-full-white.svg" width="150">
-      <h1>dbt JSON Schemas</h1>
+    ul li {
+      margin-bottom: 1em;
+    }
 
-      <h3>Manifest</h3>
-      <ul>
-        <li>
-          <a href="dbt/manifest/v9/index.html">v9</a> (<a href="dbt/manifest/v9.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/manifest/v8/index.html">v8</a> (<a href="dbt/manifest/v8.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/manifest/v7/index.html">v7</a> (<a href="dbt/manifest/v7.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/manifest/v6/index.html">v6</a> (<a href="dbt/manifest/v6.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/manifest/v5/index.html">v5</a> (<a href="dbt/manifest/v5.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/manifest/v4/index.html">v4</a> (<a href="dbt/manifest/v4.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/manifest/v3/index.html">v3</a> (<a href="dbt/manifest/v3.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/manifest/v2/index.html">v2</a> (<a href="dbt/manifest/v2.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/manifest/v1/index.html">v1</a> (<a href="dbt/manifest/v1.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/manifest/v0/index.html">v0</a> (<a href="dbt/manifest/v0.json">raw</a>)
-        </li>
-      </ul>
+    footer {
+      margin-top: 10em;
+      font-size: 140%;
+    }
+  </style>
+</head>
 
-      <h3>Catalog</h3>
-      <ul>
-        <li>
-          <a href="dbt/catalog/v1/index.html">v1</a> (<a href="dbt/catalog/v1.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/catalog/v0/index.html">v0</a> (<a href="dbt/catalog/v0.json">raw</a>)
-        </li>
-      </ul>
+<body>
+  <main>
+    <img src="static/dbt-logo-full-white.svg" width="150">
+    <h1>dbt JSON Schemas</h1>
 
-      <h3>Run Results</h3>
-      <ul>
-        <li>
-          <a href="dbt/run-results/v4/index.html">v4</a> (<a href="dbt/run-results/v4.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/run-results/v3/index.html">v3</a> (<a href="dbt/run-results/v3.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/run-results/v2/index.html">v2</a> (<a href="dbt/run-results/v2.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/run-results/v1/index.html">v1</a> (<a href="dbt/run-results/v1.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/run-results/v0/index.html">v0</a> (<a href="dbt/run-results/v0.json">raw</a>)
-        </li>
-      </ul>
+    <h3>Manifest</h3>
+    <ul>
+      <li>
+        <a href="dbt/manifest/v10/index.html">v10</a> (<a href="dbt/manifest/v10.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/manifest/v9/index.html">v9</a> (<a href="dbt/manifest/v9.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/manifest/v8/index.html">v8</a> (<a href="dbt/manifest/v8.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/manifest/v7/index.html">v7</a> (<a href="dbt/manifest/v7.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/manifest/v6/index.html">v6</a> (<a href="dbt/manifest/v6.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/manifest/v5/index.html">v5</a> (<a href="dbt/manifest/v5.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/manifest/v4/index.html">v4</a> (<a href="dbt/manifest/v4.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/manifest/v3/index.html">v3</a> (<a href="dbt/manifest/v3.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/manifest/v2/index.html">v2</a> (<a href="dbt/manifest/v2.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/manifest/v1/index.html">v1</a> (<a href="dbt/manifest/v1.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/manifest/v0/index.html">v0</a> (<a href="dbt/manifest/v0.json">raw</a>)
+      </li>
+    </ul>
 
-      <h3>Sources</h3>
-      <ul>
-        <li>
-          <a href="dbt/sources/v3/index.html">v3</a> (<a href="dbt/sources/v3.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/sources/v2/index.html">v2</a> (<a href="dbt/sources/v2.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/sources/v1/index.html">v1</a> (<a href="dbt/sources/v1.json">raw</a>)
-        </li>
-        <li>
-          <a href="dbt/sources/v0/index.html">v0</a> (<a href="dbt/sources/v0.json">raw</a>)
-        </li>
-      </ul>
-    </main>
-  </body>
+    <h3>Catalog</h3>
+    <ul>
+      <li>
+        <a href="dbt/catalog/v1/index.html">v1</a> (<a href="dbt/catalog/v1.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/catalog/v0/index.html">v0</a> (<a href="dbt/catalog/v0.json">raw</a>)
+      </li>
+    </ul>
+
+    <h3>Run Results</h3>
+    <ul>
+      <li>
+        <a href="dbt/run-results/v4/index.html">v4</a> (<a href="dbt/run-results/v4.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/run-results/v3/index.html">v3</a> (<a href="dbt/run-results/v3.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/run-results/v2/index.html">v2</a> (<a href="dbt/run-results/v2.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/run-results/v1/index.html">v1</a> (<a href="dbt/run-results/v1.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/run-results/v0/index.html">v0</a> (<a href="dbt/run-results/v0.json">raw</a>)
+      </li>
+    </ul>
+
+    <h3>Sources</h3>
+    <ul>
+      <li>
+        <a href="dbt/sources/v3/index.html">v3</a> (<a href="dbt/sources/v3.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/sources/v2/index.html">v2</a> (<a href="dbt/sources/v2.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/sources/v1/index.html">v1</a> (<a href="dbt/sources/v1.json">raw</a>)
+      </li>
+      <li>
+        <a href="dbt/sources/v0/index.html">v0</a> (<a href="dbt/sources/v0.json">raw</a>)
+      </li>
+    </ul>
+  </main>
+</body>
+
 </html>
