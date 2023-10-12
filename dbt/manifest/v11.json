@@ -927,17 +927,6 @@
           ],
           "default": null
         },
-        "store_failures_as": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
         "where": {
           "anyOf": [
             {
@@ -4601,6 +4590,22 @@
         "where_sql_template"
       ]
     },
+    "WhereFilterIntersection": {
+      "type": "object",
+      "title": "WhereFilterIntersection",
+      "properties": {
+        "where_filters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/WhereFilter"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "where_filters"
+      ]
+    },
     "MetricInputMeasure": {
       "type": "object",
       "title": "MetricInputMeasure",
@@ -4611,7 +4616,7 @@
         "filter": {
           "anyOf": [
             {
-              "$ref": "#/$defs/WhereFilter"
+              "$ref": "#/$defs/WhereFilterIntersection"
             },
             {
               "type": "null"
@@ -4684,7 +4689,7 @@
         "filter": {
           "anyOf": [
             {
-              "$ref": "#/$defs/WhereFilter"
+              "$ref": "#/$defs/WhereFilterIntersection"
             },
             {
               "type": "null"
@@ -4954,7 +4959,7 @@
         "filter": {
           "anyOf": [
             {
-              "$ref": "#/$defs/WhereFilter"
+              "$ref": "#/$defs/WhereFilterIntersection"
             },
             {
               "type": "null"
@@ -5086,6 +5091,187 @@
         "original_file_path",
         "unique_id",
         "owner"
+      ]
+    },
+    "SavedQueryConfig": {
+      "type": "object",
+      "title": "SavedQueryConfig",
+      "properties": {
+        "_extra": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          }
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "group": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "meta": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "SavedQuery": {
+      "type": "object",
+      "title": "SavedQuery",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "resource_type": {
+          "enum": [
+            "model",
+            "analysis",
+            "test",
+            "snapshot",
+            "operation",
+            "seed",
+            "rpc",
+            "sql_operation",
+            "doc",
+            "source",
+            "macro",
+            "exposure",
+            "metric",
+            "group",
+            "saved_query",
+            "semantic_model"
+          ]
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "unique_id": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "group_bys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "where": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/WhereFilterIntersection"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "metadata": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SourceFileMetadata"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "config": {
+          "$ref": "#/$defs/SavedQueryConfig"
+        },
+        "unrendered_config": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          }
+        },
+        "group": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "depends_on": {
+          "$ref": "#/$defs/DependsOn"
+        },
+        "created_at": {
+          "type": "number"
+        },
+        "refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RefArgs"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "resource_type",
+        "package_name",
+        "path",
+        "original_file_path",
+        "unique_id",
+        "fqn",
+        "metrics",
+        "group_bys",
+        "where"
       ]
     },
     "NodeRelation": {
@@ -5549,6 +5735,7 @@
             "exposure",
             "metric",
             "group",
+            "saved_query",
             "semantic_model"
           ]
         },
@@ -5861,6 +6048,9 @@
                       "$ref": "#/$defs/Metric"
                     },
                     {
+                      "$ref": "#/$defs/SavedQuery"
+                    },
+                    {
                       "$ref": "#/$defs/SemanticModel"
                     }
                   ]
@@ -5935,6 +6125,16 @@
             }
           ]
         },
+        "saved_queries": {
+          "type": "object",
+          "description": "The saved queries defined in the dbt project",
+          "additionalProperties": {
+            "$ref": "#/$defs/SavedQuery"
+          },
+          "propertyNames": {
+            "type": "string"
+          }
+        },
         "semantic_models": {
           "type": "object",
           "description": "The semantic models defined in the dbt project",
@@ -5961,6 +6161,7 @@
         "parent_map",
         "child_map",
         "group_map",
+        "saved_queries",
         "semantic_models"
       ]
     }
