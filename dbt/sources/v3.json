@@ -10,7 +10,7 @@
         },
         "dbt_version": {
           "type": "string",
-          "default": "1.7.0b2"
+          "default": "1.7.0b1"
         },
         "generated_at": {
           "type": "string"
@@ -151,7 +151,8 @@
         "started_at": {
           "anyOf": [
             {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             {
               "type": "null"
@@ -162,7 +163,8 @@
         "completed_at": {
           "anyOf": [
             {
-              "type": "string"
+              "type": "string",
+              "format": "date-time"
             },
             {
               "type": "null"
