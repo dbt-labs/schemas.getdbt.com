@@ -5,7 +5,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self' *.getdbt.com; img-src 'self'; script-src 'self' code.jquery.com https:; style-src 'self' 'unsafe-inline' *.fontawesome.com *.googleapis.com *.bootstrapcdn.com; object-src 'none'; form-action 'self'; frame-ancestors 'none'; font-src 'self' *.fontawesome.com;"
+          "value": "default-src 'self' *.getdbt.com; img-src 'self'; script-src 'self' code.jquery.com vercel.live https:; style-src 'self' 'unsafe-inline' *.fontawesome.com *.googleapis.com *.bootstrapcdn.com https:; object-src 'none'; form-action 'self'; frame-ancestors 'none'; font-src 'self' *.fontawesome.com;"
         }
       ]
     }
