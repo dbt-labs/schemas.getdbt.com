@@ -4,16 +4,8 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self' *.getdbt.com; img-src 'self'; script-src https:; style-src 'self' 'unsafe-inline' https:; object-src 'none'; form-action 'self'; frame-ancestors 'none';"
+          "value": "default-src 'self' *.getdbt.com; img-src 'self'; script-src 'self' code.jquery.com https:; style-src 'self' 'unsafe-inline' *.fontawesome.com *.googleapis.com *.bootstrapcdn.com; object-src 'none'; form-action 'self'; frame-ancestors 'none'; font-src 'self' *.fontawesome.com;"
         }
       ]
     }
