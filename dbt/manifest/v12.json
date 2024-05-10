@@ -13,7 +13,7 @@
         },
         "dbt_version": {
           "type": "string",
-          "default": "1.8.0b3"
+          "default": "1.9.0a1"
         },
         "generated_at": {
           "type": "string"
@@ -4386,6 +4386,12 @@
                   }
                 ],
                 "default": null
+              },
+              "primary_key": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             },
             "additionalProperties": false,
@@ -13437,6 +13443,12 @@
                         }
                       ],
                       "default": null
+                    },
+                    "primary_key": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
                     }
                   },
                   "additionalProperties": false,
