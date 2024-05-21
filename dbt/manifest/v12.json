@@ -17914,26 +17914,7 @@
                       "type": "string"
                     },
                     "resource_type": {
-                      "enum": [
-                        "model",
-                        "analysis",
-                        "test",
-                        "snapshot",
-                        "operation",
-                        "seed",
-                        "rpc",
-                        "sql_operation",
-                        "doc",
-                        "source",
-                        "macro",
-                        "exposure",
-                        "metric",
-                        "group",
-                        "saved_query",
-                        "semantic_model",
-                        "unit_test",
-                        "fixture"
-                      ]
+                      "const": "saved_query"
                     },
                     "package_name": {
                       "type": "string"
@@ -19452,26 +19433,7 @@
             "type": "string"
           },
           "resource_type": {
-            "enum": [
-              "model",
-              "analysis",
-              "test",
-              "snapshot",
-              "operation",
-              "seed",
-              "rpc",
-              "sql_operation",
-              "doc",
-              "source",
-              "macro",
-              "exposure",
-              "metric",
-              "group",
-              "saved_query",
-              "semantic_model",
-              "unit_test",
-              "fixture"
-            ]
+            "const": "saved_query"
           },
           "package_name": {
             "type": "string"
