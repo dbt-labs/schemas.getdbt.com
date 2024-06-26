@@ -8249,6 +8249,12 @@
                               },
                               "granularity": {
                                 "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
                                   "day",
                                   "week",
                                   "month",
@@ -8273,6 +8279,12 @@
                         "anyOf": [
                           {
                             "enum": [
+                              "nanosecond",
+                              "microsecond",
+                              "millisecond",
+                              "second",
+                              "minute",
+                              "hour",
                               "day",
                               "week",
                               "month",
@@ -8363,6 +8375,12 @@
                               },
                               "granularity": {
                                 "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
                                   "day",
                                   "week",
                                   "month",
@@ -8387,6 +8405,12 @@
                         "anyOf": [
                           {
                             "enum": [
+                              "nanosecond",
+                              "microsecond",
+                              "millisecond",
+                              "second",
+                              "minute",
+                              "hour",
                               "day",
                               "week",
                               "month",
@@ -8434,6 +8458,12 @@
                       },
                       "granularity": {
                         "enum": [
+                          "nanosecond",
+                          "microsecond",
+                          "millisecond",
+                          "second",
+                          "minute",
+                          "hour",
                           "day",
                           "week",
                           "month",
@@ -8458,6 +8488,12 @@
                 "anyOf": [
                   {
                     "enum": [
+                      "nanosecond",
+                      "microsecond",
+                      "millisecond",
+                      "second",
+                      "minute",
+                      "hour",
                       "day",
                       "week",
                       "month",
@@ -8538,6 +8574,12 @@
                                 },
                                 "granularity": {
                                   "enum": [
+                                    "nanosecond",
+                                    "microsecond",
+                                    "millisecond",
+                                    "second",
+                                    "minute",
+                                    "hour",
                                     "day",
                                     "week",
                                     "month",
@@ -8562,6 +8604,12 @@
                           "anyOf": [
                             {
                               "enum": [
+                                "nanosecond",
+                                "microsecond",
+                                "millisecond",
+                                "second",
+                                "minute",
+                                "hour",
                                 "day",
                                 "week",
                                 "month",
@@ -8761,6 +8809,12 @@
                               },
                               "granularity": {
                                 "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
                                   "day",
                                   "week",
                                   "month",
@@ -8816,6 +8870,89 @@
                       "conversion_measure",
                       "entity"
                     ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
+              },
+              "cumulative_type_params": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "title": "CumulativeTypeParams",
+                    "properties": {
+                      "window": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "title": "MetricTimeWindow",
+                            "properties": {
+                              "count": {
+                                "type": "integer"
+                              },
+                              "granularity": {
+                                "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
+                                  "day",
+                                  "week",
+                                  "month",
+                                  "quarter",
+                                  "year"
+                                ]
+                              }
+                            },
+                            "additionalProperties": false,
+                            "required": [
+                              "count",
+                              "granularity"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null
+                      },
+                      "grain_to_date": {
+                        "anyOf": [
+                          {
+                            "enum": [
+                              "nanosecond",
+                              "microsecond",
+                              "millisecond",
+                              "second",
+                              "minute",
+                              "hour",
+                              "day",
+                              "week",
+                              "month",
+                              "quarter",
+                              "year"
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null
+                      },
+                      "period_agg": {
+                        "enum": [
+                          "first",
+                          "last",
+                          "average"
+                        ],
+                        "default": "first"
+                      }
+                    },
+                    "additionalProperties": false
                   },
                   {
                     "type": "null"
@@ -17088,6 +17225,12 @@
                                         },
                                         "granularity": {
                                           "enum": [
+                                            "nanosecond",
+                                            "microsecond",
+                                            "millisecond",
+                                            "second",
+                                            "minute",
+                                            "hour",
                                             "day",
                                             "week",
                                             "month",
@@ -17112,6 +17255,12 @@
                                   "anyOf": [
                                     {
                                       "enum": [
+                                        "nanosecond",
+                                        "microsecond",
+                                        "millisecond",
+                                        "second",
+                                        "minute",
+                                        "hour",
                                         "day",
                                         "week",
                                         "month",
@@ -17202,6 +17351,12 @@
                                         },
                                         "granularity": {
                                           "enum": [
+                                            "nanosecond",
+                                            "microsecond",
+                                            "millisecond",
+                                            "second",
+                                            "minute",
+                                            "hour",
                                             "day",
                                             "week",
                                             "month",
@@ -17226,6 +17381,12 @@
                                   "anyOf": [
                                     {
                                       "enum": [
+                                        "nanosecond",
+                                        "microsecond",
+                                        "millisecond",
+                                        "second",
+                                        "minute",
+                                        "hour",
                                         "day",
                                         "week",
                                         "month",
@@ -17273,6 +17434,12 @@
                                 },
                                 "granularity": {
                                   "enum": [
+                                    "nanosecond",
+                                    "microsecond",
+                                    "millisecond",
+                                    "second",
+                                    "minute",
+                                    "hour",
                                     "day",
                                     "week",
                                     "month",
@@ -17297,6 +17464,12 @@
                           "anyOf": [
                             {
                               "enum": [
+                                "nanosecond",
+                                "microsecond",
+                                "millisecond",
+                                "second",
+                                "minute",
+                                "hour",
                                 "day",
                                 "week",
                                 "month",
@@ -17377,6 +17550,12 @@
                                           },
                                           "granularity": {
                                             "enum": [
+                                              "nanosecond",
+                                              "microsecond",
+                                              "millisecond",
+                                              "second",
+                                              "minute",
+                                              "hour",
                                               "day",
                                               "week",
                                               "month",
@@ -17401,6 +17580,12 @@
                                     "anyOf": [
                                       {
                                         "enum": [
+                                          "nanosecond",
+                                          "microsecond",
+                                          "millisecond",
+                                          "second",
+                                          "minute",
+                                          "hour",
                                           "day",
                                           "week",
                                           "month",
@@ -17600,6 +17785,12 @@
                                         },
                                         "granularity": {
                                           "enum": [
+                                            "nanosecond",
+                                            "microsecond",
+                                            "millisecond",
+                                            "second",
+                                            "minute",
+                                            "hour",
                                             "day",
                                             "week",
                                             "month",
@@ -17655,6 +17846,89 @@
                                 "conversion_measure",
                                 "entity"
                               ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null
+                        },
+                        "cumulative_type_params": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "title": "CumulativeTypeParams",
+                              "properties": {
+                                "window": {
+                                  "anyOf": [
+                                    {
+                                      "type": "object",
+                                      "title": "MetricTimeWindow",
+                                      "properties": {
+                                        "count": {
+                                          "type": "integer"
+                                        },
+                                        "granularity": {
+                                          "enum": [
+                                            "nanosecond",
+                                            "microsecond",
+                                            "millisecond",
+                                            "second",
+                                            "minute",
+                                            "hour",
+                                            "day",
+                                            "week",
+                                            "month",
+                                            "quarter",
+                                            "year"
+                                          ]
+                                        }
+                                      },
+                                      "additionalProperties": false,
+                                      "required": [
+                                        "count",
+                                        "granularity"
+                                      ]
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null
+                                },
+                                "grain_to_date": {
+                                  "anyOf": [
+                                    {
+                                      "enum": [
+                                        "nanosecond",
+                                        "microsecond",
+                                        "millisecond",
+                                        "second",
+                                        "minute",
+                                        "hour",
+                                        "day",
+                                        "week",
+                                        "month",
+                                        "quarter",
+                                        "year"
+                                      ]
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null
+                                },
+                                "period_agg": {
+                                  "enum": [
+                                    "first",
+                                    "last",
+                                    "average"
+                                  ],
+                                  "default": "first"
+                                }
+                              },
+                              "additionalProperties": false
                             },
                             {
                               "type": "null"
@@ -18706,6 +18980,12 @@
                                 "properties": {
                                   "time_granularity": {
                                     "enum": [
+                                      "nanosecond",
+                                      "microsecond",
+                                      "millisecond",
+                                      "second",
+                                      "minute",
+                                      "hour",
                                       "day",
                                       "week",
                                       "month",
@@ -20232,6 +20512,12 @@
                       "properties": {
                         "time_granularity": {
                           "enum": [
+                            "nanosecond",
+                            "microsecond",
+                            "millisecond",
+                            "second",
+                            "minute",
+                            "hour",
                             "day",
                             "week",
                             "month",
