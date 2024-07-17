@@ -537,6 +537,23 @@
                           "warn_unsupported": {
                             "type": "boolean",
                             "default": true
+                          },
+                          "to": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "to_columns": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         },
                         "additionalProperties": false,
@@ -1506,6 +1523,23 @@
                           "warn_unsupported": {
                             "type": "boolean",
                             "default": true
+                          },
+                          "to": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "to_columns": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         },
                         "additionalProperties": false,
@@ -2114,6 +2148,23 @@
                           "warn_unsupported": {
                             "type": "boolean",
                             "default": true
+                          },
+                          "to": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "to_columns": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         },
                         "additionalProperties": false,
@@ -2847,6 +2898,23 @@
                           "warn_unsupported": {
                             "type": "boolean",
                             "default": true
+                          },
+                          "to": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "to_columns": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         },
                         "additionalProperties": false,
@@ -3599,6 +3667,23 @@
                           "warn_unsupported": {
                             "type": "boolean",
                             "default": true
+                          },
+                          "to": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "to_columns": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         },
                         "additionalProperties": false,
@@ -3953,6 +4038,23 @@
                     "warn_unsupported": {
                       "type": "boolean",
                       "default": true
+                    },
+                    "to": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null
+                    },
+                    "to_columns": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
                     },
                     "columns": {
                       "type": "array",
@@ -4825,6 +4927,23 @@
                           "warn_unsupported": {
                             "type": "boolean",
                             "default": true
+                          },
+                          "to": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "to_columns": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         },
                         "additionalProperties": false,
@@ -5433,6 +5552,23 @@
                           "warn_unsupported": {
                             "type": "boolean",
                             "default": true
+                          },
+                          "to": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "to_columns": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         },
                         "additionalProperties": false,
@@ -6282,6 +6418,23 @@
                           "warn_unsupported": {
                             "type": "boolean",
                             "default": true
+                          },
+                          "to": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "to_columns": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         },
                         "additionalProperties": false,
@@ -7403,6 +7556,23 @@
                       "warn_unsupported": {
                         "type": "boolean",
                         "default": true
+                      },
+                      "to": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null
+                      },
+                      "to_columns": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
                       }
                     },
                     "additionalProperties": false,
@@ -9754,6 +9924,23 @@
                                 "warn_unsupported": {
                                   "type": "boolean",
                                   "default": true
+                                },
+                                "to": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null
+                                },
+                                "to_columns": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 }
                               },
                               "additionalProperties": false,
@@ -10723,6 +10910,23 @@
                                 "warn_unsupported": {
                                   "type": "boolean",
                                   "default": true
+                                },
+                                "to": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null
+                                },
+                                "to_columns": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 }
                               },
                               "additionalProperties": false,
@@ -11331,6 +11535,23 @@
                                 "warn_unsupported": {
                                   "type": "boolean",
                                   "default": true
+                                },
+                                "to": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null
+                                },
+                                "to_columns": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 }
                               },
                               "additionalProperties": false,
@@ -12064,6 +12285,23 @@
                                 "warn_unsupported": {
                                   "type": "boolean",
                                   "default": true
+                                },
+                                "to": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null
+                                },
+                                "to_columns": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 }
                               },
                               "additionalProperties": false,
@@ -12816,6 +13054,23 @@
                                 "warn_unsupported": {
                                   "type": "boolean",
                                   "default": true
+                                },
+                                "to": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null
+                                },
+                                "to_columns": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 }
                               },
                               "additionalProperties": false,
@@ -13170,6 +13425,23 @@
                           "warn_unsupported": {
                             "type": "boolean",
                             "default": true
+                          },
+                          "to": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
+                          },
+                          "to_columns": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
                           },
                           "columns": {
                             "type": "array",
@@ -14042,6 +14314,23 @@
                                 "warn_unsupported": {
                                   "type": "boolean",
                                   "default": true
+                                },
+                                "to": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null
+                                },
+                                "to_columns": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 }
                               },
                               "additionalProperties": false,
@@ -14650,6 +14939,23 @@
                                 "warn_unsupported": {
                                   "type": "boolean",
                                   "default": true
+                                },
+                                "to": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null
+                                },
+                                "to_columns": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 }
                               },
                               "additionalProperties": false,
@@ -15499,6 +15805,23 @@
                                 "warn_unsupported": {
                                   "type": "boolean",
                                   "default": true
+                                },
+                                "to": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null
+                                },
+                                "to_columns": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 }
                               },
                               "additionalProperties": false,
@@ -16611,6 +16934,23 @@
                                 "warn_unsupported": {
                                   "type": "boolean",
                                   "default": true
+                                },
+                                "to": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null
+                                },
+                                "to_columns": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
                                 }
                               },
                               "additionalProperties": false,
