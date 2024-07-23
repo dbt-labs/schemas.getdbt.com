@@ -761,7 +761,8 @@
                           "saved_query",
                           "semantic_model",
                           "unit_test",
-                          "fixture"
+                          "fixture",
+                          "time_spine"
                         ]
                       },
                       "name": {
@@ -4159,7 +4160,8 @@
                           "saved_query",
                           "semantic_model",
                           "unit_test",
-                          "fixture"
+                          "fixture",
+                          "time_spine"
                         ]
                       },
                       "name": {
@@ -6787,7 +6789,8 @@
                           "saved_query",
                           "semantic_model",
                           "unit_test",
-                          "fixture"
+                          "fixture",
+                          "time_spine"
                         ]
                       },
                       "name": {
@@ -10148,7 +10151,8 @@
                                 "saved_query",
                                 "semantic_model",
                                 "unit_test",
-                                "fixture"
+                                "fixture",
+                                "time_spine"
                               ]
                             },
                             "name": {
@@ -13546,7 +13550,8 @@
                                 "saved_query",
                                 "semantic_model",
                                 "unit_test",
-                                "fixture"
+                                "fixture",
+                                "time_spine"
                               ]
                             },
                             "name": {
@@ -16174,7 +16179,8 @@
                                 "saved_query",
                                 "semantic_model",
                                 "unit_test",
-                                "fixture"
+                                "fixture",
+                                "time_spine"
                               ]
                             },
                             "name": {
@@ -18976,7 +18982,8 @@
                         "saved_query",
                         "semantic_model",
                         "unit_test",
-                        "fixture"
+                        "fixture",
+                        "time_spine"
                       ]
                     },
                     "package_name": {
@@ -19796,7 +19803,8 @@
                         "saved_query",
                         "semantic_model",
                         "unit_test",
-                        "fixture"
+                        "fixture",
+                        "time_spine"
                       ]
                     },
                     "package_name": {
@@ -20508,7 +20516,8 @@
               "saved_query",
               "semantic_model",
               "unit_test",
-              "fixture"
+              "fixture",
+              "time_spine"
             ]
           },
           "package_name": {
@@ -21202,6 +21211,217 @@
         "type": "string"
       }
     },
+    "time_spines": {
+      "type": "object",
+      "description": "The time spine models defined in the dbt project.",
+      "additionalProperties": {
+        "type": "object",
+        "title": "TimeSpine",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "resource_type": {
+            "enum": [
+              "model",
+              "analysis",
+              "test",
+              "snapshot",
+              "operation",
+              "seed",
+              "rpc",
+              "sql_operation",
+              "doc",
+              "source",
+              "macro",
+              "exposure",
+              "metric",
+              "group",
+              "saved_query",
+              "semantic_model",
+              "unit_test",
+              "fixture",
+              "time_spine"
+            ]
+          },
+          "package_name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "original_file_path": {
+            "type": "string"
+          },
+          "unique_id": {
+            "type": "string"
+          },
+          "fqn": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "model": {
+            "type": "string"
+          },
+          "node_relation": {
+            "anyOf": [
+              {
+                "type": "object",
+                "title": "NodeRelation",
+                "properties": {
+                  "alias": {
+                    "type": "string"
+                  },
+                  "schema_name": {
+                    "type": "string"
+                  },
+                  "database": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null
+                  },
+                  "relation_name": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": ""
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "alias",
+                  "schema_name"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "primary_column": {
+            "type": "object",
+            "title": "TimeSpinePrimaryColumn",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "time_granularity": {
+                "enum": [
+                  "nanosecond",
+                  "microsecond",
+                  "millisecond",
+                  "second",
+                  "minute",
+                  "hour",
+                  "day",
+                  "week",
+                  "month",
+                  "quarter",
+                  "year"
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "time_granularity"
+            ]
+          },
+          "depends_on": {
+            "type": "object",
+            "title": "DependsOn",
+            "properties": {
+              "macros": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "title": "RefArgs",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "package": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                },
+                "version": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "name"
+              ]
+            }
+          },
+          "created_at": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "resource_type",
+          "package_name",
+          "path",
+          "original_file_path",
+          "unique_id",
+          "fqn",
+          "model",
+          "node_relation",
+          "primary_column"
+        ]
+      },
+      "propertyNames": {
+        "type": "string"
+      }
+    },
     "unit_tests": {
       "type": "object",
       "description": "The unit tests defined in the project",
@@ -21335,7 +21555,8 @@
               "saved_query",
               "semantic_model",
               "unit_test",
-              "fixture"
+              "fixture",
+              "time_spine"
             ]
           },
           "package_name": {
@@ -21577,6 +21798,7 @@
     "group_map",
     "saved_queries",
     "semantic_models",
+    "time_spines",
     "unit_tests"
   ],
   "$id": "https://schemas.getdbt.com/dbt/manifest/v12.json"
