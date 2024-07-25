@@ -13,3 +13,4 @@ html:
 .PHONY: json_schema
 json_schema:
 	cp ../dbt-core/schemas/dbt/manifest/v$(version).json dbt/manifest/v$(version).json
+	
