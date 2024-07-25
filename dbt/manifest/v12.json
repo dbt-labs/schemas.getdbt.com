@@ -584,6 +584,29 @@
                       "propertyNames": {
                         "type": "string"
                       }
+                    },
+                    "granularity": {
+                      "anyOf": [
+                        {
+                          "enum": [
+                            "nanosecond",
+                            "microsecond",
+                            "millisecond",
+                            "second",
+                            "minute",
+                            "hour",
+                            "day",
+                            "week",
+                            "month",
+                            "quarter",
+                            "year"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null
                     }
                   },
                   "additionalProperties": true,
@@ -1570,6 +1593,29 @@
                       "propertyNames": {
                         "type": "string"
                       }
+                    },
+                    "granularity": {
+                      "anyOf": [
+                        {
+                          "enum": [
+                            "nanosecond",
+                            "microsecond",
+                            "millisecond",
+                            "second",
+                            "minute",
+                            "hour",
+                            "day",
+                            "week",
+                            "month",
+                            "quarter",
+                            "year"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null
                     }
                   },
                   "additionalProperties": true,
@@ -2195,6 +2241,29 @@
                       "propertyNames": {
                         "type": "string"
                       }
+                    },
+                    "granularity": {
+                      "anyOf": [
+                        {
+                          "enum": [
+                            "nanosecond",
+                            "microsecond",
+                            "millisecond",
+                            "second",
+                            "minute",
+                            "hour",
+                            "day",
+                            "week",
+                            "month",
+                            "quarter",
+                            "year"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null
                     }
                   },
                   "additionalProperties": true,
@@ -2945,6 +3014,29 @@
                       "propertyNames": {
                         "type": "string"
                       }
+                    },
+                    "granularity": {
+                      "anyOf": [
+                        {
+                          "enum": [
+                            "nanosecond",
+                            "microsecond",
+                            "millisecond",
+                            "second",
+                            "minute",
+                            "hour",
+                            "day",
+                            "week",
+                            "month",
+                            "quarter",
+                            "year"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null
                     }
                   },
                   "additionalProperties": true,
@@ -3714,6 +3806,29 @@
                       "propertyNames": {
                         "type": "string"
                       }
+                    },
+                    "granularity": {
+                      "anyOf": [
+                        {
+                          "enum": [
+                            "nanosecond",
+                            "microsecond",
+                            "millisecond",
+                            "second",
+                            "minute",
+                            "hour",
+                            "day",
+                            "week",
+                            "month",
+                            "quarter",
+                            "year"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null
                     }
                   },
                   "additionalProperties": true,
@@ -4494,6 +4609,27 @@
                 "items": {
                   "type": "string"
                 }
+              },
+              "time_spine": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "title": "TimeSpine",
+                    "properties": {
+                      "standard_granularity_column": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "standard_granularity_column"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null
               }
             },
             "additionalProperties": false,
@@ -4974,6 +5110,29 @@
                       "propertyNames": {
                         "type": "string"
                       }
+                    },
+                    "granularity": {
+                      "anyOf": [
+                        {
+                          "enum": [
+                            "nanosecond",
+                            "microsecond",
+                            "millisecond",
+                            "second",
+                            "minute",
+                            "hour",
+                            "day",
+                            "week",
+                            "month",
+                            "quarter",
+                            "year"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null
                     }
                   },
                   "additionalProperties": true,
@@ -5599,6 +5758,29 @@
                       "propertyNames": {
                         "type": "string"
                       }
+                    },
+                    "granularity": {
+                      "anyOf": [
+                        {
+                          "enum": [
+                            "nanosecond",
+                            "microsecond",
+                            "millisecond",
+                            "second",
+                            "minute",
+                            "hour",
+                            "day",
+                            "week",
+                            "month",
+                            "quarter",
+                            "year"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null
                     }
                   },
                   "additionalProperties": true,
@@ -6465,6 +6647,29 @@
                       "propertyNames": {
                         "type": "string"
                       }
+                    },
+                    "granularity": {
+                      "anyOf": [
+                        {
+                          "enum": [
+                            "nanosecond",
+                            "microsecond",
+                            "millisecond",
+                            "second",
+                            "minute",
+                            "hour",
+                            "day",
+                            "week",
+                            "month",
+                            "quarter",
+                            "year"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null
                     }
                   },
                   "additionalProperties": true,
@@ -7603,6 +7808,29 @@
                   "propertyNames": {
                     "type": "string"
                   }
+                },
+                "granularity": {
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "nanosecond",
+                        "microsecond",
+                        "millisecond",
+                        "second",
+                        "minute",
+                        "hour",
+                        "day",
+                        "week",
+                        "month",
+                        "quarter",
+                        "year"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "default": null
                 }
               },
               "additionalProperties": true,
@@ -9971,6 +10199,29 @@
                             "propertyNames": {
                               "type": "string"
                             }
+                          },
+                          "granularity": {
+                            "anyOf": [
+                              {
+                                "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
+                                  "day",
+                                  "week",
+                                  "month",
+                                  "quarter",
+                                  "year"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
                           }
                         },
                         "additionalProperties": true,
@@ -10957,6 +11208,29 @@
                             "propertyNames": {
                               "type": "string"
                             }
+                          },
+                          "granularity": {
+                            "anyOf": [
+                              {
+                                "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
+                                  "day",
+                                  "week",
+                                  "month",
+                                  "quarter",
+                                  "year"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
                           }
                         },
                         "additionalProperties": true,
@@ -11582,6 +11856,29 @@
                             "propertyNames": {
                               "type": "string"
                             }
+                          },
+                          "granularity": {
+                            "anyOf": [
+                              {
+                                "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
+                                  "day",
+                                  "week",
+                                  "month",
+                                  "quarter",
+                                  "year"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
                           }
                         },
                         "additionalProperties": true,
@@ -12332,6 +12629,29 @@
                             "propertyNames": {
                               "type": "string"
                             }
+                          },
+                          "granularity": {
+                            "anyOf": [
+                              {
+                                "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
+                                  "day",
+                                  "week",
+                                  "month",
+                                  "quarter",
+                                  "year"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
                           }
                         },
                         "additionalProperties": true,
@@ -13101,6 +13421,29 @@
                             "propertyNames": {
                               "type": "string"
                             }
+                          },
+                          "granularity": {
+                            "anyOf": [
+                              {
+                                "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
+                                  "day",
+                                  "week",
+                                  "month",
+                                  "quarter",
+                                  "year"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
                           }
                         },
                         "additionalProperties": true,
@@ -13881,6 +14224,27 @@
                       "items": {
                         "type": "string"
                       }
+                    },
+                    "time_spine": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "title": "TimeSpine",
+                          "properties": {
+                            "standard_granularity_column": {
+                              "type": "string"
+                            }
+                          },
+                          "additionalProperties": false,
+                          "required": [
+                            "standard_granularity_column"
+                          ]
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ],
+                      "default": null
                     }
                   },
                   "additionalProperties": false,
@@ -14361,6 +14725,29 @@
                             "propertyNames": {
                               "type": "string"
                             }
+                          },
+                          "granularity": {
+                            "anyOf": [
+                              {
+                                "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
+                                  "day",
+                                  "week",
+                                  "month",
+                                  "quarter",
+                                  "year"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
                           }
                         },
                         "additionalProperties": true,
@@ -14986,6 +15373,29 @@
                             "propertyNames": {
                               "type": "string"
                             }
+                          },
+                          "granularity": {
+                            "anyOf": [
+                              {
+                                "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
+                                  "day",
+                                  "week",
+                                  "month",
+                                  "quarter",
+                                  "year"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
                           }
                         },
                         "additionalProperties": true,
@@ -15852,6 +16262,29 @@
                             "propertyNames": {
                               "type": "string"
                             }
+                          },
+                          "granularity": {
+                            "anyOf": [
+                              {
+                                "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
+                                  "day",
+                                  "week",
+                                  "month",
+                                  "quarter",
+                                  "year"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
                           }
                         },
                         "additionalProperties": true,
@@ -16981,6 +17414,29 @@
                             "propertyNames": {
                               "type": "string"
                             }
+                          },
+                          "granularity": {
+                            "anyOf": [
+                              {
+                                "enum": [
+                                  "nanosecond",
+                                  "microsecond",
+                                  "millisecond",
+                                  "second",
+                                  "minute",
+                                  "hour",
+                                  "day",
+                                  "week",
+                                  "month",
+                                  "quarter",
+                                  "year"
+                                ]
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ],
+                            "default": null
                           }
                         },
                         "additionalProperties": true,
