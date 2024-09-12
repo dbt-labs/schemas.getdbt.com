@@ -4672,33 +4672,6 @@
                     "properties": {
                       "standard_granularity_column": {
                         "type": "string"
-                      },
-                      "custom_granularities": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "title": "CustomGranularity",
-                          "properties": {
-                            "name": {
-                              "type": "string"
-                            },
-                            "column_name": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ],
-                              "default": null
-                            }
-                          },
-                          "additionalProperties": false,
-                          "required": [
-                            "name"
-                          ]
-                        }
                       }
                     },
                     "additionalProperties": false,
@@ -7981,6 +7954,9 @@
               "enabled": {
                 "type": "boolean",
                 "default": true
+              },
+              "event_time": {
+                "default": null
               }
             },
             "additionalProperties": true
@@ -14395,33 +14371,6 @@
                           "properties": {
                             "standard_granularity_column": {
                               "type": "string"
-                            },
-                            "custom_granularities": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "title": "CustomGranularity",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "column_name": {
-                                    "anyOf": [
-                                      {
-                                        "type": "string"
-                                      },
-                                      {
-                                        "type": "null"
-                                      }
-                                    ],
-                                    "default": null
-                                  }
-                                },
-                                "additionalProperties": false,
-                                "required": [
-                                  "name"
-                                ]
-                              }
                             }
                           },
                           "additionalProperties": false,
@@ -17695,6 +17644,9 @@
                         "enabled": {
                           "type": "boolean",
                           "default": true
+                        },
+                        "event_time": {
+                          "default": null
                         }
                       },
                       "additionalProperties": true
