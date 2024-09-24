@@ -260,12 +260,35 @@
                     "default": null
                   },
                   "batch_size": {
+                    "anyOf": [
+                      {
+                        "enum": [
+                          "hour",
+                          "day",
+                          "month",
+                          "year"
+                        ]
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "lookback": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {}
+                    ],
                     "default": 0
                   },
                   "begin": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "persist_docs": {
@@ -444,6 +467,12 @@
                     "additionalProperties": false
                   },
                   "event_time": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "delimiter": {
@@ -922,12 +951,35 @@
                                 "default": null
                               },
                               "batch_size": {
+                                "anyOf": [
+                                  {
+                                    "enum": [
+                                      "hour",
+                                      "day",
+                                      "month",
+                                      "year"
+                                    ]
+                                  },
+                                  {}
+                                ],
                                 "default": null
                               },
                               "lookback": {
+                                "anyOf": [
+                                  {
+                                    "type": "integer"
+                                  },
+                                  {}
+                                ],
                                 "default": 0
                               },
                               "begin": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {}
+                                ],
                                 "default": null
                               },
                               "persist_docs": {
@@ -1106,6 +1158,12 @@
                                 "additionalProperties": false
                               },
                               "event_time": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {}
+                                ],
                                 "default": null
                               }
                             },
@@ -1308,12 +1366,35 @@
                     "default": null
                   },
                   "batch_size": {
+                    "anyOf": [
+                      {
+                        "enum": [
+                          "hour",
+                          "day",
+                          "month",
+                          "year"
+                        ]
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "lookback": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {}
+                    ],
                     "default": 0
                   },
                   "begin": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "persist_docs": {
@@ -1492,6 +1573,12 @@
                     "additionalProperties": false
                   },
                   "event_time": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {}
+                    ],
                     "default": null
                   }
                 },
@@ -2741,12 +2828,35 @@
                     "default": null
                   },
                   "batch_size": {
+                    "anyOf": [
+                      {
+                        "enum": [
+                          "hour",
+                          "day",
+                          "month",
+                          "year"
+                        ]
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "lookback": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {}
+                    ],
                     "default": 0
                   },
                   "begin": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "persist_docs": {
@@ -2925,6 +3035,12 @@
                     "additionalProperties": false
                   },
                   "event_time": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {}
+                    ],
                     "default": null
                   }
                 },
@@ -3537,12 +3653,35 @@
                     "default": null
                   },
                   "batch_size": {
+                    "anyOf": [
+                      {
+                        "enum": [
+                          "hour",
+                          "day",
+                          "month",
+                          "year"
+                        ]
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "lookback": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {}
+                    ],
                     "default": 0
                   },
                   "begin": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "persist_docs": {
@@ -3721,6 +3860,12 @@
                     "additionalProperties": false
                   },
                   "event_time": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "access": {
@@ -4460,12 +4605,35 @@
                                 "default": null
                               },
                               "batch_size": {
+                                "anyOf": [
+                                  {
+                                    "enum": [
+                                      "hour",
+                                      "day",
+                                      "month",
+                                      "year"
+                                    ]
+                                  },
+                                  {}
+                                ],
                                 "default": null
                               },
                               "lookback": {
+                                "anyOf": [
+                                  {
+                                    "type": "integer"
+                                  },
+                                  {}
+                                ],
                                 "default": 0
                               },
                               "begin": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {}
+                                ],
                                 "default": null
                               },
                               "persist_docs": {
@@ -4644,6 +4812,12 @@
                                 "additionalProperties": false
                               },
                               "event_time": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {}
+                                ],
                                 "default": null
                               }
                             },
@@ -4900,12 +5074,35 @@
                     "default": null
                   },
                   "batch_size": {
+                    "anyOf": [
+                      {
+                        "enum": [
+                          "hour",
+                          "day",
+                          "month",
+                          "year"
+                        ]
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "lookback": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {}
+                    ],
                     "default": 0
                   },
                   "begin": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "persist_docs": {
@@ -5084,6 +5281,12 @@
                     "additionalProperties": false
                   },
                   "event_time": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {}
+                    ],
                     "default": null
                   }
                 },
@@ -6394,12 +6597,35 @@
                     "default": null
                   },
                   "batch_size": {
+                    "anyOf": [
+                      {
+                        "enum": [
+                          "hour",
+                          "day",
+                          "month",
+                          "year"
+                        ]
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "lookback": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {}
+                    ],
                     "default": 0
                   },
                   "begin": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "persist_docs": {
@@ -6572,6 +6798,12 @@
                     "additionalProperties": false
                   },
                   "event_time": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {}
+                    ],
                     "default": null
                   },
                   "strategy": {
@@ -7292,12 +7524,35 @@
                                 "default": null
                               },
                               "batch_size": {
+                                "anyOf": [
+                                  {
+                                    "enum": [
+                                      "hour",
+                                      "day",
+                                      "month",
+                                      "year"
+                                    ]
+                                  },
+                                  {}
+                                ],
                                 "default": null
                               },
                               "lookback": {
+                                "anyOf": [
+                                  {
+                                    "type": "integer"
+                                  },
+                                  {}
+                                ],
                                 "default": 0
                               },
                               "begin": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {}
+                                ],
                                 "default": null
                               },
                               "persist_docs": {
@@ -7476,6 +7731,12 @@
                                 "additionalProperties": false
                               },
                               "event_time": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {}
+                                ],
                                 "default": null
                               }
                             },
@@ -10064,12 +10325,35 @@
                           "default": null
                         },
                         "batch_size": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "hour",
+                                "day",
+                                "month",
+                                "year"
+                              ]
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "lookback": {
+                          "anyOf": [
+                            {
+                              "type": "integer"
+                            },
+                            {}
+                          ],
                           "default": 0
                         },
                         "begin": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "persist_docs": {
@@ -10248,6 +10532,12 @@
                           "additionalProperties": false
                         },
                         "event_time": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "delimiter": {
@@ -10726,12 +11016,35 @@
                                       "default": null
                                     },
                                     "batch_size": {
+                                      "anyOf": [
+                                        {
+                                          "enum": [
+                                            "hour",
+                                            "day",
+                                            "month",
+                                            "year"
+                                          ]
+                                        },
+                                        {}
+                                      ],
                                       "default": null
                                     },
                                     "lookback": {
+                                      "anyOf": [
+                                        {
+                                          "type": "integer"
+                                        },
+                                        {}
+                                      ],
                                       "default": 0
                                     },
                                     "begin": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {}
+                                      ],
                                       "default": null
                                     },
                                     "persist_docs": {
@@ -10910,6 +11223,12 @@
                                       "additionalProperties": false
                                     },
                                     "event_time": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {}
+                                      ],
                                       "default": null
                                     }
                                   },
@@ -11112,12 +11431,35 @@
                           "default": null
                         },
                         "batch_size": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "hour",
+                                "day",
+                                "month",
+                                "year"
+                              ]
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "lookback": {
+                          "anyOf": [
+                            {
+                              "type": "integer"
+                            },
+                            {}
+                          ],
                           "default": 0
                         },
                         "begin": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "persist_docs": {
@@ -11296,6 +11638,12 @@
                           "additionalProperties": false
                         },
                         "event_time": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {}
+                          ],
                           "default": null
                         }
                       },
@@ -12545,12 +12893,35 @@
                           "default": null
                         },
                         "batch_size": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "hour",
+                                "day",
+                                "month",
+                                "year"
+                              ]
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "lookback": {
+                          "anyOf": [
+                            {
+                              "type": "integer"
+                            },
+                            {}
+                          ],
                           "default": 0
                         },
                         "begin": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "persist_docs": {
@@ -12729,6 +13100,12 @@
                           "additionalProperties": false
                         },
                         "event_time": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {}
+                          ],
                           "default": null
                         }
                       },
@@ -13341,12 +13718,35 @@
                           "default": null
                         },
                         "batch_size": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "hour",
+                                "day",
+                                "month",
+                                "year"
+                              ]
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "lookback": {
+                          "anyOf": [
+                            {
+                              "type": "integer"
+                            },
+                            {}
+                          ],
                           "default": 0
                         },
                         "begin": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "persist_docs": {
@@ -13525,6 +13925,12 @@
                           "additionalProperties": false
                         },
                         "event_time": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "access": {
@@ -14264,12 +14670,35 @@
                                       "default": null
                                     },
                                     "batch_size": {
+                                      "anyOf": [
+                                        {
+                                          "enum": [
+                                            "hour",
+                                            "day",
+                                            "month",
+                                            "year"
+                                          ]
+                                        },
+                                        {}
+                                      ],
                                       "default": null
                                     },
                                     "lookback": {
+                                      "anyOf": [
+                                        {
+                                          "type": "integer"
+                                        },
+                                        {}
+                                      ],
                                       "default": 0
                                     },
                                     "begin": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {}
+                                      ],
                                       "default": null
                                     },
                                     "persist_docs": {
@@ -14448,6 +14877,12 @@
                                       "additionalProperties": false
                                     },
                                     "event_time": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {}
+                                      ],
                                       "default": null
                                     }
                                   },
@@ -14704,12 +15139,35 @@
                           "default": null
                         },
                         "batch_size": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "hour",
+                                "day",
+                                "month",
+                                "year"
+                              ]
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "lookback": {
+                          "anyOf": [
+                            {
+                              "type": "integer"
+                            },
+                            {}
+                          ],
                           "default": 0
                         },
                         "begin": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "persist_docs": {
@@ -14888,6 +15346,12 @@
                           "additionalProperties": false
                         },
                         "event_time": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {}
+                          ],
                           "default": null
                         }
                       },
@@ -16198,12 +16662,35 @@
                           "default": null
                         },
                         "batch_size": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "hour",
+                                "day",
+                                "month",
+                                "year"
+                              ]
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "lookback": {
+                          "anyOf": [
+                            {
+                              "type": "integer"
+                            },
+                            {}
+                          ],
                           "default": 0
                         },
                         "begin": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "persist_docs": {
@@ -16376,6 +16863,12 @@
                           "additionalProperties": false
                         },
                         "event_time": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {}
+                          ],
                           "default": null
                         },
                         "strategy": {
@@ -17096,12 +17589,35 @@
                                       "default": null
                                     },
                                     "batch_size": {
+                                      "anyOf": [
+                                        {
+                                          "enum": [
+                                            "hour",
+                                            "day",
+                                            "month",
+                                            "year"
+                                          ]
+                                        },
+                                        {}
+                                      ],
                                       "default": null
                                     },
                                     "lookback": {
+                                      "anyOf": [
+                                        {
+                                          "type": "integer"
+                                        },
+                                        {}
+                                      ],
                                       "default": 0
                                     },
                                     "begin": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {}
+                                      ],
                                       "default": null
                                     },
                                     "persist_docs": {
@@ -17280,6 +17796,12 @@
                                       "additionalProperties": false
                                     },
                                     "event_time": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {}
+                                      ],
                                       "default": null
                                     }
                                   },
