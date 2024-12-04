@@ -55,7 +55,8 @@
                   "success",
                   "error",
                   "skipped",
-                  "partial success"
+                  "partial success",
+                  "no-op"
                 ]
               },
               {
