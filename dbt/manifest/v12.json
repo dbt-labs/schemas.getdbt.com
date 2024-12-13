@@ -4205,12 +4205,6 @@
                 },
                 "additionalProperties": false
               },
-              "_extra": {
-                "type": "object",
-                "propertyNames": {
-                  "type": "string"
-                }
-              },
               "access": {
                 "enum": [
                   "private",
@@ -4785,7 +4779,7 @@
                 "default": null
               }
             },
-            "additionalProperties": true,
+            "additionalProperties": false,
             "required": [
               "database",
               "schema",
@@ -7696,12 +7690,6 @@
           "identifier": {
             "type": "string"
           },
-          "_extra": {
-            "type": "object",
-            "propertyNames": {
-              "type": "string"
-            }
-          },
           "quoting": {
             "type": "object",
             "title": "Quoting",
@@ -8235,7 +8223,7 @@
             "default": null
           }
         },
-        "additionalProperties": true,
+        "additionalProperties": false,
         "required": [
           "database",
           "schema",
@@ -14014,12 +14002,6 @@
                       },
                       "additionalProperties": false
                     },
-                    "_extra": {
-                      "type": "object",
-                      "propertyNames": {
-                        "type": "string"
-                      }
-                    },
                     "access": {
                       "enum": [
                         "private",
@@ -14594,7 +14576,7 @@
                       "default": null
                     }
                   },
-                  "additionalProperties": true,
+                  "additionalProperties": false,
                   "required": [
                     "database",
                     "schema",
@@ -17496,12 +17478,6 @@
                     "identifier": {
                       "type": "string"
                     },
-                    "_extra": {
-                      "type": "object",
-                      "propertyNames": {
-                        "type": "string"
-                      }
-                    },
                     "quoting": {
                       "type": "object",
                       "title": "Quoting",
@@ -18035,7 +18011,7 @@
                       "default": null
                     }
                   },
-                  "additionalProperties": true,
+                  "additionalProperties": false,
                   "required": [
                     "database",
                     "schema",
