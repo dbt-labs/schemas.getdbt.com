@@ -11,7 +11,7 @@
 
 1. Are there changes made in the `dbt-core` directory [/core/dbt/artifacts](https://github.com/dbt-labs/dbt-core/tree/main/core/dbt/artifacts) since last release? If not, then you can stop here, no schema changes have been made!
 
-2. From `dbt-core`, run `cd core && hatch run json_schema`
+2. From `dbt-core`, run `cd core && hatch run json-schema`
     * This runs a script that generates the schemas for each artifact in a new `schemas` directory
     * This script creates schema files for all artifacts but you will only need to pay attention to the schema file that you incremented the version for
 
