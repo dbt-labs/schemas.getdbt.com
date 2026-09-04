@@ -1,12 +1,39 @@
 # schemas.getdbt.com
 
-- [Updating Schemas](#updating-schemas)
+- [Artifact Schemas (manifest, catalog, run-results, sources)](#updating-schemas)
   - [1. Generate new schemas in `dbt-core`](#1-generate-new-schemas-in-dbt-core)
   - [2. Copy schemas to `schemas.getdbt.com`](#2-copy-schemas-to-schemasgetdbtcom)
+- [Config Schemas (dbt_project.yml, profiles.yml, etc.)](#config-schemas)
 - [Available Commands](#useful-commands)
 
 
-## Updating Schemas
+## Config Schemas
+
+`dbt/configs/` hosts the JSON schemas used to validate dbt's YAML *config*
+files — `dbt_project.yml`, resource `schema.yml` files, `profiles.yml`,
+`selectors.yml`, `packages.yml`, `dependencies.yml`, `catalogs.yml`, and
+`dbt_cloud.yml`. This is a distinct pipeline from the artifact schemas below:
+
+- **Source of truth**: the `dbt-schemas` crate in
+  [`dbt-labs/fs`](https://github.com/dbt-labs/fs), via `dbt man --schema
+  <type>` (Fusion) and `dbt man --pre-schema <type>` (Core-compatible).
+- **Naming**: each type gets `dbt/configs/<name>/latest.json`
+  (Core/`--pre-schema`, where generated) and
+  `dbt/configs/<name>/latest-fusion.json` (Fusion/`--schema`). There is no
+  independent schema-version number for these files the way there is for
+  artifacts — `latest[-fusion]` always reflects the most recent release.
+- **Update mechanism (in progress)**: historically these were hand-maintained
+  in [`dbt-labs/dbt-jsonschema`](https://github.com/dbt-labs/dbt-jsonschema)
+  and consumed by editors directly from GitHub raw URLs. `fs` already runs
+  [`sync-json-schemas-to-dbt-jsonschema.yml`](https://github.com/dbt-labs/fs/blob/main/.github/workflows/sync-json-schemas-to-dbt-jsonschema.yml)
+  on every release to regenerate and auto-merge these files there; the
+  content in this directory is bootstrapped from that pipeline's current
+  output. See [dbt-core#15887](https://github.com/dbt-labs/dbt-core/issues/15887)
+  for making this CDN the automated target directly (rather than a manual
+  bootstrap), ahead of retiring `dbt-jsonschema`
+  ([dbt-core#15886](https://github.com/dbt-labs/dbt-core/issues/15886)).
+
+## Artifact Schemas
 ### 1. Generate new schemas in `dbt-core`
 
 1. Are there changes made in the `dbt-core` directory [/core/dbt/artifacts](https://github.com/dbt-labs/dbt-core/tree/main/core/dbt/artifacts) since last release? If not, then you can stop here, no schema changes have been made!
