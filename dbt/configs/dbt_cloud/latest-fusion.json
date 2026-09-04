@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DbtCloudConfig",
+  "description": "Represents the top-level dbt Cloud configuration file",
+  "type": "object",
+  "required": [
+    "context",
+    "projects",
+    "version"
+  ],
+  "properties": {
+    "context": {
+      "$ref": "#/definitions/DbtCloudContext"
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DbtCloudProject"
+      }
+    },
+    "state": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/DbtCloudState"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "version": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "DbtCloudContext": {
+      "description": "Represents the context section of the dbt Cloud configuration",
+      "type": "object",
+      "required": [
+        "active-host",
+        "active-project"
+      ],
+      "properties": {
+        "active-host": {
+          "type": "string"
+        },
+        "active-project": {
+          "type": "string"
+        },
+        "defer-env-id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "DbtCloudProject": {
+      "description": "Represents a dbt Cloud project configuration",
+      "type": "object",
+      "required": [
+        "account-host",
+        "account-id",
+        "account-name",
+        "project-id",
+        "project-name",
+        "token-name",
+        "token-value"
+      ],
+      "properties": {
+        "account-host": {
+          "type": "string"
+        },
+        "account-id": {
+          "type": "string"
+        },
+        "account-name": {
+          "type": "string"
+        },
+        "project-id": {
+          "type": "string"
+        },
+        "project-name": {
+          "type": "string"
+        },
+        "token-name": {
+          "type": "string"
+        },
+        "token-value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DbtCloudState": {
+      "description": "Represents the OAuth client credentials for dbt State authentication. Sourced from the optional `state:` section in `~/.dbt/dbt_cloud.yml`.",
+      "type": "object",
+      "required": [
+        "client-id",
+        "client-secret"
+      ],
+      "properties": {
+        "client-id": {
+          "type": "string"
+        },
+        "client-secret": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

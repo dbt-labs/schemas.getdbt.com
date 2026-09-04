@@ -1,0 +1,290 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SelectorFile",
+  "type": "object",
+  "required": [
+    "selectors"
+  ],
+  "properties": {
+    "selectors": {
+      "description": "List of named selectors that may later be referenced with `dbt run --selector <name>`.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SelectorDefinition"
+      }
+    },
+    "version": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/FloatOrString"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "AtomExpr": {
+      "description": "The true leaves: either a method, a shorthand, or an exclude",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/MethodAtomExpr"
+        },
+        {
+          "$ref": "#/definitions/ExcludeAtomExpr"
+        },
+        {
+          "description": "Direct method name as key with value",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/SelectorValue"
+          }
+        }
+      ]
+    },
+    "CompositeExpr": {
+      "description": "A boolean composition of other selectors.\n\nSupports three forms from dbt-core's YAML spec: - `union: [...]` - `intersection: [...]` - `union: [...]\\nexclude: [...]` — top-level exclude applied after the union\n\nExactly one of `union` / `intersection` must be present; `exclude` is always optional. The generated JSON schema allows all three keys (no `oneOf` constraint) to avoid false-positive IDE squiggles on the common `union + exclude` pattern.",
+      "type": "object",
+      "properties": {
+        "exclude": {
+          "description": "Models excluded from the composite result.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/SelectorDefinitionValue"
+          }
+        },
+        "intersection": {
+          "description": "AND of all listed selectors.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/SelectorDefinitionValue"
+          }
+        },
+        "union": {
+          "description": "OR of all listed selectors.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/SelectorDefinitionValue"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ExcludeAtomExpr": {
+      "type": "object",
+      "required": [
+        "exclude"
+      ],
+      "properties": {
+        "exclude": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SelectorDefinitionValue"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "FloatOrString": {
+      "anyOf": [
+        {
+          "type": "number",
+          "format": "float"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "IndirectSelection": {
+      "type": "string",
+      "enum": [
+        "eager",
+        "buildable",
+        "cautious",
+        "empty"
+      ]
+    },
+    "MethodAtomExpr": {
+      "type": "object",
+      "required": [
+        "method",
+        "value"
+      ],
+      "properties": {
+        "children": {
+          "default": false,
+          "allOf": [
+            {
+              "$ref": "#/definitions/SelectorDefaultSpec"
+            }
+          ]
+        },
+        "children_depth": {
+          "default": null,
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "childrens_parents": {
+          "default": false,
+          "allOf": [
+            {
+              "$ref": "#/definitions/SelectorDefaultSpec"
+            }
+          ]
+        },
+        "exclude": {
+          "default": null,
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/SelectorDefinitionValue"
+          }
+        },
+        "indirect_selection": {
+          "default": null,
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IndirectSelection"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "method": {
+          "description": "Selector method name. Standard values: `access`, `config`, `exposure`, `file`, `fqn`, `group`, `metric`, `package`, `path`, `resource_type`, `result`, `saved_query`, `semantic_model`, `source`, `source_status`, `state`, `tag`, `test_name`, `test_type`, `unit_test`, `version`. YAML-only: `selector` (references another named selector). Dot-notation adds a sub-argument: `config.materialized`, `config.schema`, etc.",
+          "type": "string"
+        },
+        "parents": {
+          "default": false,
+          "allOf": [
+            {
+              "$ref": "#/definitions/SelectorDefaultSpec"
+            }
+          ]
+        },
+        "parents_depth": {
+          "default": null,
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint32",
+          "minimum": 0.0
+        },
+        "value": {
+          "$ref": "#/definitions/SelectorValue"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SelectorDefaultSpec": {
+      "description": "Parsed form of the selector `default:` field: either a literal bool or a still-unrendered Jinja template string.\n\nAlso reused for graph-walk flag fields (`children`, `parents`, `childrens_parents`) so the JSON schema correctly shows that those fields accept Jinja expressions.  At runtime those fields are always rendered before deserialization (`into_typed_with_jinja`), so `Template` is only ever populated for `default`.",
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "SelectorDefinition": {
+      "type": "object",
+      "required": [
+        "definition",
+        "name"
+      ],
+      "properties": {
+        "default": {
+          "description": "Whether this selector should be used when the user does *not* pass `--select` / `--selector`.\n\nWrapped in [`Verbatim`] so the Jinja string form is captured unrendered at parse time; rendering happens lazily in `resolve_selectors_from_yaml`, and only when the default is actually needed (no CLI selection was provided). This matches dbt-core behavior: a buggy Jinja expression in a selector the user didn't ask to use must not fail the run.",
+          "default": null,
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SelectorDefaultSpec"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "definition": {
+          "description": "Either a bare CLI string or a full YAML expression tree.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SelectorDefinitionValue"
+            }
+          ]
+        },
+        "description": {
+          "description": "Human-readable description (optional).",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "description": "The key used in `--selector <name>`.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SelectorDefinitionValue": {
+      "anyOf": [
+        {
+          "description": "CLI-style selector string (e.g. `\"snowplow tag:nightly\"`).",
+          "type": "string"
+        },
+        {
+          "description": "Full YAML tree (see `SelectorExpr` below).",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SelectorExpr"
+            }
+          ]
+        },
+        {
+          "description": "Bare YAML sequence — treated as an implicit union of the listed items.\n\ndbt-core allows writing: ```yaml definition: - method: tag value: nightly - method: config value: \"materialized:table\" ``` which is semantically equivalent to `union: [...]`.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SelectorDefinitionValue"
+          }
+        }
+      ]
+    },
+    "SelectorExpr": {
+      "description": "Top‐level expression: either a boolean node or a single atom",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/CompositeExpr"
+        },
+        {
+          "$ref": "#/definitions/AtomExpr"
+        }
+      ]
+    },
+    "SelectorValue": {
+      "description": "A selector value that accepts any YAML scalar (string, boolean, number) and normalizes it to a string representation for downstream matching.",
+      "type": "string"
+    }
+  }
+}
