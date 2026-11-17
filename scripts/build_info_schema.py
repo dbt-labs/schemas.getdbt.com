@@ -3,11 +3,13 @@
 
 Input, synced from dbt-labs/fs (never edited by hand):
   dbt/info-schema/index.json
+  dbt/info-schema/v1.json              every table in one schema
   dbt/info-schema/<table>/v1.json
   dbt/info-schema/erd.mmd, erd-<domain>.mmd
 
 Output:
-  dbt/info-schema/<table>/v1/index.html (+ css, js)   json-schema-for-humans
+  dbt/info-schema/v1/index.html (+ css, js)            json-schema-for-humans
+  dbt/info-schema/<table>/v1/index.html (+ css, js)    json-schema-for-humans
   dbt/info-schema/erd/index.html, erd/<domain>/index.html   Mermaid ERDs
   the "Info Schema" section of the root index.html
 
@@ -42,30 +44,33 @@ def remove_stale_tables(index: dict) -> None:
     The sync deletes a removed table's JSON but keeps the HTML it excludes
     from `--delete`, so a leftover directory holds only generated files.
     """
-    keep = {t["name"] for t in index["tables"]} | {"erd"}
+    keep = {t["name"] for t in index["tables"]} | {v["name"] for v in index["versions"]} | {"erd"}
     for path in INFO.iterdir():
         if path.is_dir() and path.name not in keep:
             shutil.rmtree(path)
 
 
-def build_table_pages(index: dict) -> None:
+def render_schema_page(schema: Path, out: Path) -> None:
+    out.parent.mkdir(parents=True, exist_ok=True)
+    # No footer: it carries the generation date, which would change every page
+    # on every run.
+    subprocess.run(
+        ["generate-schema-doc", "--config", "with_footer=false", str(schema), str(out)],
+        check=True,
+    )
+
+
+def build_schema_pages(index: dict) -> None:
     for table in index["tables"]:
         for version in table["versions"]:
-            schema = INFO / table["name"] / f"{version}.json"
-            out = INFO / table["name"] / version / "index.html"
-            out.parent.mkdir(parents=True, exist_ok=True)
-            # No footer: it carries the generation date, which would change
-            # every page on every run.
-            subprocess.run(
-                [
-                    "generate-schema-doc",
-                    "--config",
-                    "with_footer=false",
-                    str(schema),
-                    str(out),
-                ],
-                check=True,
+            render_schema_page(
+                INFO / table["name"] / f"{version}.json",
+                INFO / table["name"] / version / "index.html",
             )
+    for version in index["versions"]:
+        render_schema_page(
+            INFO / f"{version['name']}.json", INFO / version["name"] / "index.html"
+        )
 
 
 def erd_dir(name: str) -> Path:
@@ -132,24 +137,28 @@ def version_key(version: str) -> int:
 
 
 def root_section(index: dict) -> str:
-    """Tables grouped by version, newest first, like the other artifacts."""
+    """Tables grouped by version, newest first, like the other artifacts.
+
+    A version heading links to the page and the raw file of the whole schema;
+    each table has its own page and raw file.
+    """
     versions = sorted(
-        {v for t in index["tables"] for v in t["versions"]},
-        key=version_key,
-        reverse=True,
+        (v["name"] for v in index["versions"]), key=version_key, reverse=True
     )
     lines = [START, "    <h3>Info Schema</h3>"]
     for version in versions:
         lines += [
-            f'    <h4>{version} (<a href="dbt/info-schema/index.json">raw</a>)</h4>',
+            f'    <h4><a href="dbt/info-schema/{version}/index.html">{version}</a> '
+            f'(<a href="dbt/info-schema/{version}.json">raw</a>)</h4>',
             "    <ul>",
             '      <li><a href="dbt/info-schema/erd/index.html">ERD</a></li>',
         ]
         for table in index["tables"]:
             if version in table["versions"]:
-                name = table["name"]
+                name = html.escape(table["name"])
                 lines.append(
-                    f'      <li><a href="dbt/info-schema/{name}/{version}/index.html">{html.escape(name)}</a></li>'
+                    f'      <li><a href="dbt/info-schema/{name}/{version}/index.html">{name}</a> '
+                    f'(<a href="dbt/info-schema/{name}/{version}.json">raw</a>)</li>'
                 )
         lines.append("    </ul>")
     lines.append("    " + END)
@@ -176,7 +185,7 @@ def update_root_page(index: dict) -> None:
 def main() -> None:
     index = load_index()
     remove_stale_tables(index)
-    build_table_pages(index)
+    build_schema_pages(index)
     build_erd_pages(index)
     update_root_page(index)
 
