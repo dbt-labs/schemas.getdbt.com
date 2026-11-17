@@ -8,7 +8,7 @@ Input, synced from dbt-labs/fs (never edited by hand):
 
 Output:
   dbt/info-schema/<table>/v1/index.html (+ css, js)   json-schema-for-humans
-  dbt/info-schema/erd/index.html                       Mermaid ERDs
+  dbt/info-schema/erd/index.html, erd/<domain>/index.html   Mermaid ERDs
   the "Info Schema" section of the root index.html
 
 Run from anywhere: `make info_schema_html`.
@@ -74,39 +74,57 @@ def build_table_pages(index: dict) -> None:
             )
 
 
-def build_erd_page(index: dict) -> None:
-    sections = []
-    nav = []
+def erd_dir(name: str) -> Path:
+    """Page directory of a diagram. The overview is the ERD landing page."""
+    return INFO / "erd" if name == "overview" else INFO / "erd" / name
+
+
+def build_erd_pages(index: dict) -> None:
+    """One page per diagram.
+
+    Mermaid keys entity elements by table name, and the diagrams share table
+    names, so rendering several on one page makes them overwrite each other.
+    """
+    # Stale per-domain pages go; the overview page is rewritten below.
+    shutil.rmtree(INFO / "erd", ignore_errors=True)
     for diagram in index["diagrams"]:
         name = diagram["name"]
-        source = (DBT / diagram["path"]).read_text()
-        nav.append(f'<a href="#{html.escape(name)}">{html.escape(name)}</a>')
-        sections.append(
-            f'<section id="{html.escape(name)}">\n'
-            f"<h2>{html.escape(name)}</h2>\n"
-            f'<p><a href="../{html.escape(Path(diagram["path"]).name)}">raw .mmd</a></p>\n'
-            f'<pre class="mermaid">\n{html.escape(source)}</pre>\n'
-            "</section>"
+        out = erd_dir(name) / "index.html"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        up = "../" * len(out.relative_to(REPO).parts[:-1])  # to the repo root
+        nav = " ".join(
+            f'<a href="{up}dbt/info-schema/erd/'
+            f'{"" if d["name"] == "overview" else d["name"] + "/"}index.html"'
+            f'{" aria-current=page" if d["name"] == name else ""}>{html.escape(d["name"])}</a>'
+            for d in index["diagrams"]
         )
-    page = f"""<!DOCTYPE html>
+        source = (DBT / diagram["path"]).read_text()
+        raw = f"{up}dbt/{diagram['path']}"
+        out.write_text(
+            f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>dbt info schema: entity relationship diagrams</title>
+  <title>dbt info schema ERD: {html.escape(name)}</title>
   <style>
     body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 2rem; }}
     nav a {{ margin-right: 1rem; }}
+    nav a[aria-current] {{ font-weight: bold; text-decoration: none; color: inherit; }}
     .note {{ background: #fff8e1; padding: .75rem 1rem; border-left: 4px solid #f5a623; }}
-    section {{ margin-top: 2.5rem; overflow-x: auto; }}
+    .diagram {{ margin-top: 2rem; overflow-x: auto; }}
   </style>
 </head>
 <body>
-  <p><a href="../../../index.html">&larr; dbt JSON Schemas</a></p>
-  <h1>Info schema: entity relationship diagrams</h1>
+  <p><a href="{up}index.html">&larr; dbt JSON Schemas</a></p>
+  <h1>Info schema ERD: {html.escape(name)}</h1>
   <p class="note">{html.escape(KEYS_NOTE)}</p>
-  <nav>{" ".join(nav)}</nav>
-  {chr(10).join(sections)}
+  <nav>{nav}</nav>
+  <p><a href="{html.escape(raw)}">raw .mmd</a></p>
+  <div class="diagram">
+    <pre class="mermaid">
+{html.escape(source)}</pre>
+  </div>
   <script type="module">
     import mermaid from "{MERMAID_URL}";
     mermaid.initialize({{ startOnLoad: true, maxTextSize: 1000000 }});
@@ -114,9 +132,7 @@ def build_erd_page(index: dict) -> None:
 </body>
 </html>
 """
-    out = INFO / "erd" / "index.html"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(page)
+        )
 
 
 def root_section(index: dict) -> str:
@@ -164,7 +180,7 @@ def main() -> None:
     index = load_index()
     remove_stale_tables(index)
     build_table_pages(index)
-    build_erd_page(index)
+    build_erd_pages(index)
     update_root_page(index)
 
 
