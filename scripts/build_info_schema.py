@@ -123,7 +123,8 @@ def root_section(index: dict) -> str:
     """Tables grouped by version, newest first, like the other artifacts.
 
     A version heading links to the page and the raw file of the whole schema;
-    each table has its own page and raw file.
+    the ERD links to its page and downloads the raw Mermaid file; each table
+    has its own page and raw file.
     """
     versions = sorted(
         (v["name"] for v in index["versions"]), key=version_key, reverse=True
@@ -134,7 +135,8 @@ def root_section(index: dict) -> str:
             f'    <h4><a href="dbt/info-schema/{version}/index.html">{version}</a> '
             f'(<a href="dbt/info-schema/{version}.json">raw</a>)</h4>',
             "    <ul>",
-            '      <li><a href="dbt/info-schema/erd/index.html">ERD</a></li>',
+            '      <li><a href="dbt/info-schema/erd/index.html">ERD</a> '
+            '(<a href="dbt/info-schema/erd.mmd" download>raw</a>)</li>',
         ]
         for table in index["tables"]:
             if version in table["versions"]:
