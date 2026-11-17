@@ -127,15 +127,38 @@ __SOURCE__</pre>
 
     const pz = svgPanZoom(svg, {
       zoomEnabled: true,
-      mouseWheelZoomEnabled: true,
+      // The library zooms by a fixed step per wheel event, whatever the scroll
+      // distance, which makes a trackpad jump. See the wheel handler below.
+      mouseWheelZoomEnabled: false,
       dblClickZoomEnabled: true,
       controlIconsEnabled: false,
       fit: true,
       center: true,
       minZoom: 0.05,
-      maxZoom: 30,
-      zoomScaleSensitivity: 0.3
+      maxZoom: 30
     });
+    // Zoom in proportion to the scroll distance, once per frame, around the
+    // cursor. A mouse wheel notch is about 100, a trackpad sends many small
+    // deltas, and a pinch arrives as a wheel event with ctrlKey and tiny deltas.
+    let pending = 0;
+    let at = { x: 0, y: 0 };
+    let queued = false;
+    box.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1;
+      pending += e.deltaY * unit * (e.ctrlKey ? 8 : 1);
+      const r = svg.getBoundingClientRect();
+      at = { x: e.clientX - r.left, y: e.clientY - r.top };
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        const d = Math.max(-300, Math.min(300, pending));
+        pending = 0;
+        pz.zoomAtPoint(pz.getZoom() * Math.exp(-d * 0.002), at);
+      });
+    }, { passive: false });
+
     const refit = () => { pz.resize(); pz.fit(); pz.center(); };
     // The first fit runs before the page layout settles.
     requestAnimationFrame(() => setTimeout(refit, 50));
