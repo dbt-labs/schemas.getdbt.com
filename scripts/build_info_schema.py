@@ -105,7 +105,6 @@ def build_erd_pages(index: dict) -> None:
             "__NAME__": html.escape(name),
             "__UP__": up,
             "__NAV__": nav,
-            "__RAW__": html.escape(f"{up}dbt/{diagram['path']}"),
             "__SOURCE__": html.escape(source),
             "__MERMAID_URL__": MERMAID_URL,
             "__PANZOOM_URL__": PANZOOM_URL,

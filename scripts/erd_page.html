@@ -54,41 +54,6 @@
       text-align: left;
     }
 
-    .controls {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      position: absolute;
-      right: 12px;
-      top: 12px;
-      z-index: 2;
-    }
-
-    .controls button,
-    .controls a {
-      align-items: center;
-      background: #003645;
-      border: 1px solid #93a1a1;
-      border-radius: 4px;
-      box-sizing: border-box;
-      color: #93a1a1;
-      cursor: pointer;
-      display: flex;
-      font: inherit;
-      font-size: 16px;
-      height: 34px;
-      justify-content: center;
-      line-height: 1;
-      padding: 0;
-      width: 34px;
-    }
-
-    .controls button:hover,
-    .controls a:hover {
-      border-color: #fff;
-      color: #fff;
-    }
-
     .hint {
       bottom: 10px;
       font-size: 80%;
@@ -97,12 +62,6 @@
       pointer-events: none;
       position: absolute;
       z-index: 2;
-    }
-
-    #diagram:fullscreen {
-      border: 0;
-      border-radius: 0;
-      height: 100vh;
     }
 
     #diagram svg {
@@ -131,14 +90,6 @@
   <nav>__NAV__</nav>
 
   <div id="diagram">
-    <div class="controls">
-      <button id="zoom-in" title="Zoom in (+)" aria-label="Zoom in">+</button>
-      <button id="zoom-out" title="Zoom out (-)" aria-label="Zoom out">&minus;</button>
-      <button id="fit" title="Fit to window (0)" aria-label="Fit to window">&#8982;</button>
-      <button id="fullscreen" title="Full screen (f)" aria-label="Full screen">&#9974;</button>
-      <button id="download" title="Download as SVG" aria-label="Download as SVG">&#8681;</button>
-      <a href="__RAW__" title="Raw .mmd" aria-label="Raw .mmd">&lt;/&gt;</a>
-    </div>
     <p class="hint">Scroll to zoom. Drag to pan.</p>
     <pre class="mermaid">
 __SOURCE__</pre>
@@ -189,30 +140,6 @@ __SOURCE__</pre>
     // The first fit runs before the page layout settles.
     requestAnimationFrame(() => setTimeout(refit, 50));
 
-    document.getElementById("zoom-in").onclick = () => pz.zoomIn();
-    document.getElementById("zoom-out").onclick = () => pz.zoomOut();
-    document.getElementById("fit").onclick = refit;
-    document.getElementById("fullscreen").onclick = () =>
-      document.fullscreenElement ? document.exitFullscreen() : box.requestFullscreen();
-    document.getElementById("download").onclick = () => {
-      const copy = svg.cloneNode(true);
-      copy.querySelector(".svg-pan-zoom_viewport")?.removeAttribute("transform");
-      const blob = new Blob([new XMLSerializer().serializeToString(copy)], { type: "image/svg+xml" });
-      const a = Object.assign(document.createElement("a"), {
-        href: URL.createObjectURL(blob),
-        download: "info-schema-erd-__NAME__.svg"
-      });
-      a.click();
-      URL.revokeObjectURL(a.href);
-    };
-    document.addEventListener("keydown", (e) => {
-      if (e.metaKey || e.ctrlKey || e.altKey) return;
-      if (e.key === "+" || e.key === "=") pz.zoomIn();
-      else if (e.key === "-") pz.zoomOut();
-      else if (e.key === "0") refit();
-      else if (e.key === "f") document.getElementById("fullscreen").click();
-    });
-    document.addEventListener("fullscreenchange", () => setTimeout(refit, 50));
     window.addEventListener("resize", refit);
   </script>
 </body>
