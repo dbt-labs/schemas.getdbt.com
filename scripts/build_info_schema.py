@@ -32,12 +32,6 @@ MERMAID_URL = "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.
 START = "<!-- info-schema:start -->"
 END = "<!-- info-schema:end -->"
 
-KEYS_NOTE = (
-    "Primary and foreign keys are logical documentation. "
-    "They are declared, not enforced: nothing checks them."
-)
-
-
 def load_index() -> dict:
     return json.loads((INFO / "index.json").read_text())
 
@@ -111,14 +105,12 @@ def build_erd_pages(index: dict) -> None:
     body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 2rem; }}
     nav a {{ margin-right: 1rem; }}
     nav a[aria-current] {{ font-weight: bold; text-decoration: none; color: inherit; }}
-    .note {{ background: #fff8e1; padding: .75rem 1rem; border-left: 4px solid #f5a623; }}
     .diagram {{ margin-top: 2rem; overflow-x: auto; }}
   </style>
 </head>
 <body>
   <p><a href="{up}index.html">&larr; dbt JSON Schemas</a></p>
   <h1>Info schema ERD: {html.escape(name)}</h1>
-  <p class="note">{html.escape(KEYS_NOTE)}</p>
   <nav>{nav}</nav>
   <p><a href="{html.escape(raw)}">raw .mmd</a></p>
   <div class="diagram">
@@ -135,28 +127,33 @@ def build_erd_pages(index: dict) -> None:
         )
 
 
+def version_key(version: str) -> int:
+    return int(version.lstrip("v"))
+
+
 def root_section(index: dict) -> str:
-    items = []
-    for table in index["tables"]:
-        name = table["name"]
-        versions = ", ".join(
-            f'<a href="dbt/info-schema/{name}/{v}/index.html">{v}</a> '
-            f'(<a href="dbt/info-schema/{name}/{v}.json">raw</a>)'
-            for v in table["versions"]
-        )
-        items.append(f"      <li>{html.escape(name)} {versions}</li>")
-    return "\n".join(
-        [
-            START,
-            "    <h3>Info Schema</h3>",
-            f"    <p style=\"font-size: 70%\">{html.escape(KEYS_NOTE)}</p>",
+    """Tables grouped by version, newest first, like the other artifacts."""
+    versions = sorted(
+        {v for t in index["tables"] for v in t["versions"]},
+        key=version_key,
+        reverse=True,
+    )
+    lines = [START, "    <h3>Info Schema</h3>"]
+    for version in versions:
+        lines += [
+            f'    <h4>{version} (<a href="dbt/info-schema/index.json">raw</a>)</h4>',
             "    <ul>",
             '      <li><a href="dbt/info-schema/erd/index.html">ERD</a></li>',
-            *items,
-            "    </ul>",
-            "    " + END,
         ]
-    )
+        for table in index["tables"]:
+            if version in table["versions"]:
+                name = table["name"]
+                lines.append(
+                    f'      <li><a href="dbt/info-schema/{name}/{version}/index.html">{html.escape(name)}</a></li>'
+                )
+        lines.append("    </ul>")
+    lines.append("    " + END)
+    return "\n".join(lines)
 
 
 def update_root_page(index: dict) -> None:
