@@ -43,45 +43,60 @@
       font-weight: bold;
     }
 
-    .toolbar {
-      display: flex;
-      gap: .5em;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 1.2em 0 .6em;
+    #diagram {
+      background: #002b36;
+      border: 1px solid #0f5566;
+      border-radius: 6px;
+      height: calc(100vh - 270px);
+      min-height: 420px;
+      overflow: hidden;
+      position: relative;
+      text-align: left;
     }
 
-    .toolbar button,
-    .toolbar a.button {
-      background: transparent;
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      z-index: 2;
+    }
+
+    .controls button,
+    .controls a {
+      align-items: center;
+      background: #003645;
       border: 1px solid #93a1a1;
       border-radius: 4px;
+      box-sizing: border-box;
       color: #93a1a1;
       cursor: pointer;
+      display: flex;
       font: inherit;
-      min-width: 2.6em;
-      padding: .3em .8em;
+      font-size: 16px;
+      height: 34px;
+      justify-content: center;
+      line-height: 1;
+      padding: 0;
+      width: 34px;
     }
 
-    .toolbar button:hover,
-    .toolbar a.button:hover {
+    .controls button:hover,
+    .controls a:hover {
       border-color: #fff;
       color: #fff;
     }
 
     .hint {
-      font-size: 85%;
-      margin: 0 0 .8em;
-    }
-
-    #diagram {
-      background: #002b36;
-      border: 1px solid #0f5566;
-      border-radius: 6px;
-      height: calc(100vh - 330px);
-      min-height: 420px;
-      overflow: hidden;
-      text-align: left;
+      bottom: 10px;
+      font-size: 80%;
+      left: 14px;
+      margin: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: 2;
     }
 
     #diagram:fullscreen {
@@ -115,17 +130,16 @@
   <h1>Info Schema ERD: __NAME__</h1>
   <nav>__NAV__</nav>
 
-  <div class="toolbar">
-    <button id="zoom-in" title="Zoom in (+)" aria-label="Zoom in">+</button>
-    <button id="zoom-out" title="Zoom out (-)" aria-label="Zoom out">&minus;</button>
-    <button id="fit" title="Fit to window (0)">Fit</button>
-    <button id="fullscreen" title="Full screen (f)">Full screen</button>
-    <button id="download" title="Download the diagram as SVG">Download SVG</button>
-    <a class="button" href="__RAW__">Raw .mmd</a>
-  </div>
-  <p class="hint">Scroll to zoom. Drag to pan. Keys: + &minus; 0 f.</p>
-
   <div id="diagram">
+    <div class="controls">
+      <button id="zoom-in" title="Zoom in (+)" aria-label="Zoom in">+</button>
+      <button id="zoom-out" title="Zoom out (-)" aria-label="Zoom out">&minus;</button>
+      <button id="fit" title="Fit to window (0)" aria-label="Fit to window">&#8982;</button>
+      <button id="fullscreen" title="Full screen (f)" aria-label="Full screen">&#9974;</button>
+      <button id="download" title="Download as SVG" aria-label="Download as SVG">&#8681;</button>
+      <a href="__RAW__" title="Raw .mmd" aria-label="Raw .mmd">&lt;/&gt;</a>
+    </div>
+    <p class="hint">Scroll to zoom. Drag to pan.</p>
     <pre class="mermaid">
 __SOURCE__</pre>
   </div>
