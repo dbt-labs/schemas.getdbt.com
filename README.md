@@ -56,7 +56,14 @@
     2. Example PR: https://github.com/dbt-labs/schemas.getdbt.com/pull/13
 
 
+## Info schema
+
+`dbt/info-schema/` holds the JSON Schemas and Mermaid diagrams for the dbt information schema (`dbt.*`, `dbt_rt.*`). Do not edit them here. The `sync-info-schema-to-schemas` workflow in [dbt-labs/fs](https://github.com/dbt-labs/fs) generates them and opens a PR with the raw files only.
+
+After such a PR merges, `.github/workflows/info-schema-docs.yml` runs `scripts/build_info_schema.py` and opens a follow-up PR with the generated HTML and the "Info Schema" section of the root `index.html`. To build locally: `make install && make info_schema_html`.
+
 ## Available Commands:
 - `make install`: installs json-schema-for-humans
 - `make json_schema version=<version number>`: copy JSON schema file from dbt-core into this repo
 - `make html version=<version number>`: generate HTML file from JSON schema file
+- `make info_schema_html`: build the info schema HTML from `dbt/info-schema/`
