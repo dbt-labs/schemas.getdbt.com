@@ -58,9 +58,11 @@
 
 ## Info schema
 
-`dbt/info-schema/` holds the JSON Schemas and Mermaid diagrams for the dbt information schema (`dbt.*`, `dbt_rt.*`). Do not edit them here. The `sync-info-schema-to-schemas` workflow in [dbt-labs/fs](https://github.com/dbt-labs/fs) generates them and opens a PR with the raw files only.
+`dbt/info-schema/` holds the JSON Schemas, Mermaid diagrams and generated HTML for the dbt information schema (`dbt.*`, `dbt_rt.*`), and the "Info Schema" section of the root `index.html`. Do not edit them here.
 
-After such a PR merges, `.github/workflows/info-schema-docs.yml` runs `scripts/build_info_schema.py` and opens a follow-up PR with the generated HTML and the "Info Schema" section of the root `index.html`. To build locally: `make install && make info_schema_html`.
+The `sync-info-schema-to-schemas` workflow in [dbt-labs/fs](https://github.com/dbt-labs/fs) generates the raw files from `INFO_SCHEMA`, runs `scripts/build_info_schema.py` on a clone of this repo to build the HTML, and opens one PR with everything. Merging that PR updates the site; there is no step after the merge. The Vercel preview of the PR shows the finished site.
+
+To build locally from the raw files: `make install && make info_schema_html`.
 
 ## Available Commands:
 - `make install`: installs json-schema-for-humans
