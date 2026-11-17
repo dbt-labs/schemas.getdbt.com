@@ -30,6 +30,8 @@ ROOT_PAGE = REPO / "index.html"
 
 # Pinned. The site CSP allows scripts from any https host (see vercel.json).
 MERMAID_URL = "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs"
+PANZOOM_URL = "https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"
+ERD_TEMPLATE = Path(__file__).with_name("erd_page.html")
 
 START = "<!-- info-schema:start -->"
 END = "<!-- info-schema:end -->"
@@ -98,38 +100,18 @@ def build_erd_pages(index: dict) -> None:
             for d in index["diagrams"]
         )
         source = (DBT / diagram["path"]).read_text()
-        raw = f"{up}dbt/{diagram['path']}"
-        out.write_text(
-            f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>dbt info schema ERD: {html.escape(name)}</title>
-  <style>
-    body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 2rem; }}
-    nav a {{ margin-right: 1rem; }}
-    nav a[aria-current] {{ font-weight: bold; text-decoration: none; color: inherit; }}
-    .diagram {{ margin-top: 2rem; overflow-x: auto; }}
-  </style>
-</head>
-<body>
-  <p><a href="{up}index.html">&larr; dbt JSON Schemas</a></p>
-  <h1>Info schema ERD: {html.escape(name)}</h1>
-  <nav>{nav}</nav>
-  <p><a href="{html.escape(raw)}">raw .mmd</a></p>
-  <div class="diagram">
-    <pre class="mermaid">
-{html.escape(source)}</pre>
-  </div>
-  <script type="module">
-    import mermaid from "{MERMAID_URL}";
-    mermaid.initialize({{ startOnLoad: true, maxTextSize: 1000000 }});
-  </script>
-</body>
-</html>
-"""
-        )
+        page = ERD_TEMPLATE.read_text()
+        for token, value in {
+            "__NAME__": html.escape(name),
+            "__UP__": up,
+            "__NAV__": nav,
+            "__RAW__": html.escape(f"{up}dbt/{diagram['path']}"),
+            "__SOURCE__": html.escape(source),
+            "__MERMAID_URL__": MERMAID_URL,
+            "__PANZOOM_URL__": PANZOOM_URL,
+        }.items():
+            page = page.replace(token, value)
+        out.write_text(page)
 
 
 def version_key(version: str) -> int:
