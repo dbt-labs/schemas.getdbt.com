@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.time_spines/v1.json",
+  "title": "dbt.time_spines",
+  "description": "Primary key: `unique_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.models",
+          "column": "unique_id"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.models.unique_id`."
+    },
+    "primary_column": {
+      "type": "string"
+    },
+    "primary_granularity": {
+      "type": "string"
+    },
+    "custom_granularities": {
+      "type": "string"
+    },
+    "node_relation": {
+      "type": "string"
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

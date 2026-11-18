@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.column_lineage/v1.json",
+  "title": "dbt.column_lineage",
+  "description": "Primary key: `parent_node_unique_id`, `parent_column_name`, `child_node_unique_id`, `child_column_name`.",
+  "type": "object",
+  "x-primary-key": [
+    "parent_node_unique_id",
+    "parent_column_name",
+    "child_node_unique_id",
+    "child_column_name"
+  ],
+  "properties": {
+    "parent_node_unique_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "parent_column_name": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.node_columns",
+          "column": "column_name"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.node_columns.column_name`. `column_name` is only part of the primary key of `dbt.node_columns`."
+    },
+    "child_node_unique_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "child_column_name": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.node_columns",
+          "column": "column_name"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.node_columns.column_name`. `column_name` is only part of the primary key of `dbt.node_columns`."
+    },
+    "evolution": {
+      "type": "string"
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

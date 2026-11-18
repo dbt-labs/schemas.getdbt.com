@@ -1,0 +1,233 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overpass:300,400,600,800">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="schema_doc.css">
+    <script src="https://use.fontawesome.com/facf9fa52c.js"></script>
+    <script src="schema_doc.min.js"></script>
+    <meta charset="utf-8"/>
+        
+    
+    <title>dbt.column_lineage</title>
+</head>
+<body onload="anchorOnLoad();" id="root">
+
+    <div class="breadcrumbs"></div> <h1>dbt.column_lineage</h1><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Primary key: <code>parent_node_unique_id</code>, <code>parent_column_name</code>, <code>child_node_unique_id</code>, <code>child_column_name</code>.</p>
+</span>
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionparent_node_unique_id">
+    <div class="card">
+        <div class="card-header" id="headingparent_node_unique_id">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#parent_node_unique_id"
+                        aria-expanded="" aria-controls="parent_node_unique_id" onclick="setAnchor('#parent_node_unique_id')"><span class="property-name">parent_node_unique_id</span></button>
+            </h2>
+        </div>
+
+        <div id="parent_node_unique_id"
+             class="collapse property-definition-div" aria-labelledby="headingparent_node_unique_id"
+             data-parent="#accordionparent_node_unique_id">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#parent_node_unique_id" onclick="anchorLink('parent_node_unique_id')">parent_node_unique_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Part of the primary key. References <code>dbt.dag_nodes.unique_id</code>.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionparent_column_name">
+    <div class="card">
+        <div class="card-header" id="headingparent_column_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#parent_column_name"
+                        aria-expanded="" aria-controls="parent_column_name" onclick="setAnchor('#parent_column_name')"><span class="property-name">parent_column_name</span></button>
+            </h2>
+        </div>
+
+        <div id="parent_column_name"
+             class="collapse property-definition-div" aria-labelledby="headingparent_column_name"
+             data-parent="#accordionparent_column_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#parent_column_name" onclick="anchorLink('parent_column_name')">parent_column_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Part of the primary key. References <code>dbt.node_columns.column_name</code>. <code>column_name</code> is only part of the primary key of <code>dbt.node_columns</code>.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionchild_node_unique_id">
+    <div class="card">
+        <div class="card-header" id="headingchild_node_unique_id">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#child_node_unique_id"
+                        aria-expanded="" aria-controls="child_node_unique_id" onclick="setAnchor('#child_node_unique_id')"><span class="property-name">child_node_unique_id</span></button>
+            </h2>
+        </div>
+
+        <div id="child_node_unique_id"
+             class="collapse property-definition-div" aria-labelledby="headingchild_node_unique_id"
+             data-parent="#accordionchild_node_unique_id">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#child_node_unique_id" onclick="anchorLink('child_node_unique_id')">child_node_unique_id</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Part of the primary key. References <code>dbt.dag_nodes.unique_id</code>.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionchild_column_name">
+    <div class="card">
+        <div class="card-header" id="headingchild_column_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#child_column_name"
+                        aria-expanded="" aria-controls="child_column_name" onclick="setAnchor('#child_column_name')"><span class="property-name">child_column_name</span></button>
+            </h2>
+        </div>
+
+        <div id="child_column_name"
+             class="collapse property-definition-div" aria-labelledby="headingchild_column_name"
+             data-parent="#accordionchild_column_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#child_column_name" onclick="anchorLink('child_column_name')">child_column_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Part of the primary key. References <code>dbt.node_columns.column_name</code>. <code>column_name</code> is only part of the primary key of <code>dbt.node_columns</code>.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionevolution">
+    <div class="card">
+        <div class="card-header" id="headingevolution">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#evolution"
+                        aria-expanded="" aria-controls="evolution" onclick="setAnchor('#evolution')"><span class="property-name">evolution</span></button>
+            </h2>
+        </div>
+
+        <div id="evolution"
+             class="collapse property-definition-div" aria-labelledby="headingevolution"
+             data-parent="#accordionevolution">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#evolution" onclick="anchorLink('evolution')">evolution</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordioningested_at">
+    <div class="card">
+        <div class="card-header" id="headingingested_at">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#ingested_at"
+                        aria-expanded="" aria-controls="ingested_at" onclick="setAnchor('#ingested_at')"><span class="property-name">ingested_at</span></button>
+            </h2>
+        </div>
+
+        <div id="ingested_at"
+             class="collapse property-definition-div" aria-labelledby="headingingested_at"
+             data-parent="#accordioningested_at">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#ingested_at" onclick="anchorLink('ingested_at')">ingested_at</a></div><span class="badge badge-dark value-type">Type: string</span><span class="badge badge-info value-type">Format: date-time</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

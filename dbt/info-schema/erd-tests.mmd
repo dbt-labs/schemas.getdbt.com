@@ -1,0 +1,54 @@
+erDiagram
+    "dbt.data_tests" {
+        string unique_id PK, FK
+        string name
+        string package_name
+        string original_file_path
+        string raw_code
+        string[] fqn
+        string description
+        string database_name
+        string schema_name
+        string relation_name
+        boolean enabled
+        string materialized
+        string config
+        string[] tags
+        string meta
+        string group
+        string properties_yml_file_path
+        string compiled_code
+        string compiled_path
+        string test_name
+        string test_definition_package
+        string arguments
+        string column_name
+        string node_unique_id FK
+        string severity
+        string warn_if
+        string error_if
+        string fail_calc
+        boolean store_failures
+        string store_failures_as
+        string where
+        int limit
+        timestamp ingested_at
+    }
+    "dbt.unit_tests" {
+        string unique_id PK, FK
+        string name
+        string model
+        string description
+        string package_name
+        string original_file_path
+        string[] fqn
+        string given
+        string expect
+        string overrides
+        string versions
+        string config
+        timestamp ingested_at
+    }
+    "dbt.dag_nodes" ||--o{ "dbt.data_tests" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.data_tests" : "node_unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.unit_tests" : "unique_id"

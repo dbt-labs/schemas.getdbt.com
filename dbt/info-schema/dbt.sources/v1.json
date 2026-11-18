@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.sources/v1.json",
+  "title": "dbt.sources",
+  "description": "Primary key: `unique_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "name": {
+      "type": "string"
+    },
+    "resource_type": {
+      "type": "string"
+    },
+    "package_name": {
+      "type": "string"
+    },
+    "original_file_path": {
+      "type": "string"
+    },
+    "fqn": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "database_name": {
+      "type": "string"
+    },
+    "schema_name": {
+      "type": "string"
+    },
+    "relation_name": {
+      "type": "string"
+    },
+    "identifier": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "config": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": "string"
+    },
+    "grain": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "grain_declared": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "grain_tested": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "grain_inferred": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_name": {
+      "type": "string"
+    },
+    "source_description": {
+      "type": "string"
+    },
+    "loader": {
+      "type": "string"
+    },
+    "loaded_at_field": {
+      "type": "string"
+    },
+    "loaded_at_query": {
+      "type": "string"
+    },
+    "freshness": {
+      "type": "string"
+    },
+    "external": {
+      "type": "string"
+    },
+    "quoting": {
+      "type": "string"
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

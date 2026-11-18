@@ -1,0 +1,287 @@
+erDiagram
+    "dbt.models" {
+        string unique_id PK, FK
+        string name
+        string resource_type
+        string package_name
+        string original_file_path
+        string[] fqn
+        string alias
+        string description
+        string node_language
+        string raw_code
+        string database_name
+        string schema_name
+        string relation_name
+        string identifier
+        boolean enabled
+        string materialized
+        string incremental_strategy
+        string on_schema_change
+        string unique_key
+        boolean full_refresh
+        string persist_docs
+        string pre_hook
+        string post_hook
+        string grants
+        string config
+        string access
+        string group
+        boolean contract_enforced
+        string version
+        string latest_version
+        string deprecation_date
+        string constraints
+        string[] primary_key
+        boolean docs_show
+        string properties_yml_file_path
+        string time_spine
+        string[] tags
+        string[] classifiers
+        string meta
+        string compiled_code
+        string compiled_path
+        string[] grain
+        string[] grain_declared
+        string[] grain_tested
+        string[] grain_inferred
+        timestamp ingested_at
+    }
+    "dbt.seeds" {
+        string unique_id PK, FK
+        string name
+        string resource_type
+        string package_name
+        string original_file_path
+        string[] fqn
+        string alias
+        string description
+        string database_name
+        string schema_name
+        string relation_name
+        string identifier
+        boolean enabled
+        boolean full_refresh
+        string persist_docs
+        string pre_hook
+        string post_hook
+        string grants
+        string config
+        string group
+        boolean docs_show
+        string properties_yml_file_path
+        string[] tags
+        string meta
+        string[] grain
+        string[] grain_declared
+        string[] grain_tested
+        string[] grain_inferred
+        timestamp ingested_at
+    }
+    "dbt.snapshots" {
+        string unique_id PK, FK
+        string name
+        string resource_type
+        string package_name
+        string original_file_path
+        string[] fqn
+        string alias
+        string description
+        string node_language
+        string raw_code
+        string database_name
+        string schema_name
+        string relation_name
+        string identifier
+        boolean enabled
+        string unique_key
+        string persist_docs
+        string pre_hook
+        string post_hook
+        string grants
+        string config
+        string group
+        boolean docs_show
+        string properties_yml_file_path
+        string[] tags
+        string meta
+        string compiled_code
+        string compiled_path
+        string[] grain
+        string[] grain_declared
+        string[] grain_tested
+        string[] grain_inferred
+        timestamp ingested_at
+    }
+    "dbt.functions" {
+        string unique_id PK, FK
+        string name
+        string resource_type
+        string package_name
+        string original_file_path
+        string[] fqn
+        string alias
+        string description
+        string node_language
+        string raw_code
+        string database_name
+        string schema_name
+        string relation_name
+        string identifier
+        boolean enabled
+        string pre_hook
+        string post_hook
+        string grants
+        string config
+        string access
+        string group
+        boolean docs_show
+        string properties_yml_file_path
+        string[] tags
+        string meta
+        string compiled_code
+        string compiled_path
+        timestamp ingested_at
+    }
+    "dbt.analyses" {
+        string unique_id PK, FK
+        string name
+        string resource_type
+        string package_name
+        string original_file_path
+        string[] fqn
+        string description
+        string node_language
+        string raw_code
+        boolean enabled
+        string config
+        string group
+        boolean docs_show
+        string properties_yml_file_path
+        string[] tags
+        string meta
+        string compiled_code
+        string compiled_path
+        timestamp ingested_at
+    }
+    "dbt.hooks" {
+        string unique_id PK
+        string name
+        string resource_type
+        string package_name
+        string original_file_path
+        string[] fqn
+        string node_language
+        string raw_code
+        string phase
+        string compiled_code
+        string compiled_path
+        timestamp ingested_at
+    }
+    "dbt.checks" {
+        string unique_id PK
+        string name
+        string resource_type
+        string package_name
+        string original_file_path
+        string[] fqn
+        string description
+        string node_language
+        string raw_code
+        boolean enabled
+        string config
+        string properties_yml_file_path
+        string[] tags
+        string meta
+        timestamp ingested_at
+    }
+    "dbt.sources" {
+        string unique_id PK, FK
+        string name
+        string resource_type
+        string package_name
+        string original_file_path
+        string[] fqn
+        string description
+        string database_name
+        string schema_name
+        string relation_name
+        string identifier
+        boolean enabled
+        string config
+        string[] tags
+        string meta
+        string[] grain
+        string[] grain_declared
+        string[] grain_tested
+        string[] grain_inferred
+        string source_name
+        string source_description
+        string loader
+        string loaded_at_field
+        string loaded_at_query
+        string freshness
+        string external
+        string quoting
+        timestamp ingested_at
+    }
+    "dbt.macros" {
+        string unique_id PK
+        string name
+        string package_name
+        string original_file_path
+        string macro_sql
+        string description
+        string[] depends_on_macros
+        string arguments
+        boolean docs_show
+        string properties_yml_file_path
+        string meta
+        timestamp ingested_at
+    }
+    "dbt.groups" {
+        string unique_id PK
+        string name
+        string description
+        string package_name
+        string original_file_path
+        string owner_name
+        string owner_email
+        string config
+        timestamp ingested_at
+    }
+    "dbt.exposures" {
+        string unique_id PK, FK
+        string name
+        string exposure_type
+        string label
+        string owner_name
+        string owner_email
+        string url
+        string maturity
+        string description
+        string package_name
+        string original_file_path
+        string[] fqn
+        string[] depends_on
+        string[] tags
+        string meta
+        string config
+        float created_at
+        timestamp ingested_at
+    }
+    "dbt.docs_blocks" {
+        string unique_id PK
+        string name
+        string package_name
+        string original_file_path
+        string content
+        timestamp ingested_at
+    }
+    "dbt.dag_nodes" ||--o{ "dbt.models" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.seeds" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.snapshots" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.functions" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.analyses" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.sources" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.exposures" : "unique_id"

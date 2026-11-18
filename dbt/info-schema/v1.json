@@ -1,0 +1,2432 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/v1.json",
+  "title": "dbt information schema",
+  "description": "The schema of every table in the dbt information schema, in one file. Each property is the schema of one row of that table. `dbt` tables hold project metadata, `dbt_rt` tables hold runtime results.",
+  "type": "object",
+  "properties": {
+    "dbt.project": {
+      "$ref": "#/$defs/dbt.project"
+    },
+    "dbt.packages": {
+      "$ref": "#/$defs/dbt.packages"
+    },
+    "dbt.project_vars": {
+      "$ref": "#/$defs/dbt.project_vars"
+    },
+    "dbt.project_env_vars": {
+      "$ref": "#/$defs/dbt.project_env_vars"
+    },
+    "dbt.models": {
+      "$ref": "#/$defs/dbt.models"
+    },
+    "dbt.seeds": {
+      "$ref": "#/$defs/dbt.seeds"
+    },
+    "dbt.snapshots": {
+      "$ref": "#/$defs/dbt.snapshots"
+    },
+    "dbt.functions": {
+      "$ref": "#/$defs/dbt.functions"
+    },
+    "dbt.analyses": {
+      "$ref": "#/$defs/dbt.analyses"
+    },
+    "dbt.hooks": {
+      "$ref": "#/$defs/dbt.hooks"
+    },
+    "dbt.checks": {
+      "$ref": "#/$defs/dbt.checks"
+    },
+    "dbt.sources": {
+      "$ref": "#/$defs/dbt.sources"
+    },
+    "dbt.data_tests": {
+      "$ref": "#/$defs/dbt.data_tests"
+    },
+    "dbt.unit_tests": {
+      "$ref": "#/$defs/dbt.unit_tests"
+    },
+    "dbt.macros": {
+      "$ref": "#/$defs/dbt.macros"
+    },
+    "dbt.groups": {
+      "$ref": "#/$defs/dbt.groups"
+    },
+    "dbt.exposures": {
+      "$ref": "#/$defs/dbt.exposures"
+    },
+    "dbt.metrics": {
+      "$ref": "#/$defs/dbt.metrics"
+    },
+    "dbt.docs_blocks": {
+      "$ref": "#/$defs/dbt.docs_blocks"
+    },
+    "dbt.saved_queries": {
+      "$ref": "#/$defs/dbt.saved_queries"
+    },
+    "dbt.semantic_models": {
+      "$ref": "#/$defs/dbt.semantic_models"
+    },
+    "dbt.semantic_entities": {
+      "$ref": "#/$defs/dbt.semantic_entities"
+    },
+    "dbt.semantic_measures": {
+      "$ref": "#/$defs/dbt.semantic_measures"
+    },
+    "dbt.semantic_dimensions": {
+      "$ref": "#/$defs/dbt.semantic_dimensions"
+    },
+    "dbt.time_spines": {
+      "$ref": "#/$defs/dbt.time_spines"
+    },
+    "dbt.dag_nodes": {
+      "$ref": "#/$defs/dbt.dag_nodes"
+    },
+    "dbt.edges": {
+      "$ref": "#/$defs/dbt.edges"
+    },
+    "dbt.node_columns": {
+      "$ref": "#/$defs/dbt.node_columns"
+    },
+    "dbt.column_lineage": {
+      "$ref": "#/$defs/dbt.column_lineage"
+    },
+    "dbt_rt.invocations": {
+      "$ref": "#/$defs/dbt_rt.invocations"
+    },
+    "dbt_rt.run_results": {
+      "$ref": "#/$defs/dbt_rt.run_results"
+    },
+    "dbt_rt.freshness": {
+      "$ref": "#/$defs/dbt_rt.freshness"
+    },
+    "dbt_rt.relations": {
+      "$ref": "#/$defs/dbt_rt.relations"
+    },
+    "dbt_rt.adapter_queries": {
+      "$ref": "#/$defs/dbt_rt.adapter_queries"
+    }
+  },
+  "$defs": {
+    "dbt.project": {
+      "title": "dbt.project",
+      "description": "Primary key: `project_name`.",
+      "type": "object",
+      "x-primary-key": [
+        "project_name"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "integer"
+        },
+        "project_name": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "dbt_version": {
+          "type": "string"
+        },
+        "adapter_type": {
+          "type": "string"
+        },
+        "quoting": {
+          "type": "string"
+        },
+        "git_sha": {
+          "type": "string"
+        },
+        "git_branch": {
+          "type": "string"
+        },
+        "git_uncommitted_changes": {
+          "type": "boolean"
+        },
+        "last_full_parse_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.packages": {
+      "title": "dbt.packages",
+      "description": "Primary key: `package_name`.",
+      "type": "object",
+      "x-primary-key": [
+        "package_name"
+      ],
+      "properties": {
+        "package_name": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "package_source": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "git_url": {
+          "type": "string"
+        },
+        "git_revision": {
+          "type": "string"
+        },
+        "local_path": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.project_vars": {
+      "title": "dbt.project_vars",
+      "description": "Primary key: `project_name`, `var_name`.",
+      "type": "object",
+      "x-primary-key": [
+        "project_name",
+        "var_name"
+      ],
+      "properties": {
+        "project_name": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "var_name": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "var_value": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.project_env_vars": {
+      "title": "dbt.project_env_vars",
+      "description": "Primary key: `env_var_name`.",
+      "type": "object",
+      "x-primary-key": [
+        "env_var_name"
+      ],
+      "properties": {
+        "env_var_name": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.models": {
+      "title": "dbt.models",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": "string"
+        },
+        "resource_type": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "alias": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "node_language": {
+          "type": "string"
+        },
+        "raw_code": {
+          "type": "string"
+        },
+        "database_name": {
+          "type": "string"
+        },
+        "schema_name": {
+          "type": "string"
+        },
+        "relation_name": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "materialized": {
+          "type": "string"
+        },
+        "incremental_strategy": {
+          "type": "string"
+        },
+        "on_schema_change": {
+          "type": "string"
+        },
+        "unique_key": {
+          "type": "string"
+        },
+        "full_refresh": {
+          "type": "boolean"
+        },
+        "persist_docs": {
+          "type": "string"
+        },
+        "pre_hook": {
+          "type": "string"
+        },
+        "post_hook": {
+          "type": "string"
+        },
+        "grants": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "access": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "contract_enforced": {
+          "type": "boolean"
+        },
+        "version": {
+          "type": "string"
+        },
+        "latest_version": {
+          "type": "string"
+        },
+        "deprecation_date": {
+          "type": "string"
+        },
+        "constraints": {
+          "type": "string"
+        },
+        "primary_key": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "docs_show": {
+          "type": "boolean"
+        },
+        "properties_yml_file_path": {
+          "type": "string"
+        },
+        "time_spine": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "classifiers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "string"
+        },
+        "compiled_code": {
+          "type": "string"
+        },
+        "compiled_path": {
+          "type": "string"
+        },
+        "grain": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_declared": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_tested": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_inferred": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.seeds": {
+      "title": "dbt.seeds",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": "string"
+        },
+        "resource_type": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "alias": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "database_name": {
+          "type": "string"
+        },
+        "schema_name": {
+          "type": "string"
+        },
+        "relation_name": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "full_refresh": {
+          "type": "boolean"
+        },
+        "persist_docs": {
+          "type": "string"
+        },
+        "pre_hook": {
+          "type": "string"
+        },
+        "post_hook": {
+          "type": "string"
+        },
+        "grants": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "docs_show": {
+          "type": "boolean"
+        },
+        "properties_yml_file_path": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "string"
+        },
+        "grain": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_declared": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_tested": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_inferred": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.snapshots": {
+      "title": "dbt.snapshots",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": "string"
+        },
+        "resource_type": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "alias": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "node_language": {
+          "type": "string"
+        },
+        "raw_code": {
+          "type": "string"
+        },
+        "database_name": {
+          "type": "string"
+        },
+        "schema_name": {
+          "type": "string"
+        },
+        "relation_name": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "unique_key": {
+          "type": "string"
+        },
+        "persist_docs": {
+          "type": "string"
+        },
+        "pre_hook": {
+          "type": "string"
+        },
+        "post_hook": {
+          "type": "string"
+        },
+        "grants": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "docs_show": {
+          "type": "boolean"
+        },
+        "properties_yml_file_path": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "string"
+        },
+        "compiled_code": {
+          "type": "string"
+        },
+        "compiled_path": {
+          "type": "string"
+        },
+        "grain": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_declared": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_tested": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_inferred": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.functions": {
+      "title": "dbt.functions",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": "string"
+        },
+        "resource_type": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "alias": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "node_language": {
+          "type": "string"
+        },
+        "raw_code": {
+          "type": "string"
+        },
+        "database_name": {
+          "type": "string"
+        },
+        "schema_name": {
+          "type": "string"
+        },
+        "relation_name": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "pre_hook": {
+          "type": "string"
+        },
+        "post_hook": {
+          "type": "string"
+        },
+        "grants": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "access": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "docs_show": {
+          "type": "boolean"
+        },
+        "properties_yml_file_path": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "string"
+        },
+        "compiled_code": {
+          "type": "string"
+        },
+        "compiled_path": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.analyses": {
+      "title": "dbt.analyses",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": "string"
+        },
+        "resource_type": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "node_language": {
+          "type": "string"
+        },
+        "raw_code": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "config": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "docs_show": {
+          "type": "boolean"
+        },
+        "properties_yml_file_path": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "string"
+        },
+        "compiled_code": {
+          "type": "string"
+        },
+        "compiled_path": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.hooks": {
+      "title": "dbt.hooks",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": "string"
+        },
+        "resource_type": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "node_language": {
+          "type": "string"
+        },
+        "raw_code": {
+          "type": "string"
+        },
+        "phase": {
+          "type": "string"
+        },
+        "compiled_code": {
+          "type": "string"
+        },
+        "compiled_path": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.checks": {
+      "title": "dbt.checks",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": "string"
+        },
+        "resource_type": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "node_language": {
+          "type": "string"
+        },
+        "raw_code": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "config": {
+          "type": "string"
+        },
+        "properties_yml_file_path": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.sources": {
+      "title": "dbt.sources",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": "string"
+        },
+        "resource_type": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "database_name": {
+          "type": "string"
+        },
+        "schema_name": {
+          "type": "string"
+        },
+        "relation_name": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "config": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "string"
+        },
+        "grain": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_declared": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_tested": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_inferred": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_name": {
+          "type": "string"
+        },
+        "source_description": {
+          "type": "string"
+        },
+        "loader": {
+          "type": "string"
+        },
+        "loaded_at_field": {
+          "type": "string"
+        },
+        "loaded_at_query": {
+          "type": "string"
+        },
+        "freshness": {
+          "type": "string"
+        },
+        "external": {
+          "type": "string"
+        },
+        "quoting": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.data_tests": {
+      "title": "dbt.data_tests",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "raw_code": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string"
+        },
+        "database_name": {
+          "type": "string"
+        },
+        "schema_name": {
+          "type": "string"
+        },
+        "relation_name": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "materialized": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "properties_yml_file_path": {
+          "type": "string"
+        },
+        "compiled_code": {
+          "type": "string"
+        },
+        "compiled_path": {
+          "type": "string"
+        },
+        "test_name": {
+          "type": "string"
+        },
+        "test_definition_package": {
+          "type": "string"
+        },
+        "arguments": {
+          "type": "string"
+        },
+        "column_name": {
+          "type": "string"
+        },
+        "node_unique_id": {
+          "type": "string",
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "References `dbt.dag_nodes.unique_id`."
+        },
+        "severity": {
+          "type": "string"
+        },
+        "warn_if": {
+          "type": "string"
+        },
+        "error_if": {
+          "type": "string"
+        },
+        "fail_calc": {
+          "type": "string"
+        },
+        "store_failures": {
+          "type": "boolean"
+        },
+        "store_failures_as": {
+          "type": "string"
+        },
+        "where": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.unit_tests": {
+      "title": "dbt.unit_tests",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "given": {
+          "type": "string"
+        },
+        "expect": {
+          "type": "string"
+        },
+        "overrides": {
+          "type": "string"
+        },
+        "versions": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.macros": {
+      "title": "dbt.macros",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "macro_sql": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "depends_on_macros": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "arguments": {
+          "type": "string"
+        },
+        "docs_show": {
+          "type": "boolean"
+        },
+        "properties_yml_file_path": {
+          "type": "string"
+        },
+        "meta": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.groups": {
+      "title": "dbt.groups",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "owner_name": {
+          "type": "string"
+        },
+        "owner_email": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.exposures": {
+      "title": "dbt.exposures",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": "string"
+        },
+        "exposure_type": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "owner_name": {
+          "type": "string"
+        },
+        "owner_email": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "maturity": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "number"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.metrics": {
+      "title": "dbt.metrics",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "metric_type": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type_params": {
+          "type": "string"
+        },
+        "metric_filter": {
+          "type": "string"
+        },
+        "time_granularity": {
+          "type": "string"
+        },
+        "input_metric_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "group": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "number"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.docs_blocks": {
+      "title": "dbt.docs_blocks",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.saved_queries": {
+      "title": "dbt.saved_queries",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "query_params": {
+          "type": "string"
+        },
+        "exports": {
+          "type": "string"
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "group": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "config": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "number"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.semantic_models": {
+      "title": "dbt.semantic_models",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "original_file_path": {
+          "type": "string"
+        },
+        "fqn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "node_relation": {
+          "type": "string"
+        },
+        "primary_entity": {
+          "type": "string"
+        },
+        "defaults": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "number"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.semantic_entities": {
+      "title": "dbt.semantic_entities",
+      "description": "Primary key: `unique_id`, `name`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id",
+        "name"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.semantic_models",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.semantic_models.unique_id`."
+        },
+        "name": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "entity_type": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "expr": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.semantic_measures": {
+      "title": "dbt.semantic_measures",
+      "description": "Primary key: `unique_id`, `name`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id",
+        "name"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.semantic_models",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.semantic_models.unique_id`."
+        },
+        "name": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "agg": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "expr": {
+          "type": "string"
+        },
+        "create_metric": {
+          "type": "boolean"
+        },
+        "agg_time_dimension": {
+          "type": "string"
+        },
+        "agg_params": {
+          "type": "string"
+        },
+        "non_additive_dimension": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.semantic_dimensions": {
+      "title": "dbt.semantic_dimensions",
+      "description": "Primary key: `unique_id`, `name`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id",
+        "name"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.semantic_models",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.semantic_models.unique_id`."
+        },
+        "name": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "dimension_type": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "expr": {
+          "type": "string"
+        },
+        "is_partition": {
+          "type": "boolean"
+        },
+        "time_granularity": {
+          "type": "string"
+        },
+        "validity_params": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.time_spines": {
+      "title": "dbt.time_spines",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.models",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.models.unique_id`."
+        },
+        "primary_column": {
+          "type": "string"
+        },
+        "primary_granularity": {
+          "type": "string"
+        },
+        "custom_granularities": {
+          "type": "string"
+        },
+        "node_relation": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.dag_nodes": {
+      "title": "dbt.dag_nodes",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "resource_type": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.edges": {
+      "title": "dbt.edges",
+      "description": "Primary key: `parent_unique_id`, `child_unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "parent_unique_id",
+        "child_unique_id"
+      ],
+      "properties": {
+        "parent_unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "child_unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.node_columns": {
+      "title": "dbt.node_columns",
+      "description": "Primary key: `node_unique_id`, `column_name`.",
+      "type": "object",
+      "x-primary-key": [
+        "node_unique_id",
+        "column_name"
+      ],
+      "properties": {
+        "node_unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "column_name": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "column_index": {
+          "type": "integer"
+        },
+        "data_type_declared": {
+          "type": "string"
+        },
+        "data_type_inferred": {
+          "type": "string"
+        },
+        "data_type_actual": {
+          "type": "string"
+        },
+        "data_type": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "boolean"
+        },
+        "granularity": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "classifiers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": "string"
+        },
+        "constraints": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.column_lineage": {
+      "title": "dbt.column_lineage",
+      "description": "Primary key: `parent_node_unique_id`, `parent_column_name`, `child_node_unique_id`, `child_column_name`.",
+      "type": "object",
+      "x-primary-key": [
+        "parent_node_unique_id",
+        "parent_column_name",
+        "child_node_unique_id",
+        "child_column_name"
+      ],
+      "properties": {
+        "parent_node_unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "parent_column_name": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.node_columns",
+              "column": "column_name"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.node_columns.column_name`. `column_name` is only part of the primary key of `dbt.node_columns`."
+        },
+        "child_node_unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "child_column_name": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.node_columns",
+              "column": "column_name"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.node_columns.column_name`. `column_name` is only part of the primary key of `dbt.node_columns`."
+        },
+        "evolution": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt_rt.invocations": {
+      "title": "dbt_rt.invocations",
+      "description": "Primary key: `invocation_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "invocation_id"
+      ],
+      "properties": {
+        "invocation_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "command": {
+          "type": "string"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "dbt_version": {
+          "type": "string"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "elapsed_time": {
+          "type": "number"
+        },
+        "args": {
+          "type": "string"
+        },
+        "node_count": {
+          "type": "integer"
+        },
+        "target_name": {
+          "type": "string"
+        },
+        "target_type": {
+          "type": "string"
+        },
+        "target_database": {
+          "type": "string"
+        },
+        "target_schema": {
+          "type": "string"
+        },
+        "target_threads": {
+          "type": "integer"
+        },
+        "vars_override": {
+          "type": "string"
+        },
+        "git_sha": {
+          "type": "string"
+        },
+        "git_branch": {
+          "type": "string"
+        },
+        "git_uncommitted_changes": {
+          "type": "boolean"
+        }
+      }
+    },
+    "dbt_rt.run_results": {
+      "title": "dbt_rt.run_results",
+      "description": "Primary key: `unique_id`, `invocation_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id",
+        "invocation_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`. The id of a hook is not in `dbt.dag_nodes`."
+        },
+        "invocation_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt_rt.invocations",
+              "column": "invocation_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt_rt.invocations.invocation_id`."
+        },
+        "status": {
+          "type": "string"
+        },
+        "execution_time": {
+          "type": "number"
+        },
+        "thread_id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "failures": {
+          "type": "integer"
+        },
+        "relation_name": {
+          "type": "string"
+        },
+        "adapter_response": {
+          "type": "string"
+        },
+        "timing": {
+          "type": "string"
+        },
+        "batch_results": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt_rt.freshness": {
+      "title": "dbt_rt.freshness",
+      "description": "Primary key: `unique_id`, `invocation_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id",
+        "invocation_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "resource_type": {
+          "type": "string"
+        },
+        "invocation_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt_rt.invocations",
+              "column": "invocation_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt_rt.invocations.invocation_id`."
+        },
+        "status": {
+          "type": "string"
+        },
+        "max_loaded_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "snapshotted_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "max_loaded_at_time_ago": {
+          "type": "number"
+        },
+        "execution_time": {
+          "type": "number"
+        },
+        "thread_id": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "warn_after_count": {
+          "type": "integer"
+        },
+        "warn_after_period": {
+          "type": "string"
+        },
+        "error_after_count": {
+          "type": "integer"
+        },
+        "error_after_period": {
+          "type": "string"
+        },
+        "freshness_filter": {
+          "type": "string"
+        },
+        "adapter_response": {
+          "type": "string"
+        },
+        "timing": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt_rt.relations": {
+      "title": "dbt_rt.relations",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "table_type": {
+          "type": "string"
+        },
+        "table_owner": {
+          "type": "string"
+        },
+        "database_name": {
+          "type": "string"
+        },
+        "schema_name": {
+          "type": "string"
+        },
+        "table_name": {
+          "type": "string"
+        },
+        "row_count": {
+          "type": "integer"
+        },
+        "bytes": {
+          "type": "integer"
+        },
+        "last_modified": {
+          "type": "string"
+        },
+        "ingested_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt_rt.adapter_queries": {
+      "title": "dbt_rt.adapter_queries",
+      "description": "Primary key: `unique_id`, `invocation_id`, `query_index`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id",
+        "invocation_id",
+        "query_index"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "invocation_id": {
+          "type": "string",
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt_rt.invocations",
+              "column": "invocation_id"
+            }
+          ],
+          "description": "Part of the primary key. References `dbt_rt.invocations.invocation_id`."
+        },
+        "query_index": {
+          "type": "integer",
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "query_sql": {
+          "type": "string"
+        },
+        "query_id": {
+          "type": "string"
+        },
+        "rows_affected": {
+          "type": "integer"
+        },
+        "bytes_scanned": {
+          "type": "integer"
+        },
+        "query_cost": {
+          "type": "number"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

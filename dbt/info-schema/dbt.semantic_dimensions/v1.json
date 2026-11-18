@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.semantic_dimensions/v1.json",
+  "title": "dbt.semantic_dimensions",
+  "description": "Primary key: `unique_id`, `name`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id",
+    "name"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.semantic_models",
+          "column": "unique_id"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.semantic_models.unique_id`."
+    },
+    "name": {
+      "type": "string",
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "dimension_type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "expr": {
+      "type": "string"
+    },
+    "is_partition": {
+      "type": "boolean"
+    },
+    "time_granularity": {
+      "type": "string"
+    },
+    "validity_params": {
+      "type": "string"
+    },
+    "config": {
+      "type": "string"
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

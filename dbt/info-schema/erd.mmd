@@ -1,0 +1,115 @@
+erDiagram
+    "dbt.models" {
+        string unique_id PK, FK
+    }
+    "dbt.seeds" {
+        string unique_id PK, FK
+    }
+    "dbt.snapshots" {
+        string unique_id PK, FK
+    }
+    "dbt.functions" {
+        string unique_id PK, FK
+    }
+    "dbt.analyses" {
+        string unique_id PK, FK
+    }
+    "dbt.sources" {
+        string unique_id PK, FK
+    }
+    "dbt.data_tests" {
+        string unique_id PK, FK
+        string node_unique_id FK
+    }
+    "dbt.unit_tests" {
+        string unique_id PK, FK
+    }
+    "dbt.exposures" {
+        string unique_id PK, FK
+    }
+    "dbt.metrics" {
+        string unique_id PK, FK
+    }
+    "dbt.semantic_models" {
+        string unique_id PK
+    }
+    "dbt.semantic_entities" {
+        string unique_id PK, FK
+        string name PK
+    }
+    "dbt.semantic_measures" {
+        string unique_id PK, FK
+        string name PK
+    }
+    "dbt.semantic_dimensions" {
+        string unique_id PK, FK
+        string name PK
+    }
+    "dbt.time_spines" {
+        string unique_id PK, FK
+    }
+    "dbt.dag_nodes" {
+        string unique_id PK
+    }
+    "dbt.edges" {
+        string parent_unique_id PK, FK
+        string child_unique_id PK, FK
+    }
+    "dbt.node_columns" {
+        string node_unique_id PK, FK
+        string column_name PK
+    }
+    "dbt.column_lineage" {
+        string parent_node_unique_id PK, FK
+        string parent_column_name PK, FK
+        string child_node_unique_id PK, FK
+        string child_column_name PK, FK
+    }
+    "dbt_rt.invocations" {
+        string invocation_id PK
+    }
+    "dbt_rt.run_results" {
+        string unique_id PK, FK
+        string invocation_id PK, FK
+    }
+    "dbt_rt.freshness" {
+        string unique_id PK, FK
+        string invocation_id PK, FK
+    }
+    "dbt_rt.relations" {
+        string unique_id PK, FK
+    }
+    "dbt_rt.adapter_queries" {
+        string unique_id PK, FK
+        string invocation_id PK, FK
+        int query_index PK
+    }
+    "dbt.dag_nodes" ||--o{ "dbt.models" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.seeds" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.snapshots" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.functions" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.analyses" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.sources" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.data_tests" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.data_tests" : "node_unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.unit_tests" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.exposures" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.metrics" : "unique_id"
+    "dbt.semantic_models" ||--o{ "dbt.semantic_entities" : "unique_id"
+    "dbt.semantic_models" ||--o{ "dbt.semantic_measures" : "unique_id"
+    "dbt.semantic_models" ||--o{ "dbt.semantic_dimensions" : "unique_id"
+    "dbt.models" ||--o{ "dbt.time_spines" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.edges" : "parent_unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.edges" : "child_unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.node_columns" : "node_unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.column_lineage" : "parent_node_unique_id"
+    "dbt.node_columns" ||--o{ "dbt.column_lineage" : "parent_column_name"
+    "dbt.dag_nodes" ||--o{ "dbt.column_lineage" : "child_node_unique_id"
+    "dbt.node_columns" ||--o{ "dbt.column_lineage" : "child_column_name"
+    "dbt.dag_nodes" ||--o{ "dbt_rt.run_results" : "unique_id"
+    "dbt_rt.invocations" ||--o{ "dbt_rt.run_results" : "invocation_id"
+    "dbt.dag_nodes" ||--o{ "dbt_rt.freshness" : "unique_id"
+    "dbt_rt.invocations" ||--o{ "dbt_rt.freshness" : "invocation_id"
+    "dbt.dag_nodes" ||--o{ "dbt_rt.relations" : "unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt_rt.adapter_queries" : "unique_id"
+    "dbt_rt.invocations" ||--o{ "dbt_rt.adapter_queries" : "invocation_id"

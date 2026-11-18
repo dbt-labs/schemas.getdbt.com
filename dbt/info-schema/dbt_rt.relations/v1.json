@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt_rt.relations/v1.json",
+  "title": "dbt_rt.relations",
+  "description": "Primary key: `unique_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "table_type": {
+      "type": "string"
+    },
+    "table_owner": {
+      "type": "string"
+    },
+    "database_name": {
+      "type": "string"
+    },
+    "schema_name": {
+      "type": "string"
+    },
+    "table_name": {
+      "type": "string"
+    },
+    "row_count": {
+      "type": "integer"
+    },
+    "bytes": {
+      "type": "integer"
+    },
+    "last_modified": {
+      "type": "string"
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

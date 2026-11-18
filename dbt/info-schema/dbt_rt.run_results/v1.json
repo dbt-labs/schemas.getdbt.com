@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt_rt.run_results/v1.json",
+  "title": "dbt_rt.run_results",
+  "description": "Primary key: `unique_id`, `invocation_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id",
+    "invocation_id"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`. The id of a hook is not in `dbt.dag_nodes`."
+    },
+    "invocation_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt_rt.invocations",
+          "column": "invocation_id"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt_rt.invocations.invocation_id`."
+    },
+    "status": {
+      "type": "string"
+    },
+    "execution_time": {
+      "type": "number"
+    },
+    "thread_id": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "failures": {
+      "type": "integer"
+    },
+    "relation_name": {
+      "type": "string"
+    },
+    "adapter_response": {
+      "type": "string"
+    },
+    "timing": {
+      "type": "string"
+    },
+    "batch_results": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
