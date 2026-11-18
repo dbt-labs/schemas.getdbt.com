@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.project_env_vars/v1.json",
+  "title": "dbt.project_env_vars",
+  "description": "Primary key: `env_var_name`.",
+  "type": "object",
+  "x-primary-key": [
+    "env_var_name"
+  ],
+  "properties": {
+    "env_var_name": {
+      "type": "string",
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

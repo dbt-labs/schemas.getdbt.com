@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dbt info schema ERD: project</title>
+  <style>
+    body {
+      background: #003645 !important;
+      color: #93a1a1;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #fff;
+      margin: .4em 0;
+    }
+
+    a {
+      color: #93a1a1;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #fff;
+    }
+
+    nav {
+      font-size: 120%;
+      margin: 1em 0;
+    }
+
+    nav a {
+      margin: 0 .6em;
+    }
+
+    nav a[aria-current] {
+      color: #fff;
+      font-weight: bold;
+    }
+
+    #diagram {
+      background: #002b36;
+      border: 1px solid #0f5566;
+      border-radius: 6px;
+      height: calc(100vh - 270px);
+      min-height: 420px;
+      overflow: hidden;
+      position: relative;
+      text-align: left;
+    }
+
+    .hint {
+      bottom: 10px;
+      font-size: 80%;
+      left: 14px;
+      margin: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: 2;
+    }
+
+    #diagram svg {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
+    .mermaid {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Hollow "zero" markers; Mermaid draws them white. */
+    #diagram marker circle {
+      fill: #002b36 !important;
+      stroke: #93a1a1 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="../../../../index.html"><img src="../../../../static/dbt-logo-full-white.svg" width="150" alt="dbt"></a>
+  <h1>Info Schema ERD: project</h1>
+  <nav><a href="../../../../dbt/info-schema/erd/index.html">overview</a> <a href="../../../../dbt/info-schema/erd/project/index.html" aria-current=page>project</a> <a href="../../../../dbt/info-schema/erd/resources/index.html">resources</a> <a href="../../../../dbt/info-schema/erd/tests/index.html">tests</a> <a href="../../../../dbt/info-schema/erd/semantic_layer/index.html">semantic_layer</a> <a href="../../../../dbt/info-schema/erd/graph/index.html">graph</a> <a href="../../../../dbt/info-schema/erd/runtime/index.html">runtime</a></nav>
+
+  <div id="diagram">
+    <p class="hint">Scroll to zoom. Drag to pan.</p>
+    <pre class="mermaid">
+erDiagram
+    &quot;dbt.project&quot; {
+        int schema_version
+        string project_name PK
+        string dbt_version
+        string adapter_type
+        string quoting
+        string git_sha
+        string git_branch
+        boolean git_uncommitted_changes
+        timestamp last_full_parse_at
+        timestamp ingested_at
+    }
+    &quot;dbt.packages&quot; {
+        string package_name PK
+        string package_source
+        string version
+        string git_url
+        string git_revision
+        string local_path
+        timestamp ingested_at
+    }
+    &quot;dbt.project_vars&quot; {
+        string project_name PK
+        string var_name PK
+        string var_value
+        timestamp ingested_at
+    }
+    &quot;dbt.project_env_vars&quot; {
+        string env_var_name PK
+        timestamp ingested_at
+    }
+</pre>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs";
+
+    mermaid.initialize({
+      startOnLoad: false,
+      maxTextSize: 1000000,
+      theme: "base",
+      themeVariables: {
+        background: "#002b36",
+        primaryColor: "#0b4a5c",
+        primaryBorderColor: "#93a1a1",
+        primaryTextColor: "#ffffff",
+        secondaryColor: "#0b4a5c",
+        tertiaryColor: "#002b36",
+        lineColor: "#93a1a1",
+        textColor: "#93a1a1",
+        attributeBackgroundColorOdd: "#00414f",
+        attributeBackgroundColorEven: "#003645",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+      }
+    });
+    await mermaid.run({ querySelector: ".mermaid" });
+
+    const box = document.getElementById("diagram");
+    const svg = box.querySelector("svg");
+    svg.removeAttribute("style");
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", "100%");
+
+    const pz = svgPanZoom(svg, {
+      zoomEnabled: true,
+      // The library zooms by a fixed step per wheel event, whatever the scroll
+      // distance, which makes a trackpad jump. See the wheel handler below.
+      mouseWheelZoomEnabled: false,
+      dblClickZoomEnabled: true,
+      controlIconsEnabled: false,
+      fit: true,
+      center: true,
+      minZoom: 0.05,
+      maxZoom: 30
+    });
+    // Zoom in proportion to the scroll distance, once per frame, around the
+    // cursor. A mouse wheel notch is about 100, a trackpad sends many small
+    // deltas, and a pinch arrives as a wheel event with ctrlKey and tiny deltas.
+    let pending = 0;
+    let at = { x: 0, y: 0 };
+    let queued = false;
+    box.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1;
+      pending += e.deltaY * unit * (e.ctrlKey ? 8 : 1);
+      const r = svg.getBoundingClientRect();
+      at = { x: e.clientX - r.left, y: e.clientY - r.top };
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        const d = Math.max(-300, Math.min(300, pending));
+        pending = 0;
+        pz.zoomAtPoint(pz.getZoom() * Math.exp(-d * 0.002), at);
+      });
+    }, { passive: false });
+
+    const refit = () => { pz.resize(); pz.fit(); pz.center(); };
+    // The first fit runs before the page layout settles.
+    requestAnimationFrame(() => setTimeout(refit, 50));
+
+    window.addEventListener("resize", refit);
+  </script>
+</body>
+
+</html>

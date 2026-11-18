@@ -1,0 +1,44 @@
+erDiagram
+    "dbt.dag_nodes" {
+        string unique_id PK
+        string resource_type
+        timestamp ingested_at
+    }
+    "dbt.edges" {
+        string parent_unique_id PK, FK
+        string child_unique_id PK, FK
+        timestamp ingested_at
+    }
+    "dbt.node_columns" {
+        string node_unique_id PK, FK
+        string column_name PK
+        int column_index
+        string data_type_declared
+        string data_type_inferred
+        string data_type_actual
+        string data_type
+        string description
+        boolean quote
+        string granularity
+        string[] tags
+        string[] classifiers
+        string meta
+        string constraints
+        string comment
+        timestamp ingested_at
+    }
+    "dbt.column_lineage" {
+        string parent_node_unique_id PK, FK
+        string parent_column_name PK, FK
+        string child_node_unique_id PK, FK
+        string child_column_name PK, FK
+        string evolution
+        timestamp ingested_at
+    }
+    "dbt.dag_nodes" ||--o{ "dbt.edges" : "parent_unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.edges" : "child_unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.node_columns" : "node_unique_id"
+    "dbt.dag_nodes" ||--o{ "dbt.column_lineage" : "parent_node_unique_id"
+    "dbt.node_columns" ||--o{ "dbt.column_lineage" : "parent_column_name"
+    "dbt.dag_nodes" ||--o{ "dbt.column_lineage" : "child_node_unique_id"
+    "dbt.node_columns" ||--o{ "dbt.column_lineage" : "child_column_name"

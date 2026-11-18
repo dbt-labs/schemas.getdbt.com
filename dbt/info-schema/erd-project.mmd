@@ -1,0 +1,32 @@
+erDiagram
+    "dbt.project" {
+        int schema_version
+        string project_name PK
+        string dbt_version
+        string adapter_type
+        string quoting
+        string git_sha
+        string git_branch
+        boolean git_uncommitted_changes
+        timestamp last_full_parse_at
+        timestamp ingested_at
+    }
+    "dbt.packages" {
+        string package_name PK
+        string package_source
+        string version
+        string git_url
+        string git_revision
+        string local_path
+        timestamp ingested_at
+    }
+    "dbt.project_vars" {
+        string project_name PK
+        string var_name PK
+        string var_value
+        timestamp ingested_at
+    }
+    "dbt.project_env_vars" {
+        string env_var_name PK
+        timestamp ingested_at
+    }
