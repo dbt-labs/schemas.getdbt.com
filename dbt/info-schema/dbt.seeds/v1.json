@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.seeds/v1.json",
+  "title": "dbt.seeds",
+  "description": "Primary key: `unique_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "name": {
+      "type": "string"
+    },
+    "resource_type": {
+      "type": "string"
+    },
+    "package_name": {
+      "type": "string"
+    },
+    "original_file_path": {
+      "type": "string"
+    },
+    "fqn": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "alias": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "database_name": {
+      "type": "string"
+    },
+    "schema_name": {
+      "type": "string"
+    },
+    "relation_name": {
+      "type": "string"
+    },
+    "identifier": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "full_refresh": {
+      "type": "boolean"
+    },
+    "persist_docs": {
+      "type": "string"
+    },
+    "pre_hook": {
+      "type": "string"
+    },
+    "post_hook": {
+      "type": "string"
+    },
+    "grants": {
+      "type": "string"
+    },
+    "config": {
+      "type": "string"
+    },
+    "group": {
+      "type": "string"
+    },
+    "docs_show": {
+      "type": "boolean"
+    },
+    "properties_yml_file_path": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": "string"
+    },
+    "grain": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "grain_declared": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "grain_tested": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "grain_inferred": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

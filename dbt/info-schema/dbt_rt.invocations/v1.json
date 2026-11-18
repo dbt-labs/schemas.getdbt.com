@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt_rt.invocations/v1.json",
+  "title": "dbt_rt.invocations",
+  "description": "Primary key: `invocation_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "invocation_id"
+  ],
+  "properties": {
+    "invocation_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "command": {
+      "type": "string"
+    },
+    "selector": {
+      "type": "string"
+    },
+    "dbt_version": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "elapsed_time": {
+      "type": "number"
+    },
+    "args": {
+      "type": "string"
+    },
+    "node_count": {
+      "type": "integer"
+    },
+    "target_name": {
+      "type": "string"
+    },
+    "target_type": {
+      "type": "string"
+    },
+    "target_database": {
+      "type": "string"
+    },
+    "target_schema": {
+      "type": "string"
+    },
+    "target_threads": {
+      "type": "integer"
+    },
+    "vars_override": {
+      "type": "string"
+    },
+    "git_sha": {
+      "type": "string"
+    },
+    "git_branch": {
+      "type": "string"
+    },
+    "git_uncommitted_changes": {
+      "type": "boolean"
+    }
+  }
+}

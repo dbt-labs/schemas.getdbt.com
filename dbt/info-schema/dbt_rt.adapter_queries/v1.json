@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt_rt.adapter_queries/v1.json",
+  "title": "dbt_rt.adapter_queries",
+  "description": "Primary key: `unique_id`, `invocation_id`, `query_index`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id",
+    "invocation_id",
+    "query_index"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "invocation_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt_rt.invocations",
+          "column": "invocation_id"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt_rt.invocations.invocation_id`."
+    },
+    "query_index": {
+      "type": "integer",
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "query_sql": {
+      "type": "string"
+    },
+    "query_id": {
+      "type": "string"
+    },
+    "rows_affected": {
+      "type": "integer"
+    },
+    "bytes_scanned": {
+      "type": "integer"
+    },
+    "query_cost": {
+      "type": "number"
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
