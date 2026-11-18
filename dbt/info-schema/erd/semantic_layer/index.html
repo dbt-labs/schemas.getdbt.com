@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dbt info schema ERD: semantic_layer</title>
+  <style>
+    body {
+      background: #003645 !important;
+      color: #93a1a1;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #fff;
+      margin: .4em 0;
+    }
+
+    a {
+      color: #93a1a1;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #fff;
+    }
+
+    nav {
+      font-size: 120%;
+      margin: 1em 0;
+    }
+
+    nav a {
+      margin: 0 .6em;
+    }
+
+    nav a[aria-current] {
+      color: #fff;
+      font-weight: bold;
+    }
+
+    #diagram {
+      background: #002b36;
+      border: 1px solid #0f5566;
+      border-radius: 6px;
+      height: calc(100vh - 270px);
+      min-height: 420px;
+      overflow: hidden;
+      position: relative;
+      text-align: left;
+      /* Touch gestures are handled below. */
+      touch-action: none;
+    }
+
+    .download {
+      background: #0b4a5c;
+      border: 1px solid #0f5566;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 85%;
+      padding: 5px 10px;
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      z-index: 2;
+    }
+
+    .download:hover {
+      background: #0f5566;
+      color: #fff;
+    }
+
+    .hint {
+      bottom: 10px;
+      font-size: 80%;
+      left: 14px;
+      margin: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: 2;
+    }
+
+    #diagram svg {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
+    .mermaid {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Hollow "zero" markers; Mermaid draws them white. */
+    #diagram marker circle {
+      fill: #002b36 !important;
+      stroke: #93a1a1 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="../../../../index.html"><img src="../../../../static/dbt-logo-full-white.svg" width="150" alt="dbt"></a>
+  <h1>Info Schema ERD: semantic_layer</h1>
+  <nav><a href="../../../../dbt/info-schema/erd/index.html">overview</a> <a href="../../../../dbt/info-schema/erd/project/index.html">project</a> <a href="../../../../dbt/info-schema/erd/resources/index.html">resources</a> <a href="../../../../dbt/info-schema/erd/tests/index.html">tests</a> <a href="../../../../dbt/info-schema/erd/semantic_layer/index.html" aria-current=page>semantic_layer</a> <a href="../../../../dbt/info-schema/erd/graph/index.html">graph</a> <a href="../../../../dbt/info-schema/erd/runtime/index.html">runtime</a></nav>
+
+  <div id="diagram">
+    <a class="download" href="../../../../dbt/info-schema/erd-semantic_layer.mmd" download>Download .mmd</a>
+    <p class="hint">Scroll or pinch to zoom. Drag to pan.</p>
+    <pre class="mermaid">
+erDiagram
+    &quot;dbt.metrics&quot; {
+        string unique_id PK
+        string name
+        string label
+        string metric_type
+        string description
+        string package_name
+        string original_file_path
+        string[] fqn
+        string type_params
+        string metric_filter
+        string time_granularity
+        string[] input_metric_names
+        string group
+        string[] tags
+        string meta
+        string config
+        float created_at
+        timestamp ingested_at
+    }
+    &quot;dbt.saved_queries&quot; {
+        string unique_id PK
+        string name
+        string label
+        string description
+        string package_name
+        string original_file_path
+        string[] fqn
+        string query_params
+        string exports
+        string[] depends_on
+        string group
+        string[] tags
+        string config
+        float created_at
+        timestamp ingested_at
+    }
+    &quot;dbt.semantic_models&quot; {
+        string unique_id PK
+        string name
+        string model
+        string description
+        string package_name
+        string original_file_path
+        string[] fqn
+        string node_relation
+        string primary_entity
+        string defaults
+        string group
+        string config
+        float created_at
+        timestamp ingested_at
+    }
+    &quot;dbt.semantic_entities&quot; {
+        string unique_id PK, FK
+        string name PK
+        string entity_type
+        string description
+        string label
+        string expr
+        string config
+        timestamp ingested_at
+    }
+    &quot;dbt.semantic_measures&quot; {
+        string unique_id PK, FK
+        string name PK
+        string agg
+        string description
+        string label
+        string expr
+        boolean create_metric
+        string agg_time_dimension
+        string agg_params
+        string non_additive_dimension
+        string config
+        timestamp ingested_at
+    }
+    &quot;dbt.semantic_dimensions&quot; {
+        string unique_id PK, FK
+        string name PK
+        string dimension_type
+        string description
+        string label
+        string expr
+        boolean is_partition
+        string time_granularity
+        string validity_params
+        string config
+        timestamp ingested_at
+    }
+    &quot;dbt.time_spines&quot; {
+        string unique_id PK
+        string primary_column
+        string primary_granularity
+        string custom_granularities
+        string node_relation
+        timestamp ingested_at
+    }
+    &quot;dbt.semantic_models&quot; ||--o{ &quot;dbt.semantic_entities&quot; : &quot;unique_id&quot;
+    &quot;dbt.semantic_models&quot; ||--o{ &quot;dbt.semantic_measures&quot; : &quot;unique_id&quot;
+    &quot;dbt.semantic_models&quot; ||--o{ &quot;dbt.semantic_dimensions&quot; : &quot;unique_id&quot;
+</pre>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs";
+
+    mermaid.initialize({
+      startOnLoad: false,
+      maxTextSize: 1000000,
+      theme: "base",
+      themeVariables: {
+        background: "#002b36",
+        primaryColor: "#0b4a5c",
+        primaryBorderColor: "#93a1a1",
+        primaryTextColor: "#ffffff",
+        secondaryColor: "#0b4a5c",
+        tertiaryColor: "#002b36",
+        lineColor: "#93a1a1",
+        textColor: "#93a1a1",
+        attributeBackgroundColorOdd: "#00414f",
+        attributeBackgroundColorEven: "#003645",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+      }
+    });
+    await mermaid.run({ querySelector: ".mermaid" });
+
+    const box = document.getElementById("diagram");
+    const svg = box.querySelector("svg");
+    svg.removeAttribute("style");
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", "100%");
+
+    const pz = svgPanZoom(svg, {
+      zoomEnabled: true,
+      // The library zooms by a fixed step per wheel event, whatever the scroll
+      // distance, which makes a trackpad jump. See the wheel handler below.
+      mouseWheelZoomEnabled: false,
+      dblClickZoomEnabled: true,
+      controlIconsEnabled: false,
+      fit: true,
+      center: true,
+      minZoom: 0.05,
+      maxZoom: 30
+    });
+    // Zoom in proportion to the scroll distance, once per frame, around the
+    // cursor. A mouse wheel notch is about 100, a trackpad sends many small
+    // deltas, and a pinch arrives as a wheel event with ctrlKey and tiny deltas.
+    let pending = 0;
+    let at = { x: 0, y: 0 };
+    let queued = false;
+    box.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1;
+      pending += e.deltaY * unit * (e.ctrlKey ? 8 : 1);
+      const r = svg.getBoundingClientRect();
+      at = { x: e.clientX - r.left, y: e.clientY - r.top };
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        const d = Math.max(-300, Math.min(300, pending));
+        pending = 0;
+        pz.zoomAtPoint(pz.getZoom() * Math.exp(-d * 0.002), at);
+      });
+    }, { passive: false });
+
+    // Touch: one finger pans, two fingers pinch. Captured here so the library's
+    // own touch handling does not run on top of this.
+    const dist = (a, b) => Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+    const mid = (a, b) => ({ x: (a.clientX + b.clientX) / 2, y: (a.clientY + b.clientY) / 2 });
+    let last = null;
+    const track = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const t = e.touches;
+      if (t.length === 1) last = { x: t[0].clientX, y: t[0].clientY };
+      else if (t.length >= 2) last = { ...mid(t[0], t[1]), d: dist(t[0], t[1]) };
+      else last = null;
+    };
+    box.addEventListener("touchstart", track, { capture: true, passive: false });
+    box.addEventListener("touchend", track, { capture: true, passive: false });
+    box.addEventListener("touchcancel", track, { capture: true, passive: false });
+    box.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const t = e.touches;
+      if (!last) return;
+      if (t.length === 1 && last.d === undefined) {
+        pz.panBy({ x: t[0].clientX - last.x, y: t[0].clientY - last.y });
+        last = { x: t[0].clientX, y: t[0].clientY };
+      } else if (t.length >= 2 && last.d !== undefined) {
+        const m = mid(t[0], t[1]);
+        const d = dist(t[0], t[1]);
+        const r = svg.getBoundingClientRect();
+        pz.panBy({ x: m.x - last.x, y: m.y - last.y });
+        pz.zoomAtPoint(pz.getZoom() * (d / last.d), { x: m.x - r.left, y: m.y - r.top });
+        last = { ...m, d };
+      }
+    }, { capture: true, passive: false });
+
+    const refit = () => { pz.resize(); pz.fit(); pz.center(); };
+    // The first fit runs before the page layout settles.
+    requestAnimationFrame(() => setTimeout(refit, 50));
+
+    window.addEventListener("resize", refit);
+  </script>
+</body>
+
+</html>

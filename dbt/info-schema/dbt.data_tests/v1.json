@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.data_tests/v1.json",
+  "title": "dbt.data_tests",
+  "description": "Primary key: `unique_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "name": {
+      "type": "string"
+    },
+    "package_name": {
+      "type": "string"
+    },
+    "original_file_path": {
+      "type": "string"
+    },
+    "raw_code": {
+      "type": "string"
+    },
+    "fqn": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "database_name": {
+      "type": "string"
+    },
+    "schema_name": {
+      "type": "string"
+    },
+    "relation_name": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "materialized": {
+      "type": "string"
+    },
+    "config": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": "string"
+    },
+    "group": {
+      "type": "string"
+    },
+    "properties_yml_file_path": {
+      "type": "string"
+    },
+    "compiled_code": {
+      "type": "string"
+    },
+    "compiled_path": {
+      "type": "string"
+    },
+    "test_name": {
+      "type": "string"
+    },
+    "test_definition_package": {
+      "type": "string"
+    },
+    "arguments": {
+      "type": "string"
+    },
+    "column_name": {
+      "type": "string"
+    },
+    "node_unique_id": {
+      "type": "string",
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id"
+        }
+      ],
+      "description": "References `dbt.dag_nodes.unique_id`."
+    },
+    "severity": {
+      "type": "string"
+    },
+    "warn_if": {
+      "type": "string"
+    },
+    "error_if": {
+      "type": "string"
+    },
+    "fail_calc": {
+      "type": "string"
+    },
+    "store_failures": {
+      "type": "boolean"
+    },
+    "store_failures_as": {
+      "type": "string"
+    },
+    "where": {
+      "type": "string"
+    },
+    "limit": {
+      "type": "integer"
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.node_columns/v1.json",
+  "title": "dbt.node_columns",
+  "description": "Primary key: `node_unique_id`, `column_name`.",
+  "type": "object",
+  "x-primary-key": [
+    "node_unique_id",
+    "column_name"
+  ],
+  "properties": {
+    "node_unique_id": {
+      "type": "string",
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id"
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "column_name": {
+      "type": "string",
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "column_index": {
+      "type": "integer"
+    },
+    "data_type_declared": {
+      "type": "string"
+    },
+    "data_type_inferred": {
+      "type": "string"
+    },
+    "data_type_actual": {
+      "type": "string"
+    },
+    "data_type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "quote": {
+      "type": "boolean"
+    },
+    "granularity": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "classifiers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": "string"
+    },
+    "constraints": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "ingested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
