@@ -13,7 +13,7 @@ Output:
   dbt/info-schema/v1/index.html (+ css, js)            json-schema-for-humans
   dbt/info-schema/<table>/v1/index.html (+ css, js)    json-schema-for-humans
   dbt/info-schema/erd/index.html, erd/<domain>/index.html   Mermaid ERDs
-  the "Info Schema" section of the root index.html
+  the "Info Schema" section at the top of the root index.html
 
 Run from anywhere: `make info_schema_html`. Needs `json-schema-for-humans` 1.5.1.
 """
@@ -108,6 +108,7 @@ def build_erd_pages(index: dict) -> None:
             "__UP__": up,
             "__NAV__": nav,
             "__SOURCE__": html.escape(source),
+            "__MMD_URL__": f"{up}dbt/{diagram['path']}",
             "__MERMAID_URL__": MERMAID_URL,
             "__PANZOOM_URL__": PANZOOM_URL,
         }.items():
@@ -120,50 +121,36 @@ def version_key(version: str) -> int:
 
 
 def root_section(index: dict) -> str:
-    """Tables grouped by version, newest first, like the other artifacts.
+    """The Info Schema entry of the root page: one line per version.
 
-    A version heading links to the page and the raw file of the whole schema;
-    the ERD links to its page and downloads the raw Mermaid file; each table
-    has its own page and raw file.
+    Each line links to the page and the raw file of the whole schema, and to
+    the ERD. The tables are reached from the version page.
     """
     versions = sorted(
         (v["name"] for v in index["versions"]), key=version_key, reverse=True
     )
-    lines = [START, "    <h3>Info Schema</h3>"]
+    lines = [START, "    <h3>Info Schema</h3>", "    <ul>"]
     for version in versions:
-        lines += [
-            f'    <h4><a href="dbt/info-schema/{version}/index.html">{version}</a> '
-            f'(<a href="dbt/info-schema/{version}.json">raw</a>)</h4>',
-            "    <ul>",
-            '      <li><a href="dbt/info-schema/erd/index.html">ERD</a> '
-            '(<a href="dbt/info-schema/erd.mmd" download>raw</a>)</li>',
-        ]
-        for table in index["tables"]:
-            if version in table["versions"]:
-                name = html.escape(table["name"])
-                lines.append(
-                    f'      <li><a href="dbt/info-schema/{name}/{version}/index.html">{name}</a> '
-                    f'(<a href="dbt/info-schema/{name}/{version}.json">raw</a>)</li>'
-                )
-        lines.append("    </ul>")
-    lines.append("    " + END)
+        lines.append(
+            f'      <li><a href="dbt/info-schema/{version}/index.html">{version}</a> '
+            f'(<a href="dbt/info-schema/{version}.json">raw</a>) '
+            '(<a href="dbt/info-schema/erd/index.html">ERD</a>)</li>'
+        )
+    lines += ["    </ul>", "    " + END]
     return "\n".join(lines)
 
 
 def update_root_page(index: dict) -> None:
+    """Put the section first, right under the page title."""
     page = ROOT_PAGE.read_text()
-    section = root_section(index)
     if START in page and END in page:
         head, rest = page.split(START, 1)
         _, tail = rest.split(END, 1)
-        # `head` ends with the indent of the start marker; `section` starts
-        # with the marker, so drop that indent to avoid doubling it.
-        page = head.rstrip(" ") + "    " + section.lstrip() + tail
-    else:
-        marker = "  </main>"
-        if marker not in page:
-            sys.exit("index.html has no </main> to insert the Info Schema section before")
-        page = page.replace(marker, "    " + section.lstrip() + "\n" + marker, 1)
+        page = head.rstrip(" ") .rstrip("\n") + "\n" + tail.lstrip("\n")
+    anchor = "    <h1>dbt JSON Schemas</h1>\n"
+    if anchor not in page:
+        sys.exit("index.html has no <h1>dbt JSON Schemas</h1> to insert the Info Schema section after")
+    page = page.replace(anchor, anchor + "\n    " + root_section(index).lstrip() + "\n", 1)
     ROOT_PAGE.write_text(page)
 
 

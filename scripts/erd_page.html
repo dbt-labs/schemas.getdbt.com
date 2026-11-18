@@ -52,6 +52,26 @@
       overflow: hidden;
       position: relative;
       text-align: left;
+      /* Touch gestures are handled below. */
+      touch-action: none;
+    }
+
+    .download {
+      background: #0b4a5c;
+      border: 1px solid #0f5566;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 85%;
+      padding: 5px 10px;
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      z-index: 2;
+    }
+
+    .download:hover {
+      background: #0f5566;
+      color: #fff;
     }
 
     .hint {
@@ -90,7 +110,8 @@
   <nav>__NAV__</nav>
 
   <div id="diagram">
-    <p class="hint">Scroll to zoom. Drag to pan.</p>
+    <a class="download" href="__MMD_URL__" download>Download .mmd</a>
+    <p class="hint">Scroll or pinch to zoom. Drag to pan.</p>
     <pre class="mermaid">
 __SOURCE__</pre>
   </div>
@@ -158,6 +179,40 @@ __SOURCE__</pre>
         pz.zoomAtPoint(pz.getZoom() * Math.exp(-d * 0.002), at);
       });
     }, { passive: false });
+
+    // Touch: one finger pans, two fingers pinch. Captured here so the library's
+    // own touch handling does not run on top of this.
+    const dist = (a, b) => Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+    const mid = (a, b) => ({ x: (a.clientX + b.clientX) / 2, y: (a.clientY + b.clientY) / 2 });
+    let last = null;
+    const track = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const t = e.touches;
+      if (t.length === 1) last = { x: t[0].clientX, y: t[0].clientY };
+      else if (t.length >= 2) last = { ...mid(t[0], t[1]), d: dist(t[0], t[1]) };
+      else last = null;
+    };
+    box.addEventListener("touchstart", track, { capture: true, passive: false });
+    box.addEventListener("touchend", track, { capture: true, passive: false });
+    box.addEventListener("touchcancel", track, { capture: true, passive: false });
+    box.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const t = e.touches;
+      if (!last) return;
+      if (t.length === 1 && last.d === undefined) {
+        pz.panBy({ x: t[0].clientX - last.x, y: t[0].clientY - last.y });
+        last = { x: t[0].clientX, y: t[0].clientY };
+      } else if (t.length >= 2 && last.d !== undefined) {
+        const m = mid(t[0], t[1]);
+        const d = dist(t[0], t[1]);
+        const r = svg.getBoundingClientRect();
+        pz.panBy({ x: m.x - last.x, y: m.y - last.y });
+        pz.zoomAtPoint(pz.getZoom() * (d / last.d), { x: m.x - r.left, y: m.y - r.top });
+        last = { ...m, d };
+      }
+    }, { capture: true, passive: false });
 
     const refit = () => { pz.resize(); pz.fit(); pz.center(); };
     // The first fit runs before the page layout settles.
