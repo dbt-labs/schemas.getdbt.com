@@ -1,0 +1,4130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/v1.json",
+  "title": "dbt information schema",
+  "description": "The schema of every table in the dbt information schema, in one file. Each property is the schema of one row of that table. `dbt` tables hold project metadata, `dbt_rt` tables hold runtime results.",
+  "type": "object",
+  "properties": {
+    "dbt.project": {
+      "$ref": "#/$defs/dbt.project"
+    },
+    "dbt.packages": {
+      "$ref": "#/$defs/dbt.packages"
+    },
+    "dbt.project_vars": {
+      "$ref": "#/$defs/dbt.project_vars"
+    },
+    "dbt.project_env_vars": {
+      "$ref": "#/$defs/dbt.project_env_vars"
+    },
+    "dbt.models": {
+      "$ref": "#/$defs/dbt.models"
+    },
+    "dbt.seeds": {
+      "$ref": "#/$defs/dbt.seeds"
+    },
+    "dbt.snapshots": {
+      "$ref": "#/$defs/dbt.snapshots"
+    },
+    "dbt.functions": {
+      "$ref": "#/$defs/dbt.functions"
+    },
+    "dbt.analyses": {
+      "$ref": "#/$defs/dbt.analyses"
+    },
+    "dbt.hooks": {
+      "$ref": "#/$defs/dbt.hooks"
+    },
+    "dbt.checks": {
+      "$ref": "#/$defs/dbt.checks"
+    },
+    "dbt.sources": {
+      "$ref": "#/$defs/dbt.sources"
+    },
+    "dbt.data_tests": {
+      "$ref": "#/$defs/dbt.data_tests"
+    },
+    "dbt.unit_tests": {
+      "$ref": "#/$defs/dbt.unit_tests"
+    },
+    "dbt.macros": {
+      "$ref": "#/$defs/dbt.macros"
+    },
+    "dbt.groups": {
+      "$ref": "#/$defs/dbt.groups"
+    },
+    "dbt.exposures": {
+      "$ref": "#/$defs/dbt.exposures"
+    },
+    "dbt.metrics": {
+      "$ref": "#/$defs/dbt.metrics"
+    },
+    "dbt.docs_blocks": {
+      "$ref": "#/$defs/dbt.docs_blocks"
+    },
+    "dbt.saved_queries": {
+      "$ref": "#/$defs/dbt.saved_queries"
+    },
+    "dbt.semantic_models": {
+      "$ref": "#/$defs/dbt.semantic_models"
+    },
+    "dbt.semantic_entities": {
+      "$ref": "#/$defs/dbt.semantic_entities"
+    },
+    "dbt.semantic_measures": {
+      "$ref": "#/$defs/dbt.semantic_measures"
+    },
+    "dbt.semantic_dimensions": {
+      "$ref": "#/$defs/dbt.semantic_dimensions"
+    },
+    "dbt.time_spines": {
+      "$ref": "#/$defs/dbt.time_spines"
+    },
+    "dbt.dag_nodes": {
+      "$ref": "#/$defs/dbt.dag_nodes"
+    },
+    "dbt.edges": {
+      "$ref": "#/$defs/dbt.edges"
+    },
+    "dbt.node_columns": {
+      "$ref": "#/$defs/dbt.node_columns"
+    },
+    "dbt.column_lineage": {
+      "$ref": "#/$defs/dbt.column_lineage"
+    },
+    "dbt_rt.invocations": {
+      "$ref": "#/$defs/dbt_rt.invocations"
+    },
+    "dbt_rt.run_results": {
+      "$ref": "#/$defs/dbt_rt.run_results"
+    },
+    "dbt_rt.freshness": {
+      "$ref": "#/$defs/dbt_rt.freshness"
+    },
+    "dbt_rt.relations": {
+      "$ref": "#/$defs/dbt_rt.relations"
+    },
+    "dbt_rt.adapter_queries": {
+      "$ref": "#/$defs/dbt_rt.adapter_queries"
+    }
+  },
+  "$defs": {
+    "dbt.project": {
+      "title": "dbt.project",
+      "description": "Primary key: `project_name`.",
+      "type": "object",
+      "x-primary-key": [
+        "project_name"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "project_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "dbt_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "adapter_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "quoting": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "git_sha": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "git_branch": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "git_uncommitted_changes": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "last_full_parse_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.packages": {
+      "title": "dbt.packages",
+      "description": "Primary key: `package_name`.",
+      "type": "object",
+      "x-primary-key": [
+        "package_name"
+      ],
+      "properties": {
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "package_source": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "git_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "git_revision": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "local_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.project_vars": {
+      "title": "dbt.project_vars",
+      "description": "Primary key: `project_name`, `var_name`.",
+      "type": "object",
+      "x-primary-key": [
+        "project_name",
+        "var_name"
+      ],
+      "properties": {
+        "project_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "var_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "var_value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.project_env_vars": {
+      "title": "dbt.project_env_vars",
+      "description": "Primary key: `env_var_name`.",
+      "type": "object",
+      "x-primary-key": [
+        "env_var_name"
+      ],
+      "properties": {
+        "env_var_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.models": {
+      "title": "dbt.models",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`. Rows with `enabled = false` are not in `dbt.dag_nodes`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resource_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "alias": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "node_language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "database_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "relation_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "materialized": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "incremental_strategy": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "on_schema_change": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unique_key": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "full_refresh": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "persist_docs": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pre_hook": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "post_hook": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "grants": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "access": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "group": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.groups",
+              "column": "name",
+              "unique": false
+            }
+          ],
+          "description": "References `dbt.groups.name`. Matches by name: `name` is not a key of `dbt.groups`, so it can match more than one row."
+        },
+        "contract_enforced": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "latest_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "deprecation_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "constraints": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "primary_key": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "docs_show": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "properties_yml_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "time_spine": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "classifiers": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiled_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiled_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "grain": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_declared": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_tested": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_inferred": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.seeds": {
+      "title": "dbt.seeds",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`. Rows with `enabled = false` are not in `dbt.dag_nodes`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resource_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "alias": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "database_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "relation_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "full_refresh": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "persist_docs": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pre_hook": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "post_hook": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "grants": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "group": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.groups",
+              "column": "name",
+              "unique": false
+            }
+          ],
+          "description": "References `dbt.groups.name`. Matches by name: `name` is not a key of `dbt.groups`, so it can match more than one row."
+        },
+        "docs_show": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "properties_yml_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "grain": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_declared": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_tested": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_inferred": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.snapshots": {
+      "title": "dbt.snapshots",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`. Rows with `enabled = false` are not in `dbt.dag_nodes`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resource_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "alias": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "node_language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "database_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "relation_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "unique_key": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "persist_docs": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pre_hook": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "post_hook": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "grants": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "group": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.groups",
+              "column": "name",
+              "unique": false
+            }
+          ],
+          "description": "References `dbt.groups.name`. Matches by name: `name` is not a key of `dbt.groups`, so it can match more than one row."
+        },
+        "docs_show": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "properties_yml_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiled_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiled_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "grain": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_declared": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_tested": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_inferred": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.functions": {
+      "title": "dbt.functions",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`. Rows with `enabled = false` are not in `dbt.dag_nodes`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resource_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "alias": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "node_language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "database_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "relation_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "pre_hook": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "post_hook": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "grants": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "access": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "group": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.groups",
+              "column": "name",
+              "unique": false
+            }
+          ],
+          "description": "References `dbt.groups.name`. Matches by name: `name` is not a key of `dbt.groups`, so it can match more than one row."
+        },
+        "docs_show": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "properties_yml_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiled_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiled_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.analyses": {
+      "title": "dbt.analyses",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`. Rows with `enabled = false` are not in `dbt.dag_nodes`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resource_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "node_language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "group": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.groups",
+              "column": "name",
+              "unique": false
+            }
+          ],
+          "description": "References `dbt.groups.name`. Matches by name: `name` is not a key of `dbt.groups`, so it can match more than one row."
+        },
+        "docs_show": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "properties_yml_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiled_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiled_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.hooks": {
+      "title": "dbt.hooks",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resource_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "node_language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phase": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiled_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiled_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.checks": {
+      "title": "dbt.checks",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resource_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "node_language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "properties_yml_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.sources": {
+      "title": "dbt.sources",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`. Rows with `enabled = false` are not in `dbt.dag_nodes`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resource_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "database_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "relation_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "grain": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_declared": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_tested": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "grain_inferred": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "loader": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "loaded_at_field": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "loaded_at_query": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "freshness": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "external": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "quoting": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.data_tests": {
+      "title": "dbt.data_tests",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`. Rows with `enabled = false` are not in `dbt.dag_nodes`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "database_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "relation_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "materialized": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "group": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.groups",
+              "column": "name",
+              "unique": false
+            }
+          ],
+          "description": "References `dbt.groups.name`. Matches by name: `name` is not a key of `dbt.groups`, so it can match more than one row."
+        },
+        "properties_yml_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiled_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "compiled_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "test_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "test_definition_package": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "arguments": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "column_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.node_columns",
+              "columns": [
+                {
+                  "from": "node_unique_id",
+                  "to": "node_unique_id"
+                },
+                {
+                  "from": "column_name",
+                  "to": "column_name"
+                }
+              ],
+              "unique": true
+            }
+          ],
+          "description": "References `dbt.node_columns` over several columns: `node_unique_id` → `node_unique_id`, `column_name` → `column_name`."
+        },
+        "node_unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "References `dbt.dag_nodes.unique_id`."
+        },
+        "severity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "warn_if": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "error_if": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fail_calc": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "store_failures": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "store_failures_as": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "where": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "limit": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.unit_tests": {
+      "title": "dbt.unit_tests",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.models",
+              "column": "name",
+              "unique": false
+            }
+          ],
+          "description": "References `dbt.models.name`. Matches by name: `name` is not a key of `dbt.models`, so it can match more than one row."
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "given": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expect": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "overrides": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "versions": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.macros": {
+      "title": "dbt.macros",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "macro_sql": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "depends_on_macros": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "arguments": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "docs_show": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "properties_yml_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "meta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.groups": {
+      "title": "dbt.groups",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "owner_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "owner_email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.exposures": {
+      "title": "dbt.exposures",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "exposure_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "owner_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "owner_email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "maturity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "depends_on": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created_at": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.metrics": {
+      "title": "dbt.metrics",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "metric_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "type_params": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "metric_filter": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "time_granularity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "input_metric_names": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "group": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.groups",
+              "column": "name",
+              "unique": false
+            }
+          ],
+          "description": "References `dbt.groups.name`. Matches by name: `name` is not a key of `dbt.groups`, so it can match more than one row."
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created_at": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.docs_blocks": {
+      "title": "dbt.docs_blocks",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "content": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.saved_queries": {
+      "title": "dbt.saved_queries",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "query_params": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "exports": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "depends_on": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "group": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.groups",
+              "column": "name",
+              "unique": false
+            }
+          ],
+          "description": "References `dbt.groups.name`. Matches by name: `name` is not a key of `dbt.groups`, so it can match more than one row."
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created_at": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.semantic_models": {
+      "title": "dbt.semantic_models",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.models",
+              "column": "name",
+              "unique": false
+            }
+          ],
+          "description": "References `dbt.models.name`. Matches by name: `name` is not a key of `dbt.models`, so it can match more than one row."
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "package_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_file_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fqn": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "node_relation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "primary_entity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.semantic_entities",
+              "columns": [
+                {
+                  "from": "unique_id",
+                  "to": "unique_id"
+                },
+                {
+                  "from": "primary_entity",
+                  "to": "name"
+                }
+              ],
+              "unique": true
+            }
+          ],
+          "description": "References `dbt.semantic_entities` over several columns: `unique_id` → `unique_id`, `primary_entity` → `name`."
+        },
+        "defaults": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "group": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.groups",
+              "column": "name",
+              "unique": false
+            }
+          ],
+          "description": "References `dbt.groups.name`. Matches by name: `name` is not a key of `dbt.groups`, so it can match more than one row."
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created_at": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.semantic_entities": {
+      "title": "dbt.semantic_entities",
+      "description": "Primary key: `unique_id`, `name`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id",
+        "name"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.semantic_models",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.semantic_models.unique_id`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "entity_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expr": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.semantic_measures": {
+      "title": "dbt.semantic_measures",
+      "description": "Primary key: `unique_id`, `name`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id",
+        "name"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.semantic_models",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.semantic_models.unique_id`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "agg": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expr": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "create_metric": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "agg_time_dimension": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-references": [
+            {
+              "table": "dbt.semantic_dimensions",
+              "columns": [
+                {
+                  "from": "unique_id",
+                  "to": "unique_id"
+                },
+                {
+                  "from": "agg_time_dimension",
+                  "to": "name"
+                }
+              ],
+              "unique": true
+            }
+          ],
+          "description": "References `dbt.semantic_dimensions` over several columns: `unique_id` → `unique_id`, `agg_time_dimension` → `name`."
+        },
+        "agg_params": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "non_additive_dimension": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.semantic_dimensions": {
+      "title": "dbt.semantic_dimensions",
+      "description": "Primary key: `unique_id`, `name`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id",
+        "name"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.semantic_models",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.semantic_models.unique_id`."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "dimension_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expr": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "is_partition": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "time_granularity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "validity_params": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "config": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.time_spines": {
+      "title": "dbt.time_spines",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.models",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.models.unique_id`."
+        },
+        "primary_column": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "primary_granularity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "custom_granularities": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "node_relation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.dag_nodes": {
+      "title": "dbt.dag_nodes",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "resource_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.edges": {
+      "title": "dbt.edges",
+      "description": "Primary key: `parent_unique_id`, `child_unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "parent_unique_id",
+        "child_unique_id"
+      ],
+      "properties": {
+        "parent_unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "child_unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.node_columns": {
+      "title": "dbt.node_columns",
+      "description": "Primary key: `node_unique_id`, `column_name`.",
+      "type": "object",
+      "x-primary-key": [
+        "node_unique_id",
+        "column_name"
+      ],
+      "properties": {
+        "node_unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "column_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "column_index": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "data_type_declared": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data_type_inferred": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data_type_actual": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "quote": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "granularity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tags": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "classifiers": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "meta": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "constraints": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "comment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt.column_lineage": {
+      "title": "dbt.column_lineage",
+      "description": "Primary key: `parent_node_unique_id`, `parent_column_name`, `child_node_unique_id`, `child_column_name`.",
+      "type": "object",
+      "x-primary-key": [
+        "parent_node_unique_id",
+        "parent_column_name",
+        "child_node_unique_id",
+        "child_column_name"
+      ],
+      "properties": {
+        "parent_node_unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "parent_column_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.node_columns",
+              "columns": [
+                {
+                  "from": "parent_node_unique_id",
+                  "to": "node_unique_id"
+                },
+                {
+                  "from": "parent_column_name",
+                  "to": "column_name"
+                }
+              ],
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.node_columns` over several columns: `parent_node_unique_id` → `node_unique_id`, `parent_column_name` → `column_name`."
+        },
+        "child_node_unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "child_column_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.node_columns",
+              "columns": [
+                {
+                  "from": "child_node_unique_id",
+                  "to": "node_unique_id"
+                },
+                {
+                  "from": "child_column_name",
+                  "to": "column_name"
+                }
+              ],
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.node_columns` over several columns: `child_node_unique_id` → `node_unique_id`, `child_column_name` → `column_name`."
+        },
+        "evolution": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt_rt.invocations": {
+      "title": "dbt_rt.invocations",
+      "description": "Primary key: `invocation_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "invocation_id"
+      ],
+      "properties": {
+        "invocation_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "command": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "selector": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dbt_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "generated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "elapsed_time": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "args": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "node_count": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "target_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "target_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "target_database": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "target_schema": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "target_threads": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "vars_override": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "git_sha": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "git_branch": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "git_uncommitted_changes": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "dbt_rt.run_results": {
+      "title": "dbt_rt.run_results",
+      "description": "Primary key: `unique_id`, `invocation_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id",
+        "invocation_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": false
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`. The id of a hook is not in `dbt.dag_nodes`."
+        },
+        "invocation_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt_rt.invocations",
+              "column": "invocation_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt_rt.invocations.invocation_id`."
+        },
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "execution_time": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "thread_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "message": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "failures": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "relation_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "adapter_response": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "timing": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "batch_results": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt_rt.freshness": {
+      "title": "dbt_rt.freshness",
+      "description": "Primary key: `unique_id`, `invocation_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id",
+        "invocation_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "resource_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "invocation_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt_rt.invocations",
+              "column": "invocation_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt_rt.invocations.invocation_id`."
+        },
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "max_loaded_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "snapshotted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "max_loaded_at_time_ago": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "execution_time": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "thread_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "error": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "warn_after_count": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "warn_after_period": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "error_after_count": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "error_after_period": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "freshness_filter": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "adapter_response": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "timing": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt_rt.relations": {
+      "title": "dbt_rt.relations",
+      "description": "Primary key: `unique_id`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "table_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "table_owner": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "database_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "schema_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "table_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "row_count": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "bytes": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "last_modified": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    },
+    "dbt_rt.adapter_queries": {
+      "title": "dbt_rt.adapter_queries",
+      "description": "Primary key: `unique_id`, `invocation_id`, `query_index`.",
+      "type": "object",
+      "x-primary-key": [
+        "unique_id",
+        "invocation_id",
+        "query_index"
+      ],
+      "properties": {
+        "unique_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt.dag_nodes",
+              "column": "unique_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+        },
+        "invocation_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-primary-key": true,
+          "x-references": [
+            {
+              "table": "dbt_rt.invocations",
+              "column": "invocation_id",
+              "unique": true
+            }
+          ],
+          "description": "Part of the primary key. References `dbt_rt.invocations.invocation_id`."
+        },
+        "query_index": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "x-primary-key": true,
+          "description": "Part of the primary key."
+        },
+        "query_sql": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "query_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rows_affected": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "bytes_scanned": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "query_cost": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "error_message": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "started_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "completed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

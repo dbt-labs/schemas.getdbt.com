@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.data_tests/v1.json",
+  "title": "dbt.data_tests",
+  "description": "Primary key: `unique_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id",
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`. Rows with `enabled = false` are not in `dbt.dag_nodes`."
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "package_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "original_file_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "raw_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fqn": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "database_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "schema_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "relation_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "enabled": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "materialized": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "config": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "group": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-references": [
+        {
+          "table": "dbt.groups",
+          "column": "name",
+          "unique": false
+        }
+      ],
+      "description": "References `dbt.groups.name`. Matches by name: `name` is not a key of `dbt.groups`, so it can match more than one row."
+    },
+    "properties_yml_file_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "compiled_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "compiled_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "test_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "test_definition_package": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "arguments": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "column_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-references": [
+        {
+          "table": "dbt.node_columns",
+          "columns": [
+            {
+              "from": "node_unique_id",
+              "to": "node_unique_id"
+            },
+            {
+              "from": "column_name",
+              "to": "column_name"
+            }
+          ],
+          "unique": true
+        }
+      ],
+      "description": "References `dbt.node_columns` over several columns: `node_unique_id` → `node_unique_id`, `column_name` → `column_name`."
+    },
+    "node_unique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id",
+          "unique": true
+        }
+      ],
+      "description": "References `dbt.dag_nodes.unique_id`."
+    },
+    "severity": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "warn_if": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "error_if": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fail_calc": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "store_failures": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "store_failures_as": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "where": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "limit": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "ingested_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dbt info schema ERD</title>
+  <link rel="stylesheet" href="../../../static/erd/erd-app.css">
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      background: #003645;
+      color: #93a1a1;
+      display: flex;
+      flex-direction: column;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0;
+    }
+
+    header {
+      align-items: center;
+      display: flex;
+      gap: 18px;
+      padding: 10px 16px;
+    }
+
+    header h1 {
+      color: #fff;
+      font-size: 20px;
+      margin: 0;
+    }
+
+    header a {
+      color: #93a1a1;
+      text-decoration: none;
+    }
+
+    header a:hover {
+      color: #fff;
+    }
+
+    #root {
+      flex: 1;
+      min-height: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="../../../index.html"><img src="../../../static/dbt-logo-full-white.svg" width="110" alt="dbt"></a>
+    <h1>Info Schema ERD</h1>
+    <a href="../../../dbt/info-schema/v1/index.html">Schema</a>
+  </header>
+  <div id="root" data-graph="../../../dbt/info-schema/graph.json" data-base="../../../dbt/info-schema/">
+    Loading the diagram&hellip;
+  </div>
+  <noscript>This diagram needs JavaScript. The tables are listed on the <a href="../../../dbt/info-schema/v1/index.html">schema page</a>.</noscript>
+  <script src="../../../static/erd/erd-app.js"></script>
+</body>
+
+</html>

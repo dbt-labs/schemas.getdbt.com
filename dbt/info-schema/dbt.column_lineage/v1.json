@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.column_lineage/v1.json",
+  "title": "dbt.column_lineage",
+  "description": "Primary key: `parent_node_unique_id`, `parent_column_name`, `child_node_unique_id`, `child_column_name`.",
+  "type": "object",
+  "x-primary-key": [
+    "parent_node_unique_id",
+    "parent_column_name",
+    "child_node_unique_id",
+    "child_column_name"
+  ],
+  "properties": {
+    "parent_node_unique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id",
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "parent_column_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.node_columns",
+          "columns": [
+            {
+              "from": "parent_node_unique_id",
+              "to": "node_unique_id"
+            },
+            {
+              "from": "parent_column_name",
+              "to": "column_name"
+            }
+          ],
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.node_columns` over several columns: `parent_node_unique_id` → `node_unique_id`, `parent_column_name` → `column_name`."
+    },
+    "child_node_unique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id",
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "child_column_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.node_columns",
+          "columns": [
+            {
+              "from": "child_node_unique_id",
+              "to": "node_unique_id"
+            },
+            {
+              "from": "child_column_name",
+              "to": "column_name"
+            }
+          ],
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.node_columns` over several columns: `child_node_unique_id` → `node_unique_id`, `child_column_name` → `column_name`."
+    },
+    "evolution": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ingested_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}
