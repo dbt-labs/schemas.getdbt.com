@@ -14,6 +14,7 @@ import {
   applyNodeChanges,
   getBezierPath,
   useReactFlow,
+  useStore,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import ELK from "elkjs/lib/elk.bundled.js";
@@ -25,6 +26,7 @@ import {
   ROW_HEIGHT,
   TABLE_WIDTH,
   buildView,
+  describeLink,
   elkGraph,
   focusGraph,
   fromHash,
@@ -89,6 +91,8 @@ function DomainNode({ data }) {
 function LinkEdge({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, markerEnd, data }) {
   const [path, x, y] = getBezierPath({ sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition });
   const { card, tag, links } = data;
+  // Labels keep their size whatever the zoom, so they stay readable.
+  const zoom = useStore((st) => st.transform[2]);
   return h(
     React.Fragment,
     null,
@@ -102,7 +106,7 @@ function LinkEdge({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPo
           {
             className: `edge-label nodrag nopan${card ? " card" : ""}`,
             style: {
-              transform: `translate(-50%, ${card ? "-100%" : "-50%"}) translate(${x}px, ${card ? y - 16 : y}px)`,
+              transform: `translate(${x}px, ${card ? y - 16 / zoom : y}px) scale(${1 / zoom}) translate(-50%, ${card ? "-100%" : "-50%"})`,
               zIndex: card ? 1000 : 5,
             },
           },
@@ -111,9 +115,7 @@ function LinkEdge({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPo
                 h(
                   "div",
                   { key: i, className: "edge-line" },
-                  h("code", null, `${l.from}.${l.column}`),
-                  " \u2192 ",
-                  h("code", null, l.to),
+                  h("code", null, describeLink(l)),
                   KINDS[l.kind].dashed ? h("span", { className: "muted" }, ` (${KINDS[l.kind].label.toLowerCase()})`) : null,
                 ),
               )
@@ -294,11 +296,8 @@ function Explorer({ graph: fullGraph }) {
     if (!laid || !pendingFit.current) return;
     pendingFit.current = null;
     const id = setTimeout(() => {
-      // Leave room for the side panel, which is open while a table is selected.
-      const padding = state.selected
-        ? { top: "60px", bottom: "60px", left: "60px", right: "400px" }
-        : 0.15;
-      flow.fitView({ padding, duration: 300 });
+      const padding = 0.15;
+      flow.fitView({ padding, maxZoom: 1.2, duration: 300 });
     }, 50);
     return () => clearTimeout(id);
   }, [laid]);
@@ -423,6 +422,9 @@ function Explorer({ graph: fullGraph }) {
       "div",
       { className: "stage" },
       h(
+        "div",
+        { className: "canvas" },
+      h(
         ReactFlow,
         {
           nodes,
@@ -449,10 +451,8 @@ function Explorer({ graph: fullGraph }) {
           onNodeDoubleClick: (_, node) => {
             if (node.type === "domain") solo(node.id.replace(/^domain:/, ""));
           },
-          onEdgeClick: (_, edge) => {
-            setState((s) => ({ ...s, selected: null }));
-            setEdgeKey(`${edge.source}>${edge.target}`);
-          },
+          // The focused table stays: its neighbours are the view.
+          onEdgeClick: (_, edge) => setEdgeKey(`${edge.source}>${edge.target}`),
           onPaneClick: () => {
             setState((s) => ({ ...s, selected: null }));
             setEdgeKey(null);
@@ -462,6 +462,7 @@ function Explorer({ graph: fullGraph }) {
         h(Background, { gap: 24, color: "#0f5566" }),
         h(Controls, { showInteractive: false }),
         h(MiniMap, { pannable: true, zoomable: true, nodeColor: (n) => (n.type === "table" ? "#93a1a1" : "#0f5566"), nodeStrokeWidth: 0, maskColor: "rgba(0,43,54,.6)" }),
+      ),
       ),
       selectedTable &&
         h(Panel, {
@@ -477,12 +478,12 @@ function Explorer({ graph: fullGraph }) {
       "footer",
       { className: "legend" },
       h("span", null, "An arrow goes from a table to the table it refers to."),
-      h("span", null, h("i", { className: "swatch solid" }), "Solid: the column is the whole key of the other table, so a value matches one row."),
+      h("span", null, h("i", { className: "swatch solid" }), "Solid: the columns are the whole key of the other table (one column, or several together), so a value matches one row."),
       h(
         "span",
         null,
         h("i", { className: "swatch dashed" }),
-        "Dashed: the join does not pick out one row. By name: a name is not a key and can match several rows. Part of a composite key: match the other key columns too. May be missing: not every value is in the other table, for example a hook in run_results, or a disabled resource, which is not in dag_nodes.",
+        "Dashed: the join does not pick out one row. By name: a name is not a key and can match several rows. May be missing: not every value is in the other table, for example a hook in run_results, or a disabled resource, which is not in dag_nodes.",
       ),
       h("span", null, "Click a table to show it and its related tables, and click the background to go back. Click a group to open or close it. Double-click a group to show only that group, and again to show all."),
     ),
@@ -508,7 +509,7 @@ function Panel({ table, graph, state, onSelect, onClose, pageUrl }) {
           "ul",
           null,
           refersTo.map((l, i) =>
-            h("li", { key: i }, h("code", null, l.column), " → ", h("button", { className: "link", onClick: () => onSelect(l.to) }, l.to), kindNote(l.kind)),
+            h("li", { key: i }, h("code", null, l.on?.length > 1 ? `(${l.column})` : l.column), " → ", h("button", { className: "link", onClick: () => onSelect(l.to) }, l.to), kindNote(l.kind)),
           ),
         ),
     h("h3", null, "Referred to by"),
@@ -518,7 +519,7 @@ function Panel({ table, graph, state, onSelect, onClose, pageUrl }) {
           "ul",
           null,
           referredBy.map((l, i) =>
-            h("li", { key: i }, h("button", { className: "link", onClick: () => onSelect(l.from) }, l.from), ".", h("code", null, l.column), kindNote(l.kind)),
+            h("li", { key: i }, h("button", { className: "link", onClick: () => onSelect(l.from) }, l.from), ".", h("code", null, l.on?.length > 1 ? `(${l.column})` : l.column), kindNote(l.kind)),
           ),
         ),
     h("h3", null, "Columns"),

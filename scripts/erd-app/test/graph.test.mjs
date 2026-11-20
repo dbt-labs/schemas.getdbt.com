@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { DEFAULT_STATE, buildView, focusGraph, fromHash, neighbours, scoped, search, toHash } from "../src/graph.js";
+import { DEFAULT_STATE, buildView, describeLink, focusGraph, fromHash, neighbours, scoped, search, toHash } from "../src/graph.js";
 
 const col = (name, pk = false, fk = false) => ({ name, type: "string", pk, fk });
 const graph = {
@@ -97,4 +97,23 @@ test("a focused table and a group combine: related tables inside the group", () 
   // A table outside the group is not in view, so nothing narrows further.
   const outside = scoped(graph, "a");
   assert.equal(focusGraph(outside, DEFAULT_STATE, "t.three"), outside);
+});
+
+test("a link is described with its columns, several together when it has several", () => {
+  assert.equal(
+    describeLink({ from: "t.three", to: "t.one", column: "one_id", on: [{ from: "one_id", to: "id" }] }),
+    "t.three.one_id \u2192 t.one",
+  );
+  assert.equal(
+    describeLink({
+      from: "dbt.data_tests",
+      to: "dbt.node_columns",
+      column: "node_unique_id, column_name",
+      on: [
+        { from: "node_unique_id", to: "node_unique_id" },
+        { from: "column_name", to: "column_name" },
+      ],
+    }),
+    "dbt.data_tests.(node_unique_id, column_name) \u2192 dbt.node_columns.(node_unique_id, column_name)",
+  );
 });

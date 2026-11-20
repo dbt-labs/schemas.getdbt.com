@@ -4,7 +4,6 @@
 export const KINDS = {
   key: { label: "Key", dashed: false },
   name: { label: "By name", dashed: true },
-  "partial-key": { label: "Part of a composite key", dashed: true },
   "may-be-missing": { label: "May be missing", dashed: true },
 };
 
@@ -35,6 +34,19 @@ export function scoped(graph, only) {
     tables,
     links: graph.links.filter((l) => ids.has(l.from) && ids.has(l.to)),
   };
+}
+
+/** A link's columns on one side: `table.col`, or `table.(a, b)` for several. */
+export function columnsLabel(table, cols) {
+  return cols.length > 1 ? `${table}.(${cols.join(", ")})` : `${table}.${cols[0]}`;
+}
+
+/** A link as text: `from.col -> to`, with the target columns when there are several. */
+export function describeLink(l) {
+  const on = l.on ?? [{ from: l.column, to: null }];
+  const from = columnsLabel(l.from, on.map((p) => p.from));
+  const to = on.length > 1 ? columnsLabel(l.to, on.map((p) => p.to)) : l.to;
+  return `${from} \u2192 ${to}`;
 }
 
 /** The columns a table node lists. */
