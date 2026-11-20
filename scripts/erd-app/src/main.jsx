@@ -67,7 +67,7 @@ function TableNode({ data }) {
   );
 }
 
-const HEAD_HINT = "Click to open or close, double-click to show only this group, drag to move";
+const HEAD_HINT = "Click to open or close, drag to move";
 
 function DomainNode({ data }) {
   const { name, count, open, dim } = data;
@@ -126,9 +126,6 @@ function LinkEdge({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPo
   );
 }
 
-// How long a click waits to see whether it is the first half of a double-click.
-const DOUBLE_CLICK_MS = 260;
-
 const nodeTypes = { table: TableNode, domain: DomainNode };
 const edgeTypes = { link: LinkEdge };
 
@@ -186,19 +183,6 @@ function Explorer({ graph: fullGraph }) {
 
   const onNodesChange = useCallback((changes) => setNodes((ns) => applyNodeChanges(changes, ns)), []);
 
-  // A click on a group opens or closes it, but not at once: a double-click
-  // would otherwise open the group first and re-lay out the graph, and its
-  // second click would land on whatever moved under the cursor.
-  const clickTimer = useRef(null);
-  const toggleOpen = useCallback((name) => {
-    setState((s) => {
-      const open = new Set(s.open);
-      open.has(name) ? open.delete(name) : open.add(name);
-      return { ...s, open: [...open] };
-    });
-    pendingFit.current = "all";
-  }, []);
-
   const setOpen = useCallback((name, on) => {
     setState((s) => {
       const open = new Set(s.open);
@@ -224,17 +208,6 @@ function Explorer({ graph: fullGraph }) {
     [byId],
   );
 
-  const solo = useCallback((name) => {
-    setState((s) => {
-      if (s.only) return { ...s, only: null };
-      // A selected table stays if it is in this group; otherwise it is not in view.
-      const keep = s.selected && byId.get(s.selected)?.domain === name ? s.selected : null;
-      return { ...s, only: name, open: [name], selected: keep };
-    });
-    setEdgeKey(null);
-    pendingFit.current = "all";
-  }, [byId]);
-
   const focus = null;
   const focusDomains = null;
 
@@ -257,6 +230,9 @@ function Explorer({ graph: fullGraph }) {
         },
         draggable: true,
         selectable: false,
+        // An open group is a frame: clicks go through it to the edges and tables
+        // inside, except on its header. A closed one is a box to click.
+        className: open ? "domain-frame" : "domain-closed",
       });
       for (const c of d.children ?? []) {
         nodes.push({
@@ -468,16 +444,8 @@ function Explorer({ graph: fullGraph }) {
               const name = node.id.replace(/^domain:/, "");
               const open = view.open.has(name);
               if (focusing) return;
-              if (!open || t.closest(".domain-bar")) {
-                clearTimeout(clickTimer.current);
-                clickTimer.current = setTimeout(() => toggleOpen(name), DOUBLE_CLICK_MS);
-              }
+              if (!open || t.closest(".domain-bar")) setOpen(name, !open);
             }
-          },
-          onNodeDoubleClick: (_, node) => {
-            if (node.type !== "domain") return;
-            clearTimeout(clickTimer.current);
-            solo(node.id.replace(/^domain:/, ""));
           },
           // The focused table stays: its neighbours are the view.
           onEdgeClick: (_, edge) => setEdgeKey(`${edge.source}>${edge.target}`),
@@ -513,7 +481,7 @@ function Explorer({ graph: fullGraph }) {
         h("i", { className: "swatch dashed" }),
         "Dashed: the join does not pick out one row. By name: a name is not a key and can match several rows. May be missing: not every value is in the other table, for example a hook in run_results, or a disabled resource, which is not in dag_nodes.",
       ),
-      h("span", null, "Click a table to show it and its related tables, and click the background to go back. Click a group to open or close it. Double-click a group to show only that group, and again to show all."),
+      h("span", null, "Click a table to show it and its related tables, and click the background to go back. Click a group to open or close it, or pick one group in the list at the top."),
     ),
   );
 }

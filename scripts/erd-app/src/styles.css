@@ -182,6 +182,16 @@
   background: var(--accent);
 }
 
+/* React Flow sets pointer-events on a node inline, so this needs !important. */
+.react-flow__node.domain-frame,
+.domain-frame .domain-node {
+  pointer-events: none !important;
+}
+
+.domain-frame .domain-bar {
+  pointer-events: all !important;
+}
+
 .domain-bar {
   align-items: center;
   display: flex;
