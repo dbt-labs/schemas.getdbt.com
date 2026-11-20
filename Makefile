@@ -14,3 +14,9 @@ html:
 json_schema:
 	cp ../dbt-core/schemas/dbt/manifest/v$(version).json dbt/manifest/v$(version).json
 	
+
+# Build the info schema HTML from dbt/info-schema/ (synced from dbt-labs/fs).
+# Needs `make install`.
+.PHONY: info_schema_html
+info_schema_html:
+	python scripts/build_info_schema.py
