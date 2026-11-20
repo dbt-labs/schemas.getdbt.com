@@ -199,6 +199,11 @@
   position: absolute;
 }
 
+.edge-label.tag {
+  cursor: pointer;
+  pointer-events: all;
+}
+
 .edge-label.card {
   background: var(--panel);
   border-color: #ff694a;

@@ -90,7 +90,7 @@ function DomainNode({ data }) {
 /** An edge. The selected one carries a card above the tables; others a short tag. */
 function LinkEdge({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, markerEnd, data }) {
   const [path, x, y] = getBezierPath({ sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition });
-  const { card, tag, links } = data;
+  const { card, tag, links, onPick } = data;
   // Labels keep their size whatever the zoom, so they stay readable.
   const zoom = useStore((st) => st.transform[2]);
   return h(
@@ -104,7 +104,8 @@ function LinkEdge({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPo
         h(
           "div",
           {
-            className: `edge-label nodrag nopan${card ? " card" : ""}`,
+            className: `edge-label nodrag nopan${card ? " card" : " tag"}`,
+            onClick: card ? undefined : onPick,
             style: {
               transform: `translate(${x}px, ${card ? y - 16 / zoom : y}px) scale(${1 / zoom}) translate(-50%, ${card ? "-100%" : "-50%"})`,
               zIndex: card ? 1000 : 5,
@@ -124,6 +125,9 @@ function LinkEdge({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPo
       ),
   );
 }
+
+// How long a click waits to see whether it is the first half of a double-click.
+const DOUBLE_CLICK_MS = 260;
 
 const nodeTypes = { table: TableNode, domain: DomainNode };
 const edgeTypes = { link: LinkEdge };
@@ -163,6 +167,12 @@ function Explorer({ graph: fullGraph }) {
     window.history.replaceState(null, "", hash ? `#${hash}` : window.location.pathname + window.location.search);
   }, [state]);
 
+  // A selected edge that is no longer in the view is dropped. Without this a
+  // stale key dimmed every edge after a group was opened or closed.
+  useEffect(() => {
+    setEdgeKey((k) => (k && !view.edges.some((e) => `${e.source}>${e.target}` === k) ? null : k));
+  }, [view]);
+
   // Lay out whenever the shape of the view changes.
   useEffect(() => {
     let live = true;
@@ -175,6 +185,19 @@ function Explorer({ graph: fullGraph }) {
   }, [graph, view, state.columns]);
 
   const onNodesChange = useCallback((changes) => setNodes((ns) => applyNodeChanges(changes, ns)), []);
+
+  // A click on a group opens or closes it, but not at once: a double-click
+  // would otherwise open the group first and re-lay out the graph, and its
+  // second click would land on whatever moved under the cursor.
+  const clickTimer = useRef(null);
+  const toggleOpen = useCallback((name) => {
+    setState((s) => {
+      const open = new Set(s.open);
+      open.has(name) ? open.delete(name) : open.add(name);
+      return { ...s, open: [...open] };
+    });
+    pendingFit.current = "all";
+  }, []);
 
   const setOpen = useCallback((name, on) => {
     setState((s) => {
@@ -266,7 +289,7 @@ function Explorer({ graph: fullGraph }) {
         id: e.id,
         source: e.source,
         target: e.target,
-        data: { links: e.links, card: chosen, tag },
+        data: { links: e.links, card: chosen, tag, onPick: () => setEdgeKey(key) },
         className: `${e.dashed ? "dashed" : ""}${dim ? " dim" : ""}${touches || chosen ? " active" : ""}`,
         markerEnd: { type: MarkerType.ArrowClosed, width: 14, height: 14 },
         type: "link",
@@ -445,11 +468,16 @@ function Explorer({ graph: fullGraph }) {
               const name = node.id.replace(/^domain:/, "");
               const open = view.open.has(name);
               if (focusing) return;
-              if (!open || t.closest(".domain-bar")) setOpen(name, !open);
+              if (!open || t.closest(".domain-bar")) {
+                clearTimeout(clickTimer.current);
+                clickTimer.current = setTimeout(() => toggleOpen(name), DOUBLE_CLICK_MS);
+              }
             }
           },
           onNodeDoubleClick: (_, node) => {
-            if (node.type === "domain") solo(node.id.replace(/^domain:/, ""));
+            if (node.type !== "domain") return;
+            clearTimeout(clickTimer.current);
+            solo(node.id.replace(/^domain:/, ""));
           },
           // The focused table stays: its neighbours are the view.
           onEdgeClick: (_, edge) => setEdgeKey(`${edge.source}>${edge.target}`),
