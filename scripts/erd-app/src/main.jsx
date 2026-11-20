@@ -63,8 +63,10 @@ function TableNode({ data }) {
   );
 }
 
+const HEAD_HINT = "Click to open or close, double-click to show only this group, drag to move";
+
 function DomainNode({ data }) {
-  const { name, count, open, dim, solo, onSolo } = data;
+  const { name, count, open, dim } = data;
   const head = [
     h("span", { className: "caret", key: "c" }, open ? "\u25BE" : "\u25B8"),
     h("strong", { key: "n" }, name),
@@ -76,17 +78,8 @@ function DomainNode({ data }) {
     h(Handle, { type: "target", position: Position.Left, isConnectable: false }),
     h(Handle, { type: "source", position: Position.Right, isConnectable: false }),
     open
-      ? h(
-          "div",
-          { className: "domain-bar" },
-          h("div", { className: "domain-head", title: "Click to collapse, drag to move" }, head),
-          h(
-            "button",
-            { className: "solo nodrag", onClick: onSolo, title: solo ? "Show every group" : "Show only this group" },
-            solo ? "Show all groups" : "Only this group",
-          ),
-        )
-      : h("div", { className: "domain-head", title: "Click to expand, drag to move" }, head),
+      ? h("div", { className: "domain-bar" }, h("div", { className: "domain-head", title: HEAD_HINT }, head))
+      : h("div", { className: "domain-head", title: HEAD_HINT }, head),
   );
 }
 
@@ -226,8 +219,6 @@ function Explorer({ graph: fullGraph }) {
           open,
           count: (view.tablesOf.get(name) ?? []).length,
           dim: focusDomains && !focusDomains.has(name),
-          solo: state.only === name,
-          onSolo: () => solo(name),
         },
         draggable: true,
         selectable: false,
@@ -362,7 +353,7 @@ function Explorer({ graph: fullGraph }) {
           },
         },
         h("option", { value: "" }, "All groups"),
-        fullGraph.domains.map((d) => h("option", { key: d.name, value: d.name }, `Only ${d.name}`)),
+        fullGraph.domains.map((d) => h("option", { key: d.name, value: d.name }, d.name)),
       ),
       h(
         "button",
@@ -425,11 +416,13 @@ function Explorer({ graph: fullGraph }) {
             if (node.type === "domain") {
               // A click on the header (or the whole box, when collapsed) opens or closes it.
               const t = event.target;
-              if (t.closest(".solo")) return;
               const name = node.id.replace(/^domain:/, "");
               const open = view.open.has(name);
               if (!open || t.closest(".domain-bar")) setOpen(name, !open);
             }
+          },
+          onNodeDoubleClick: (_, node) => {
+            if (node.type === "domain") solo(node.id.replace(/^domain:/, ""));
           },
           onEdgeClick: (_, edge) => {
             setState((s) => ({ ...s, selected: null }));
@@ -466,7 +459,7 @@ function Explorer({ graph: fullGraph }) {
         h("i", { className: "swatch dashed" }),
         "Dashed: the join does not pick out one row. By name: a name is not a key and can match several rows. Part of a composite key: match the other key columns too. May be missing: not every value is in the other table, for example a hook in run_results, or a disabled resource, which is not in dag_nodes.",
       ),
-      h("span", null, "Click a table to focus it. Click a domain header to open or close it."),
+      h("span", null, "Click a table to focus it. Click a group to open or close it. Double-click a group to show only that group, and again to show all."),
     ),
   );
 }

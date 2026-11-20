@@ -182,13 +182,6 @@
   justify-content: space-between;
 }
 
-.solo {
-  font-size: 11px !important;
-  margin-right: 10px;
-  padding: 2px 8px !important;
-  white-space: nowrap;
-}
-
 .edge-label {
   background: var(--bg);
   border: 1px solid var(--line);
