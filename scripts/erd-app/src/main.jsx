@@ -1,14 +1,17 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
+  BaseEdge,
   Background,
   Controls,
+  EdgeLabelRenderer,
   Handle,
   MarkerType,
   MiniMap,
   Position,
   ReactFlow,
   ReactFlowProvider,
+  getBezierPath,
   useReactFlow,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
@@ -24,6 +27,7 @@ import {
   elkGraph,
   fromHash,
   neighbours,
+  scoped,
   search,
   toHash,
   visibleColumns,
@@ -60,34 +64,87 @@ function TableNode({ data }) {
 }
 
 function DomainNode({ data }) {
-  const { name, count, open, dim, onToggle } = data;
+  const { name, count, open, dim, solo, onToggle, onSolo } = data;
+  const head = [
+    h("span", { className: "caret", key: "c" }, open ? "\u25BE" : "\u25B8"),
+    h("strong", { key: "n" }, name),
+    h("span", { className: "muted", key: "m" }, `${count} table${count === 1 ? "" : "s"}`),
+  ];
   return h(
     "div",
     { className: `domain-node${open ? " open" : ""}${dim ? " dim" : ""}` },
     h(Handle, { type: "target", position: Position.Left, isConnectable: false }),
     h(Handle, { type: "source", position: Position.Right, isConnectable: false }),
-    h(
-      "button",
-      { className: "domain-head", onClick: onToggle, title: open ? "Collapse" : "Expand" },
-      h("span", { className: "caret" }, open ? "▾" : "▸"),
-      h("strong", null, name),
-      h("span", { className: "muted" }, `${count} table${count === 1 ? "" : "s"}`),
-    ),
+    open
+      ? h(
+          "div",
+          { className: "domain-bar" },
+          h("button", { className: "domain-head nodrag", onClick: onToggle, title: "Collapse" }, head),
+          h(
+            "button",
+            { className: "solo nodrag", onClick: onSolo, title: solo ? "Show every group" : "Show only this group" },
+            solo ? "Show all groups" : "Only this group",
+          ),
+        )
+      : h("button", { className: "domain-head nodrag", onClick: onToggle, title: "Expand" }, head),
+  );
+}
+
+/** An edge. The selected one carries a card above the tables; others a short tag. */
+function LinkEdge({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, markerEnd, data }) {
+  const [path, x, y] = getBezierPath({ sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition });
+  const { card, tag, links } = data;
+  return h(
+    React.Fragment,
+    null,
+    h(BaseEdge, { path, markerEnd, interactionWidth: 24 }),
+    (card || tag) &&
+      h(
+        EdgeLabelRenderer,
+        null,
+        h(
+          "div",
+          {
+            className: `edge-label nodrag nopan${card ? " card" : ""}`,
+            style: {
+              transform: `translate(-50%, ${card ? "-100%" : "-50%"}) translate(${x}px, ${card ? y - 16 : y}px)`,
+              zIndex: card ? 1000 : 5,
+            },
+          },
+          card
+            ? links.map((l, i) =>
+                h(
+                  "div",
+                  { key: i, className: "edge-line" },
+                  h("code", null, `${l.from}.${l.column}`),
+                  " \u2192 ",
+                  h("code", null, l.to),
+                  KINDS[l.kind].dashed ? h("span", { className: "muted" }, ` (${KINDS[l.kind].label.toLowerCase()})`) : null,
+                ),
+              )
+            : tag,
+        ),
+      ),
   );
 }
 
 const nodeTypes = { table: TableNode, domain: DomainNode };
+const edgeTypes = { link: LinkEdge };
 
-function Explorer({ graph }) {
+function Explorer({ graph: fullGraph }) {
   const flow = useReactFlow();
-  const [state, setState] = useState(() => fromHash(window.location.hash, graph));
+  const [state, setState] = useState(() => fromHash(window.location.hash, fullGraph));
   const [laid, setLaid] = useState(null);
+  // Where the user dragged tables and groups to, by node id. A new layout resets it.
+  const [moved, setMoved] = useState(() => new Map());
+  const [edgeKey, setEdgeKey] = useState(null);
+  const graph = useMemo(() => scoped(fullGraph, state.only), [fullGraph, state.only]);
   const [query, setQuery] = useState("");
   const wrap = useRef(null);
   const pendingFit = useRef(null);
 
   const view = useMemo(() => buildView(graph, state), [graph, state.open, state.hidden]);
-  const byId = useMemo(() => new Map(graph.tables.map((t) => [t.id, t])), [graph]);
+  const byId = useMemo(() => new Map(fullGraph.tables.map((t) => [t.id, t])), [fullGraph]);
 
   // Keep the URL in step with the view.
   useEffect(() => {
@@ -99,12 +156,25 @@ function Explorer({ graph }) {
   useEffect(() => {
     let live = true;
     elk.layout(elkGraph(graph, state, view)).then((result) => {
-      if (live) setLaid(result);
+      if (live) {
+        setMoved(new Map());
+        setLaid(result);
+      }
     });
     return () => {
       live = false;
     };
   }, [graph, view, state.columns]);
+
+  const onNodesChange = useCallback((changes) => {
+    const drags = changes.filter((c) => c.type === "position" && c.position);
+    if (drags.length === 0) return;
+    setMoved((m) => {
+      const next = new Map(m);
+      for (const c of drags) next.set(c.id, c.position);
+      return next;
+    });
+  }, []);
 
   const setOpen = useCallback((name, on) => {
     setState((s) => {
@@ -121,12 +191,21 @@ function Explorer({ graph }) {
       setState((s) => {
         const open = new Set(s.open);
         if (t) open.add(t.domain);
-        return { ...s, selected: id, open: [...open] };
+        // A table outside the one group on show ends that.
+        const only = s.only && t && t.domain !== s.only ? null : s.only;
+        return { ...s, selected: id, open: [...open], only };
       });
+      setEdgeKey(null);
       pendingFit.current = id;
     },
     [byId],
   );
+
+  const solo = useCallback((name) => {
+    setState((s) => (s.only ? { ...s, only: null } : { ...s, only: name, open: [name], selected: null }));
+    setEdgeKey(null);
+    pendingFit.current = "all";
+  }, []);
 
   const focus = state.selected ? neighbours(graph, state, state.selected) : null;
   const focusDomains = focus ? new Set([...focus].map((id) => byId.get(id)?.domain)) : null;
@@ -140,14 +219,16 @@ function Explorer({ graph }) {
       nodes.push({
         id: d.id,
         type: "domain",
-        position: { x: d.x, y: d.y },
+        position: moved.get(d.id) ?? { x: d.x, y: d.y },
         style: { width: d.width, height: d.height },
         data: {
           name,
           open,
           count: (view.tablesOf.get(name) ?? []).length,
           dim: focusDomains && !focusDomains.has(name),
+          solo: state.only === name,
           onToggle: () => setOpen(name, !open),
+          onSolo: () => solo(name),
         },
         draggable: true,
         selectable: false,
@@ -157,7 +238,9 @@ function Explorer({ graph }) {
           id: c.id,
           type: "table",
           parentId: d.id,
-          position: { x: c.x, y: c.y },
+          // Tables move inside their group box.
+          extent: "parent",
+          position: moved.get(c.id) ?? { x: c.x, y: c.y },
           data: {
             table: byId.get(c.id),
             columns: state.columns,
@@ -169,24 +252,27 @@ function Explorer({ graph }) {
       }
     }
     const edges = view.edges.map((e) => {
+      const key = `${e.source}>${e.target}`;
+      const chosen = edgeKey === key;
       const touches = state.selected && (e.source === state.selected || e.target === state.selected);
-      const dim = state.selected && !touches;
-      const labelled = touches ? e.links.map((l) => l.column).filter((v, i, a) => a.indexOf(v) === i) : [];
+      const dim = (state.selected && !touches) || (edgeKey && !chosen);
+      const columns = e.links.map((l) => l.column).filter((v, i, a) => a.indexOf(v) === i);
       // A merged edge between collapsed domains shows how many links it holds.
       const aggregated = e.source.startsWith("domain:") || e.target.startsWith("domain:");
-      const label = touches ? labelled.join(", ") : aggregated ? `${e.links.length}` : undefined;
+      const tag = chosen ? null : touches ? columns.join(", ") : aggregated ? `${e.links.length}` : null;
       return {
         id: e.id,
         source: e.source,
         target: e.target,
-        label,
-        className: `${e.dashed ? "dashed" : ""}${dim ? " dim" : ""}${touches ? " active" : ""}`,
+        data: { links: e.links, card: chosen, tag },
+        className: `${e.dashed ? "dashed" : ""}${dim ? " dim" : ""}${touches || chosen ? " active" : ""}`,
         markerEnd: { type: MarkerType.ArrowClosed, width: 14, height: 14 },
-        type: "default",
+        type: "link",
+        zIndex: chosen ? 900 : 0,
       };
     });
     return { nodes, edges };
-  }, [laid, view, state.columns, state.selected, byId]);
+  }, [laid, moved, view, state.columns, state.selected, state.only, edgeKey, byId]);
 
   // Fit after a layout that followed a user action.
   useEffect(() => {
@@ -215,7 +301,7 @@ function Explorer({ graph }) {
       return { ...s, hidden: [...hidden] };
     });
 
-  const hits = search(graph, query);
+  const hits = search(fullGraph, query);
   const selectedTable = state.selected ? byId.get(state.selected) : null;
   const allOpen = state.open.length === graph.domains.length;
 
@@ -263,6 +349,21 @@ function Explorer({ graph }) {
               ),
             ),
           ),
+      ),
+      h(
+        "select",
+        {
+          value: state.only ?? "",
+          "aria-label": "Group to show",
+          onChange: (e) => {
+            const only = e.target.value || null;
+            setState((s) => ({ ...s, only, selected: null, open: only ? [only] : s.open }));
+            setEdgeKey(null);
+            pendingFit.current = "all";
+          },
+        },
+        h("option", { value: "" }, "All groups"),
+        fullGraph.domains.map((d) => h("option", { key: d.name, value: d.name }, `Only ${d.name}`)),
       ),
       h(
         "button",
@@ -313,6 +414,8 @@ function Explorer({ graph }) {
           nodes,
           edges,
           nodeTypes,
+          edgeTypes,
+          onNodesChange,
           minZoom: 0.1,
           maxZoom: 2,
           fitView: true,
@@ -321,7 +424,14 @@ function Explorer({ graph }) {
           onNodeClick: (_, node) => {
             if (node.type === "table") select(node.id);
           },
-          onPaneClick: () => setState((s) => ({ ...s, selected: null })),
+          onEdgeClick: (_, edge) => {
+            setState((s) => ({ ...s, selected: null }));
+            setEdgeKey(`${edge.source}>${edge.target}`);
+          },
+          onPaneClick: () => {
+            setState((s) => ({ ...s, selected: null }));
+            setEdgeKey(null);
+          },
           proOptions: { hideAttribution: false },
         },
         h(Background, { gap: 24, color: "#0f5566" }),

@@ -19,6 +19,7 @@
 
 .explorer button,
 .explorer .btn,
+.explorer select,
 .explorer input[type="search"] {
   background: var(--accent);
   border: 1px solid var(--line);
@@ -175,6 +176,43 @@
   background: var(--accent);
 }
 
+.domain-bar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.solo {
+  font-size: 11px !important;
+  margin-right: 10px;
+  padding: 2px 8px !important;
+  white-space: nowrap;
+}
+
+.edge-label {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--strong);
+  font-size: 11px;
+  padding: 1px 5px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.edge-label.card {
+  background: var(--panel);
+  border-color: #ff694a;
+  font-size: 12px;
+  padding: 6px 10px;
+  pointer-events: all;
+  white-space: nowrap;
+}
+
+.edge-line + .edge-line {
+  margin-top: 3px;
+}
+
 .domain-head {
   align-items: center;
   background: none !important;
@@ -186,6 +224,10 @@
   padding: 0 12px !important;
   text-align: left;
   width: 100%;
+}
+
+.domain-bar .domain-head {
+  width: auto;
 }
 
 .domain-node:not(.open) .domain-head {

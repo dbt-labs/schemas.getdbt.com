@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { DEFAULT_STATE, buildView, fromHash, neighbours, search, toHash } from "../src/graph.js";
+import { DEFAULT_STATE, buildView, fromHash, neighbours, scoped, search, toHash } from "../src/graph.js";
 
 const col = (name, pk = false, fk = false) => ({ name, type: "string", pk, fk });
 const graph = {
@@ -65,8 +65,17 @@ test("search matches table names first, then columns", () => {
 });
 
 test("the URL hash round-trips the view and ignores unknown values", () => {
-  const state = { open: ["a"], hidden: ["name", "subtype"], columns: "all", selected: "t.one" };
+  const state = { open: ["a"], hidden: ["name", "subtype"], columns: "all", selected: "t.one", only: "a" };
   assert.deepEqual(fromHash(`#${toHash(state)}`, graph), state);
   const junk = fromHash("#t=nope&open=zzz&hide=bogus,name&cols=weird", graph);
-  assert.deepEqual(junk, { open: [], hidden: ["name"], columns: "keys", selected: null });
+  assert.deepEqual(junk, { open: [], hidden: ["name"], columns: "keys", selected: null, only: null });
+});
+
+test("one domain shows only its tables and the links inside it", () => {
+  const g = scoped(graph, "a");
+  assert.deepEqual(g.domains.map((d) => d.name), ["a"]);
+  assert.deepEqual(g.tables.map((t) => t.id), ["t.one", "t.two"]);
+  assert.deepEqual(g.links.map((l) => l.column), ["id"]);
+  assert.equal(scoped(graph, null), graph);
+  assert.equal(scoped(graph, "nope"), graph);
 });

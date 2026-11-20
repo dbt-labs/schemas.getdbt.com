@@ -21,7 +21,21 @@ export const DEFAULT_STATE = {
   hidden: [], // hidden link kinds, plus "subtype" for subtype links
   columns: "keys", // "keys" or "all"
   selected: null, // a table id
+  only: null, // show just this domain
 };
+
+/** The graph a view shows: all of it, or one domain and the links inside it. */
+export function scoped(graph, only) {
+  if (!only || !graph.domains.some((d) => d.name === only)) return graph;
+  const tables = graph.tables.filter((t) => t.domain === only);
+  const ids = new Set(tables.map((t) => t.id));
+  return {
+    ...graph,
+    domains: graph.domains.filter((d) => d.name === only),
+    tables,
+    links: graph.links.filter((l) => ids.has(l.from) && ids.has(l.to)),
+  };
+}
 
 /** The columns a table node lists. */
 export function visibleColumns(table, mode) {
@@ -113,6 +127,7 @@ export function toHash(state) {
   if (state.open.length) p.set("open", state.open.join(","));
   if (state.hidden.length) p.set("hide", state.hidden.join(","));
   if (state.columns !== "keys") p.set("cols", state.columns);
+  if (state.only) p.set("only", state.only);
   return p.toString();
 }
 
@@ -129,6 +144,7 @@ export function fromHash(hash, graph) {
     open: split(p.get("open")).filter((d) => known.has(d)),
     hidden: split(p.get("hide")).filter((k) => validKinds.has(k)),
     columns: p.get("cols") === "all" ? "all" : "keys",
+    only: known.has(p.get("only")) ? p.get("only") : null,
   };
 }
 
