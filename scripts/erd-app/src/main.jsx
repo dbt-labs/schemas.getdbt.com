@@ -64,7 +64,7 @@ function TableNode({ data }) {
 }
 
 function DomainNode({ data }) {
-  const { name, count, open, dim, solo, onToggle, onSolo } = data;
+  const { name, count, open, dim, solo, onSolo } = data;
   const head = [
     h("span", { className: "caret", key: "c" }, open ? "\u25BE" : "\u25B8"),
     h("strong", { key: "n" }, name),
@@ -79,14 +79,14 @@ function DomainNode({ data }) {
       ? h(
           "div",
           { className: "domain-bar" },
-          h("button", { className: "domain-head nodrag", onClick: onToggle, title: "Collapse" }, head),
+          h("div", { className: "domain-head", title: "Click to collapse, drag to move" }, head),
           h(
             "button",
             { className: "solo nodrag", onClick: onSolo, title: solo ? "Show every group" : "Show only this group" },
             solo ? "Show all groups" : "Only this group",
           ),
         )
-      : h("button", { className: "domain-head nodrag", onClick: onToggle, title: "Expand" }, head),
+      : h("div", { className: "domain-head", title: "Click to expand, drag to move" }, head),
   );
 }
 
@@ -227,7 +227,6 @@ function Explorer({ graph: fullGraph }) {
           count: (view.tablesOf.get(name) ?? []).length,
           dim: focusDomains && !focusDomains.has(name),
           solo: state.only === name,
-          onToggle: () => setOpen(name, !open),
           onSolo: () => solo(name),
         },
         draggable: true,
@@ -421,8 +420,16 @@ function Explorer({ graph: fullGraph }) {
           fitView: true,
           fitViewOptions: { padding: 0.15 },
           nodesConnectable: false,
-          onNodeClick: (_, node) => {
+          onNodeClick: (event, node) => {
             if (node.type === "table") select(node.id);
+            if (node.type === "domain") {
+              // A click on the header (or the whole box, when collapsed) opens or closes it.
+              const t = event.target;
+              if (t.closest(".solo")) return;
+              const name = node.id.replace(/^domain:/, "");
+              const open = view.open.has(name);
+              if (!open || t.closest(".domain-bar")) setOpen(name, !open);
+            }
           },
           onEdgeClick: (_, edge) => {
             setState((s) => ({ ...s, selected: null }));

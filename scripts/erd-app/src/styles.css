@@ -215,13 +215,12 @@
 
 .domain-head {
   align-items: center;
-  background: none !important;
-  border: 0 !important;
-  color: var(--strong) !important;
+  color: var(--strong);
+  cursor: grab;
   display: flex;
   gap: 8px;
   height: 36px;
-  padding: 0 12px !important;
+  padding: 0 12px;
   text-align: left;
   width: 100%;
 }
