@@ -103,6 +103,25 @@ export function neighbours(graph, state, id) {
   return out;
 }
 
+/**
+ * A table and the tables it is related to, with the links that touch it. Every
+ * domain that has one of them is shown. `graph` is already narrowed to the
+ * group on show, so the two choices combine: the related tables are those
+ * inside that group. A table outside `graph` leaves it unchanged.
+ */
+export function focusGraph(graph, state, id) {
+  if (!id || !graph.tables.some((t) => t.id === id)) return graph;
+  const keep = neighbours(graph, state, id);
+  const tables = graph.tables.filter((t) => keep.has(t.id));
+  const domains = new Set(tables.map((t) => t.domain));
+  return {
+    ...graph,
+    domains: graph.domains.filter((d) => domains.has(d.name)),
+    tables,
+    links: graph.links.filter((l) => l.from === id || l.to === id),
+  };
+}
+
 /** Tables whose name or a column matches `q`, best matches first. */
 export function search(graph, q) {
   const needle = q.trim().toLowerCase();

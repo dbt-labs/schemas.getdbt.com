@@ -26,6 +26,7 @@ import {
   TABLE_WIDTH,
   buildView,
   elkGraph,
+  focusGraph,
   fromHash,
   neighbours,
   scoped,
@@ -135,7 +136,10 @@ function Explorer({ graph: fullGraph }) {
   const [nodes, setNodes] = useState([]);
   const shownLaid = useRef(null);
   const [edgeKey, setEdgeKey] = useState(null);
-  const graph = useMemo(() => scoped(fullGraph, state.only), [fullGraph, state.only]);
+  // What is on show: the chosen group, then a chosen table and its relatives.
+  const scope = useMemo(() => scoped(fullGraph, state.only), [fullGraph, state.only]);
+  const graph = useMemo(() => focusGraph(scope, state, state.selected), [scope, state.selected, state.hidden.join(",")]);
+  const focusing = graph !== scope;
   const [query, setQuery] = useState("");
   const wrap = useRef(null);
   const pendingFit = useRef(null);
@@ -144,7 +148,11 @@ function Explorer({ graph: fullGraph }) {
   // which would also throw away where the user moved things.
   const openKey = state.open.join(",");
   const hiddenKey = state.hidden.join(",");
-  const view = useMemo(() => buildView(graph, state), [graph, openKey, hiddenKey]);
+  // Every domain that has a table in the focus is open.
+  const view = useMemo(
+    () => buildView(graph, focusing ? { ...state, open: graph.domains.map((d) => d.name) } : state),
+    [graph, focusing, openKey, hiddenKey],
+  );
   const byId = useMemo(() => new Map(fullGraph.tables.map((t) => [t.id, t])), [fullGraph]);
 
   // Keep the URL in step with the view.
@@ -186,19 +194,24 @@ function Explorer({ graph: fullGraph }) {
         return { ...s, selected: id, open: [...open], only };
       });
       setEdgeKey(null);
-      pendingFit.current = id;
+      pendingFit.current = "all";
     },
     [byId],
   );
 
   const solo = useCallback((name) => {
-    setState((s) => (s.only ? { ...s, only: null } : { ...s, only: name, open: [name], selected: null }));
+    setState((s) => {
+      if (s.only) return { ...s, only: null };
+      // A selected table stays if it is in this group; otherwise it is not in view.
+      const keep = s.selected && byId.get(s.selected)?.domain === name ? s.selected : null;
+      return { ...s, only: name, open: [name], selected: keep };
+    });
     setEdgeKey(null);
     pendingFit.current = "all";
-  }, []);
+  }, [byId]);
 
-  const focus = state.selected ? neighbours(graph, state, state.selected) : null;
-  const focusDomains = focus ? new Set([...focus].map((id) => byId.get(id)?.domain)) : null;
+  const focus = null;
+  const focusDomains = null;
 
   const { base, edges } = useMemo(() => {
     if (!laid) return { base: [], edges: [] };
@@ -279,19 +292,13 @@ function Explorer({ graph: fullGraph }) {
   // Fit after a layout that followed a user action.
   useEffect(() => {
     if (!laid || !pendingFit.current) return;
-    const target = pendingFit.current;
     pendingFit.current = null;
     const id = setTimeout(() => {
-      if (target === "all") flow.fitView({ padding: 0.15, duration: 300 });
-      else {
-        // Leave room for the side panel on the right.
-        flow.fitView({
-          nodes: [{ id: target }],
-          padding: { top: "120px", bottom: "120px", left: "120px", right: "460px" },
-          maxZoom: 1.2,
-          duration: 400,
-        });
-      }
+      // Leave room for the side panel, which is open while a table is selected.
+      const padding = state.selected
+        ? { top: "60px", bottom: "60px", left: "60px", right: "400px" }
+        : 0.15;
+      flow.fitView({ padding, duration: 300 });
     }, 50);
     return () => clearTimeout(id);
   }, [laid]);
@@ -359,7 +366,12 @@ function Explorer({ graph: fullGraph }) {
           "aria-label": "Group to show",
           onChange: (e) => {
             const only = e.target.value || null;
-            setState((s) => ({ ...s, only, selected: null, open: only ? [only] : s.open }));
+            setState((s) => ({
+              ...s,
+              only,
+              selected: only && s.selected && byId.get(s.selected)?.domain !== only ? null : s.selected,
+              open: only ? [only] : s.open,
+            }));
             setEdgeKey(null);
             pendingFit.current = "all";
           },
@@ -430,6 +442,7 @@ function Explorer({ graph: fullGraph }) {
               const t = event.target;
               const name = node.id.replace(/^domain:/, "");
               const open = view.open.has(name);
+              if (focusing) return;
               if (!open || t.closest(".domain-bar")) setOpen(name, !open);
             }
           },
@@ -453,7 +466,7 @@ function Explorer({ graph: fullGraph }) {
       selectedTable &&
         h(Panel, {
           table: selectedTable,
-          graph,
+          graph: fullGraph,
           state,
           onSelect: select,
           onClose: () => setState((s) => ({ ...s, selected: null })),
@@ -471,7 +484,7 @@ function Explorer({ graph: fullGraph }) {
         h("i", { className: "swatch dashed" }),
         "Dashed: the join does not pick out one row. By name: a name is not a key and can match several rows. Part of a composite key: match the other key columns too. May be missing: not every value is in the other table, for example a hook in run_results, or a disabled resource, which is not in dag_nodes.",
       ),
-      h("span", null, "Click a table to focus it. Click a group to open or close it. Double-click a group to show only that group, and again to show all."),
+      h("span", null, "Click a table to show it and its related tables, and click the background to go back. Click a group to open or close it. Double-click a group to show only that group, and again to show all."),
     ),
   );
 }

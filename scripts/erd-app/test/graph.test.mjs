@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { DEFAULT_STATE, buildView, fromHash, neighbours, scoped, search, toHash } from "../src/graph.js";
+import { DEFAULT_STATE, buildView, focusGraph, fromHash, neighbours, scoped, search, toHash } from "../src/graph.js";
 
 const col = (name, pk = false, fk = false) => ({ name, type: "string", pk, fk });
 const graph = {
@@ -78,4 +78,23 @@ test("one domain shows only its tables and the links inside it", () => {
   assert.deepEqual(g.links.map((l) => l.column), ["id"]);
   assert.equal(scoped(graph, null), graph);
   assert.equal(scoped(graph, "nope"), graph);
+});
+
+test("a focused table shows itself, its related tables and the links that touch it", () => {
+  const g = focusGraph(graph, DEFAULT_STATE, "t.one");
+  assert.deepEqual(g.tables.map((t) => t.id).sort(), ["t.one", "t.three", "t.two"]);
+  assert.deepEqual(g.domains.map((d) => d.name), ["a", "b"]);
+  // The link from t.three to t.two does not touch t.one.
+  assert.deepEqual(g.links.map((l) => l.column).sort(), ["id", "one_id"]);
+  assert.equal(focusGraph(graph, DEFAULT_STATE, null), graph);
+  assert.equal(focusGraph(graph, DEFAULT_STATE, "nope"), graph);
+});
+
+test("a focused table and a group combine: related tables inside the group", () => {
+  const g = focusGraph(scoped(graph, "a"), DEFAULT_STATE, "t.one");
+  assert.deepEqual(g.tables.map((t) => t.id).sort(), ["t.one", "t.two"]);
+  assert.deepEqual(g.domains.map((d) => d.name), ["a"]);
+  // A table outside the group is not in view, so nothing narrows further.
+  const outside = scoped(graph, "a");
+  assert.equal(focusGraph(outside, DEFAULT_STATE, "t.three"), outside);
 });
