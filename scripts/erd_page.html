@@ -96,6 +96,29 @@
       padding: 0;
     }
 
+    footer {
+      font-size: 90%;
+      line-height: 1.5;
+      margin: 1.2em auto 0;
+      max-width: 900px;
+      text-align: left;
+    }
+
+    footer h2 {
+      color: #fff;
+      font-size: 100%;
+      margin: 0 0 .4em;
+    }
+
+    footer ul {
+      margin: .3em 0 .8em;
+      padding-left: 1.4em;
+    }
+
+    footer code {
+      color: #fff;
+    }
+
     /* Hollow "zero" markers; Mermaid draws them white. */
     #diagram marker circle {
       fill: #002b36 !important;
@@ -115,6 +138,28 @@
     <pre class="mermaid">
 __SOURCE__</pre>
   </div>
+
+  <footer>
+    <h2>How to read the lines</h2>
+    <p>A line joins a column of one table (the label) to the column it refers to in another.</p>
+    <ul>
+      <li><strong>Solid line</strong>: the column holds the whole key of the other table, so each value matches
+        exactly one row there.</li>
+      <li><strong>Dashed line</strong>: the column does not pick out a single row. The label says why:
+        <ul>
+          <li><code>(by name)</code>: the join is on a name, such as <code>model</code> or <code>group</code>. The
+            name is not a key and can match more than one row, for example across packages.</li>
+          <li><code>(with &hellip;)</code>: the column is only part of a composite key. Match the other
+            columns too, such as <code>node_unique_id</code> together with <code>column_name</code>.</li>
+          <li><code>(not always present)</code>: the other table is a whole key, but not every value is in it. A
+            hook's id in <code>dbt_rt.run_results</code> is not in <code>dbt.dag_nodes</code>.</li>
+        </ul>
+      </li>
+      <li><strong>Line ends</strong>: a bar is exactly one, a circle with a bar is zero or one, and a crow's foot is
+        zero or more. A resource table that points at <code>dbt.dag_nodes</code> with its whole key has at most
+        one row per node. A disabled resource has no row in <code>dbt.dag_nodes</code>.</li>
+    </ul>
+  </footer>
 
   <script src="__PANZOOM_URL__"></script>
   <script type="module">

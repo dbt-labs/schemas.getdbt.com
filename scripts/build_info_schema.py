@@ -8,11 +8,13 @@ by hand):
   dbt/info-schema/v1.json              every table in one schema
   dbt/info-schema/<table>/v1.json
   dbt/info-schema/erd.mmd, erd-<domain>.mmd
+  dbt/info-schema/graph.json           tables and relationships, for the interactive ERD
 
 Output:
   dbt/info-schema/v1/index.html (+ css, js)            json-schema-for-humans
   dbt/info-schema/<table>/v1/index.html (+ css, js)    json-schema-for-humans
-  dbt/info-schema/erd/index.html, erd/<domain>/index.html   Mermaid ERDs
+  dbt/info-schema/erd/index.html                       interactive ERD (static/erd/)
+  dbt/info-schema/erd/mermaid/index.html, .../<domain>/index.html   static Mermaid ERDs
   the "Info Schema" section at the top of the root index.html
 
 Run from anywhere: `make info_schema_html`. Needs `json-schema-for-humans` 1.5.1.
@@ -34,6 +36,9 @@ ROOT_PAGE = REPO / "index.html"
 MERMAID_URL = "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs"
 PANZOOM_URL = "https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"
 ERD_TEMPLATE = Path(__file__).with_name("erd_page.html")
+# The interactive ERD. Its code is built from scripts/erd-app/ into static/erd/
+# and committed, so the page loads nothing from a CDN.
+EXPLORER_TEMPLATE = Path(__file__).with_name("erd_explorer.html")
 
 START = "<!-- info-schema:start -->"
 END = "<!-- info-schema:end -->"
@@ -78,8 +83,28 @@ def build_schema_pages(index: dict) -> None:
 
 
 def erd_dir(name: str) -> Path:
-    """Page directory of a diagram. The overview is the ERD landing page."""
-    return INFO / "erd" if name == "overview" else INFO / "erd" / name
+    """Page directory of a static diagram. The overview is the landing page."""
+    base = INFO / "erd" / "mermaid"
+    return base if name == "overview" else base / name
+
+
+def build_explorer_page(index: dict) -> None:
+    """The interactive ERD: the ERD landing page."""
+    out = INFO / "erd" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    up = "../" * len(out.relative_to(REPO).parts[:-1])  # to the repo root
+    if "graph" not in index:
+        sys.exit("index.json has no 'graph' entry: regenerate the info schema files")
+    page = EXPLORER_TEMPLATE.read_text()
+    for token, value in {
+        "__UP__": up,
+        "__GRAPH__": f"{up}dbt/{index['graph']}",
+        "__MMD__": f"{up}dbt/{index['diagrams'][0]['path']}",
+        "__STATIC__": f"{up}dbt/info-schema/erd/mermaid/index.html",
+        "__BASE__": f"{up}dbt/info-schema/",
+    }.items():
+        page = page.replace(token, value)
+    out.write_text(page)
 
 
 def build_erd_pages(index: dict) -> None:
@@ -88,15 +113,16 @@ def build_erd_pages(index: dict) -> None:
     Mermaid keys entity elements by table name, and the diagrams share table
     names, so rendering several on one page makes them overwrite each other.
     """
-    # Stale per-domain pages go; the overview page is rewritten below.
+    # Stale pages go; everything under erd/ is rewritten below.
     shutil.rmtree(INFO / "erd", ignore_errors=True)
+    build_explorer_page(index)
     for diagram in index["diagrams"]:
         name = diagram["name"]
         out = erd_dir(name) / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         up = "../" * len(out.relative_to(REPO).parts[:-1])  # to the repo root
-        nav = " ".join(
-            f'<a href="{up}dbt/info-schema/erd/'
+        nav = f'<a href="{up}dbt/info-schema/erd/index.html">interactive</a> ' + " ".join(
+            f'<a href="{up}dbt/info-schema/erd/mermaid/'
             f'{"" if d["name"] == "overview" else d["name"] + "/"}index.html"'
             f'{" aria-current=page" if d["name"] == name else ""}>{html.escape(d["name"])}</a>'
             for d in index["diagrams"]
