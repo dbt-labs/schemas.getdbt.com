@@ -9,7 +9,6 @@ minimap, and a link that reopens the same view.
 Nothing is loaded from a CDN. The built code is committed:
 
 - `static/erd/erd-app.js`, `static/erd/erd-app.css`: the bundle
-- `static/erd/LICENSES.txt`: the licence text of every package inside it
 
 `scripts/build_info_schema.py` only fills in `scripts/erd_explorer.html`, so the
 sync workflow needs Python and no Node.
