@@ -11,6 +11,7 @@ import {
   Position,
   ReactFlow,
   ReactFlowProvider,
+  applyNodeChanges,
   getBezierPath,
   useReactFlow,
 } from "@xyflow/react";
@@ -128,15 +129,22 @@ function Explorer({ graph: fullGraph }) {
   const flow = useReactFlow();
   const [state, setState] = useState(() => fromHash(window.location.hash, fullGraph));
   const [laid, setLaid] = useState(null);
-  // Where the user dragged tables and groups to, by node id. A new layout resets it.
-  const [moved, setMoved] = useState(() => new Map());
+  // The nodes React Flow shows. They live in state so that a drag changes one
+  // node and keeps the measured size of the rest; rebuilding them all on every
+  // mouse move made the whole graph flicker.
+  const [nodes, setNodes] = useState([]);
+  const shownLaid = useRef(null);
   const [edgeKey, setEdgeKey] = useState(null);
   const graph = useMemo(() => scoped(fullGraph, state.only), [fullGraph, state.only]);
   const [query, setQuery] = useState("");
   const wrap = useRef(null);
   const pendingFit = useRef(null);
 
-  const view = useMemo(() => buildView(graph, state), [graph, state.open, state.hidden]);
+  // Keyed by content: a new array with the same entries must not trigger a layout,
+  // which would also throw away where the user moved things.
+  const openKey = state.open.join(",");
+  const hiddenKey = state.hidden.join(",");
+  const view = useMemo(() => buildView(graph, state), [graph, openKey, hiddenKey]);
   const byId = useMemo(() => new Map(fullGraph.tables.map((t) => [t.id, t])), [fullGraph]);
 
   // Keep the URL in step with the view.
@@ -149,25 +157,14 @@ function Explorer({ graph: fullGraph }) {
   useEffect(() => {
     let live = true;
     elk.layout(elkGraph(graph, state, view)).then((result) => {
-      if (live) {
-        setMoved(new Map());
-        setLaid(result);
-      }
+      if (live) setLaid(result);
     });
     return () => {
       live = false;
     };
   }, [graph, view, state.columns]);
 
-  const onNodesChange = useCallback((changes) => {
-    const drags = changes.filter((c) => c.type === "position" && c.position);
-    if (drags.length === 0) return;
-    setMoved((m) => {
-      const next = new Map(m);
-      for (const c of drags) next.set(c.id, c.position);
-      return next;
-    });
-  }, []);
+  const onNodesChange = useCallback((changes) => setNodes((ns) => applyNodeChanges(changes, ns)), []);
 
   const setOpen = useCallback((name, on) => {
     setState((s) => {
@@ -203,8 +200,8 @@ function Explorer({ graph: fullGraph }) {
   const focus = state.selected ? neighbours(graph, state, state.selected) : null;
   const focusDomains = focus ? new Set([...focus].map((id) => byId.get(id)?.domain)) : null;
 
-  const { nodes, edges } = useMemo(() => {
-    if (!laid) return { nodes: [], edges: [] };
+  const { base, edges } = useMemo(() => {
+    if (!laid) return { base: [], edges: [] };
     const nodes = [];
     for (const d of laid.children) {
       const name = d.id.replace(/^domain:/, "");
@@ -212,7 +209,7 @@ function Explorer({ graph: fullGraph }) {
       nodes.push({
         id: d.id,
         type: "domain",
-        position: moved.get(d.id) ?? { x: d.x, y: d.y },
+        position: { x: d.x, y: d.y },
         style: { width: d.width, height: d.height },
         data: {
           name,
@@ -230,7 +227,7 @@ function Explorer({ graph: fullGraph }) {
           parentId: d.id,
           // Tables move inside their group box.
           extent: "parent",
-          position: moved.get(c.id) ?? { x: c.x, y: c.y },
+          position: { x: c.x, y: c.y },
           data: {
             table: byId.get(c.id),
             columns: state.columns,
@@ -261,8 +258,23 @@ function Explorer({ graph: fullGraph }) {
         zIndex: chosen ? 900 : 0,
       };
     });
-    return { nodes, edges };
-  }, [laid, moved, view, state.columns, state.selected, state.only, edgeKey, byId]);
+    return { base: nodes, edges };
+  }, [laid, view, state.columns, state.selected, state.only, edgeKey, byId]);
+
+  // Take the freshly built nodes, but keep where the user dragged things (and
+  // each node's measured size) until the next layout.
+  useEffect(() => {
+    const fresh = shownLaid.current !== laid;
+    shownLaid.current = laid;
+    setNodes((prev) => {
+      const old = new Map(prev.map((n) => [n.id, n]));
+      return base.map((n) => {
+        const o = old.get(n.id);
+        if (!o) return n;
+        return { ...n, position: fresh ? n.position : o.position, measured: o.measured, width: o.width, height: o.height };
+      });
+    });
+  }, [base, laid]);
 
   // Fit after a layout that followed a user action.
   useEffect(() => {
