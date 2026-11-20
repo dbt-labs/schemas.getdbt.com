@@ -35,6 +35,7 @@ import {
   search,
   toHash,
   visibleColumns,
+  modeOf,
   visibleLinks,
 } from "./graph.js";
 import "./styles.css";
@@ -46,14 +47,34 @@ const root = document.getElementById("root");
 const cfg = { ...root.dataset };
 
 function TableNode({ data }) {
-  const { table, columns, dim, selected } = data;
+  const { table, columns, dim, selected, onToggle } = data;
   const cols = visibleColumns(table, columns);
+  const hasMore = table.columns.length > table.columns.filter((c) => c.pk || c.fk).length;
+  const all = columns === "all";
   return h(
     "div",
     { className: `table-node${selected ? " selected" : ""}${dim ? " dim" : ""}`, style: { width: TABLE_WIDTH } },
     h(Handle, { type: "target", position: Position.Left, isConnectable: false }),
     h(Handle, { type: "source", position: Position.Right, isConnectable: false }),
-    h("div", { className: "table-head", style: { height: HEADER_HEIGHT } }, table.id),
+    h(
+      "div",
+      { className: "table-head", style: { height: HEADER_HEIGHT } },
+      h("span", { className: "table-name" }, table.id),
+      hasMore &&
+        h(
+          "button",
+          {
+            className: "col-toggle nodrag",
+            title: all ? "Show key columns only" : "Show all columns",
+            "aria-label": all ? "Show key columns only" : "Show all columns",
+            onClick: (e) => {
+              e.stopPropagation();
+              onToggle(table.id);
+            },
+          },
+          all ? "\u2212" : "+",
+        ),
+    ),
     cols.length === 0
       ? h("div", { className: "col muted", style: { height: ROW_HEIGHT } }, "no key columns")
       : cols.map((c) =>
@@ -129,6 +150,10 @@ function LinkEdge({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPo
 const nodeTypes = { table: TableNode, domain: DomainNode };
 const edgeTypes = { link: LinkEdge };
 
+function graph_tables(g) {
+  return g.tables.map((t) => t.id);
+}
+
 function Explorer({ graph: fullGraph }) {
   const flow = useReactFlow();
   const [state, setState] = useState(() => fromHash(window.location.hash, fullGraph));
@@ -151,6 +176,22 @@ function Explorer({ graph: fullGraph }) {
   // which would also throw away where the user moved things.
   const openKey = state.open.join(",");
   const hiddenKey = state.hidden.join(",");
+  const expandedKey = state.expanded.join(",");
+  // A table listing every column changes height, so this also re-lays out.
+  const toggleColumns = useCallback((id) => {
+    setState((s) => {
+      const on = !(s.columns === "all" || s.expanded.includes(id));
+      // Under "all columns" a table cannot be narrowed on its own: drop to keys
+      // for the rest and keep the others expanded.
+      if (s.columns === "all") {
+        const rest = graph_tables(fullGraph).filter((t) => t !== id);
+        return { ...s, columns: "keys", expanded: rest };
+      }
+      const expanded = new Set(s.expanded);
+      on ? expanded.add(id) : expanded.delete(id);
+      return { ...s, expanded: [...expanded] };
+    });
+  }, [fullGraph]);
   // Every domain that has a table in the focus is open.
   const view = useMemo(
     () => buildView(graph, focusing ? { ...state, open: graph.domains.map((d) => d.name) } : state),
@@ -179,7 +220,7 @@ function Explorer({ graph: fullGraph }) {
     return () => {
       live = false;
     };
-  }, [graph, view, state.columns]);
+  }, [graph, view, state.columns, expandedKey]);
 
   const onNodesChange = useCallback((changes) => setNodes((ns) => applyNodeChanges(changes, ns)), []);
 
@@ -244,7 +285,8 @@ function Explorer({ graph: fullGraph }) {
           position: { x: c.x, y: c.y },
           data: {
             table: byId.get(c.id),
-            columns: state.columns,
+            columns: modeOf(state, c.id),
+            onToggle: toggleColumns,
             dim: focus && !focus.has(c.id),
             selected: state.selected === c.id,
           },
@@ -273,7 +315,7 @@ function Explorer({ graph: fullGraph }) {
       };
     });
     return { base: nodes, edges };
-  }, [laid, view, state.columns, state.selected, state.only, edgeKey, byId]);
+  }, [laid, view, state.columns, expandedKey, state.selected, state.only, edgeKey, byId, toggleColumns]);
 
   // Take the freshly built nodes, but keep where the user dragged things (and
   // each node's measured size) until the next layout.
@@ -390,7 +432,7 @@ function Explorer({ graph: fullGraph }) {
       h(
         "button",
         {
-          onClick: () => setState((s) => ({ ...s, columns: s.columns === "keys" ? "all" : "keys" })),
+          onClick: () => setState((s) => ({ ...s, columns: s.columns === "keys" ? "all" : "keys", expanded: [] })),
           title: "Switch between key columns and all columns",
         },
         state.columns === "keys" ? "Show all columns" : "Show key columns",

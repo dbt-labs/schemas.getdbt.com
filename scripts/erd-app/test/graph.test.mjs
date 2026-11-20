@@ -64,10 +64,10 @@ test("search matches table names first, then columns", () => {
 });
 
 test("the URL hash round-trips the view and ignores unknown values", () => {
-  const state = { open: ["a"], hidden: ["name"], columns: "all", selected: "t.one", only: "a" };
+  const state = { open: ["a"], hidden: ["name"], columns: "all", expanded: ["t.one"], selected: "t.one", only: "a" };
   assert.deepEqual(fromHash(`#${toHash(state)}`, graph), state);
   const junk = fromHash("#t=nope&open=zzz&hide=bogus,name&cols=weird", graph);
-  assert.deepEqual(junk, { open: [], hidden: ["name"], columns: "keys", selected: null, only: null });
+  assert.deepEqual(junk, { open: [], hidden: ["name"], columns: "keys", expanded: [], selected: null, only: null });
 });
 
 test("one domain shows only its tables and the links inside it", () => {

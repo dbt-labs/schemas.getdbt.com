@@ -19,6 +19,7 @@ export const DEFAULT_STATE = {
   open: [], // expanded domains
   hidden: [], // hidden link kinds
   columns: "keys", // "keys" or "all"
+  expanded: [], // tables that list every column whatever `columns` says
   selected: null, // a table id
   only: null, // show just this domain
 };
@@ -54,6 +55,11 @@ export function visibleColumns(table, mode) {
   return mode === "all"
     ? table.columns
     : table.columns.filter((c) => c.pk || c.fk);
+}
+
+/** "all" when a table lists every column, "keys" when only its key columns. */
+export function modeOf(state, id) {
+  return state.columns === "all" || state.expanded.includes(id) ? "all" : "keys";
 }
 
 export function tableHeight(table, mode) {
@@ -156,6 +162,7 @@ export function toHash(state) {
   if (state.open.length) p.set("open", state.open.join(","));
   if (state.hidden.length) p.set("hide", state.hidden.join(","));
   if (state.columns !== "keys") p.set("cols", state.columns);
+  if (state.expanded.length) p.set("exp", state.expanded.join(","));
   if (state.only) p.set("only", state.only);
   return p.toString();
 }
@@ -173,6 +180,7 @@ export function fromHash(hash, graph) {
     open: split(p.get("open")).filter((d) => known.has(d)),
     hidden: split(p.get("hide")).filter((k) => validKinds.has(k)),
     columns: p.get("cols") === "all" ? "all" : "keys",
+    expanded: split(p.get("exp")).filter((id) => graph.tables.some((t) => t.id === id)),
     only: known.has(p.get("only")) ? p.get("only") : null,
   };
 }
@@ -195,7 +203,7 @@ export function elkGraph(graph, state, view) {
       children: tables.map((t) => ({
         id: t.id,
         width: TABLE_WIDTH,
-        height: tableHeight(t, state.columns),
+        height: tableHeight(t, modeOf(state, t.id)),
       })),
     };
   });

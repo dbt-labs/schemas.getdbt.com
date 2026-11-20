@@ -146,11 +146,31 @@
 }
 
 .table-head {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
   background: var(--accent);
   color: var(--strong);
   font-weight: 600;
   line-height: 30px;
   padding: 0 8px;
+}
+
+.col-toggle {
+  background: transparent;
+  border: 1px solid var(--text);
+  border-radius: 3px;
+  color: var(--strong);
+  cursor: pointer;
+  font-size: 13px;
+  height: 18px;
+  line-height: 1;
+  padding: 0;
+  width: 18px;
+}
+
+.col-toggle:hover {
+  background: var(--panel);
 }
 
 .col {
@@ -250,6 +270,22 @@
   flex-direction: column;
   justify-content: center;
   gap: 0;
+}
+
+/* The open/close icon sits at the top left, with some padding, in both states. */
+.domain-node:not(.open) {
+  position: relative;
+}
+
+.domain-node:not(.open) .caret {
+  left: 12px;
+  position: absolute;
+  top: 10px;
+}
+
+.caret {
+  font-size: 18px;
+  line-height: 1;
 }
 
 .react-flow__handle {
