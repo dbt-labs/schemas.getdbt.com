@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overpass:300,400,600,800">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="schema_doc.css">
+    <script src="https://use.fontawesome.com/facf9fa52c.js"></script>
+    <script src="schema_doc.min.js"></script>
+    <meta charset="utf-8"/>
+        
+    
+    <title>dbt_rt.run_results</title>
+</head>
+<body onload="anchorOnLoad();" id="root">
+
+    <div class="breadcrumbs"></div> <h1>dbt_rt.run_results</h1><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Primary key: <code>unique_id</code>, <code>invocation_id</code>.</p>
+</span>
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionunique_id">
+    <div class="card">
+        <div class="card-header" id="headingunique_id">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#unique_id"
+                        aria-expanded="" aria-controls="unique_id" onclick="setAnchor('#unique_id')"><span class="property-name">unique_id</span></button>
+            </h2>
+        </div>
+
+        <div id="unique_id"
+             class="collapse property-definition-div" aria-labelledby="headingunique_id"
+             data-parent="#accordionunique_id">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#unique_id" onclick="anchorLink('unique_id')">unique_id</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+<span class="description"><p>Part of the primary key. References <code>dbt.dag_nodes.unique_id</code>. The id of a hook is not in <code>dbt.dag_nodes</code>.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordioninvocation_id">
+    <div class="card">
+        <div class="card-header" id="headinginvocation_id">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#invocation_id"
+                        aria-expanded="" aria-controls="invocation_id" onclick="setAnchor('#invocation_id')"><span class="property-name">invocation_id</span></button>
+            </h2>
+        </div>
+
+        <div id="invocation_id"
+             class="collapse property-definition-div" aria-labelledby="headinginvocation_id"
+             data-parent="#accordioninvocation_id">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#invocation_id" onclick="anchorLink('invocation_id')">invocation_id</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+<span class="description"><p>Part of the primary key. References <code>dbt_rt.invocations.invocation_id</code>.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionstatus">
+    <div class="card">
+        <div class="card-header" id="headingstatus">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#status"
+                        aria-expanded="" aria-controls="status" onclick="setAnchor('#status')"><span class="property-name">status</span></button>
+            </h2>
+        </div>
+
+        <div id="status"
+             class="collapse property-definition-div" aria-labelledby="headingstatus"
+             data-parent="#accordionstatus">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#status" onclick="anchorLink('status')">status</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionexecution_time">
+    <div class="card">
+        <div class="card-header" id="headingexecution_time">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#execution_time"
+                        aria-expanded="" aria-controls="execution_time" onclick="setAnchor('#execution_time')"><span class="property-name">execution_time</span></button>
+            </h2>
+        </div>
+
+        <div id="execution_time"
+             class="collapse property-definition-div" aria-labelledby="headingexecution_time"
+             data-parent="#accordionexecution_time">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#execution_time" onclick="anchorLink('execution_time')">execution_time</a></div><span class="badge badge-dark value-type">Type: number or null</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionthread_id">
+    <div class="card">
+        <div class="card-header" id="headingthread_id">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#thread_id"
+                        aria-expanded="" aria-controls="thread_id" onclick="setAnchor('#thread_id')"><span class="property-name">thread_id</span></button>
+            </h2>
+        </div>
+
+        <div id="thread_id"
+             class="collapse property-definition-div" aria-labelledby="headingthread_id"
+             data-parent="#accordionthread_id">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#thread_id" onclick="anchorLink('thread_id')">thread_id</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionmessage">
+    <div class="card">
+        <div class="card-header" id="headingmessage">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#message"
+                        aria-expanded="" aria-controls="message" onclick="setAnchor('#message')"><span class="property-name">message</span></button>
+            </h2>
+        </div>
+
+        <div id="message"
+             class="collapse property-definition-div" aria-labelledby="headingmessage"
+             data-parent="#accordionmessage">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#message" onclick="anchorLink('message')">message</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionfailures">
+    <div class="card">
+        <div class="card-header" id="headingfailures">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#failures"
+                        aria-expanded="" aria-controls="failures" onclick="setAnchor('#failures')"><span class="property-name">failures</span></button>
+            </h2>
+        </div>
+
+        <div id="failures"
+             class="collapse property-definition-div" aria-labelledby="headingfailures"
+             data-parent="#accordionfailures">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#failures" onclick="anchorLink('failures')">failures</a></div><span class="badge badge-dark value-type">Type: integer or null</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionrelation_name">
+    <div class="card">
+        <div class="card-header" id="headingrelation_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#relation_name"
+                        aria-expanded="" aria-controls="relation_name" onclick="setAnchor('#relation_name')"><span class="property-name">relation_name</span></button>
+            </h2>
+        </div>
+
+        <div id="relation_name"
+             class="collapse property-definition-div" aria-labelledby="headingrelation_name"
+             data-parent="#accordionrelation_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#relation_name" onclick="anchorLink('relation_name')">relation_name</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionadapter_response">
+    <div class="card">
+        <div class="card-header" id="headingadapter_response">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#adapter_response"
+                        aria-expanded="" aria-controls="adapter_response" onclick="setAnchor('#adapter_response')"><span class="property-name">adapter_response</span></button>
+            </h2>
+        </div>
+
+        <div id="adapter_response"
+             class="collapse property-definition-div" aria-labelledby="headingadapter_response"
+             data-parent="#accordionadapter_response">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#adapter_response" onclick="anchorLink('adapter_response')">adapter_response</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordiontiming">
+    <div class="card">
+        <div class="card-header" id="headingtiming">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#timing"
+                        aria-expanded="" aria-controls="timing" onclick="setAnchor('#timing')"><span class="property-name">timing</span></button>
+            </h2>
+        </div>
+
+        <div id="timing"
+             class="collapse property-definition-div" aria-labelledby="headingtiming"
+             data-parent="#accordiontiming">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#timing" onclick="anchorLink('timing')">timing</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionbatch_results">
+    <div class="card">
+        <div class="card-header" id="headingbatch_results">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#batch_results"
+                        aria-expanded="" aria-controls="batch_results" onclick="setAnchor('#batch_results')"><span class="property-name">batch_results</span></button>
+            </h2>
+        </div>
+
+        <div id="batch_results"
+             class="collapse property-definition-div" aria-labelledby="headingbatch_results"
+             data-parent="#accordionbatch_results">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#batch_results" onclick="anchorLink('batch_results')">batch_results</a></div><span class="badge badge-dark value-type">Type: string or null</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordioncreated_at">
+    <div class="card">
+        <div class="card-header" id="headingcreated_at">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#created_at"
+                        aria-expanded="" aria-controls="created_at" onclick="setAnchor('#created_at')"><span class="property-name">created_at</span></button>
+            </h2>
+        </div>
+
+        <div id="created_at"
+             class="collapse property-definition-div" aria-labelledby="headingcreated_at"
+             data-parent="#accordioncreated_at">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#created_at" onclick="anchorLink('created_at')">created_at</a></div><span class="badge badge-dark value-type">Type: string or null</span><span class="badge badge-info value-type">Format: date-time</span><br/>
+
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.node_columns/v1.json",
+  "title": "dbt.node_columns",
+  "description": "Primary key: `node_unique_id`, `column_name`.",
+  "type": "object",
+  "x-primary-key": [
+    "node_unique_id",
+    "column_name"
+  ],
+  "properties": {
+    "node_unique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id",
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "column_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "column_index": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "data_type_declared": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "data_type_inferred": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "data_type_actual": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "data_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "quote": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "granularity": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "classifiers": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "constraints": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "comment": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ingested_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

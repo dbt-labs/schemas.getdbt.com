@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.semantic_models/v1.json",
+  "title": "dbt.semantic_models",
+  "description": "Primary key: `unique_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "model": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-references": [
+        {
+          "table": "dbt.models",
+          "column": "name",
+          "unique": false
+        }
+      ],
+      "description": "References `dbt.models.name`. Matches by name: `name` is not a key of `dbt.models`, so it can match more than one row."
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "package_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "original_file_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fqn": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "node_relation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "primary_entity": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-references": [
+        {
+          "table": "dbt.semantic_entities",
+          "columns": [
+            {
+              "from": "unique_id",
+              "to": "unique_id"
+            },
+            {
+              "from": "primary_entity",
+              "to": "name"
+            }
+          ],
+          "unique": true
+        }
+      ],
+      "description": "References `dbt.semantic_entities` over several columns: `unique_id` → `unique_id`, `primary_entity` → `name`."
+    },
+    "defaults": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "group": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-references": [
+        {
+          "table": "dbt.groups",
+          "column": "name",
+          "unique": false
+        }
+      ],
+      "description": "References `dbt.groups.name`. Matches by name: `name` is not a key of `dbt.groups`, so it can match more than one row."
+    },
+    "config": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "ingested_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

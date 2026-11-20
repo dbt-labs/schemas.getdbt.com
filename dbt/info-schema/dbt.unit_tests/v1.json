@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.unit_tests/v1.json",
+  "title": "dbt.unit_tests",
+  "description": "Primary key: `unique_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id",
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "model": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-references": [
+        {
+          "table": "dbt.models",
+          "column": "name",
+          "unique": false
+        }
+      ],
+      "description": "References `dbt.models.name`. Matches by name: `name` is not a key of `dbt.models`, so it can match more than one row."
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "package_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "original_file_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fqn": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "given": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expect": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "overrides": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "versions": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "config": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ingested_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

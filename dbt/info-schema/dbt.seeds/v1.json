@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.seeds/v1.json",
+  "title": "dbt.seeds",
+  "description": "Primary key: `unique_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id",
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`. Rows with `enabled = false` are not in `dbt.dag_nodes`."
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resource_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "package_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "original_file_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fqn": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "alias": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "database_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "schema_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "relation_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "identifier": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "enabled": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "full_refresh": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "persist_docs": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pre_hook": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "post_hook": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "grants": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "config": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "group": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-references": [
+        {
+          "table": "dbt.groups",
+          "column": "name",
+          "unique": false
+        }
+      ],
+      "description": "References `dbt.groups.name`. Matches by name: `name` is not a key of `dbt.groups`, so it can match more than one row."
+    },
+    "docs_show": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "properties_yml_file_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tags": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "grain": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "grain_declared": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "grain_tested": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "grain_inferred": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "ingested_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

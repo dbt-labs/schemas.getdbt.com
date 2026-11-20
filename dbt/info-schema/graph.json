@@ -1,0 +1,3871 @@
+{
+  "version": 1,
+  "domains": [
+    {
+      "name": "project",
+      "tables": [
+        "dbt.project",
+        "dbt.packages",
+        "dbt.project_vars",
+        "dbt.project_env_vars"
+      ]
+    },
+    {
+      "name": "resources",
+      "tables": [
+        "dbt.models",
+        "dbt.seeds",
+        "dbt.snapshots",
+        "dbt.functions",
+        "dbt.analyses",
+        "dbt.hooks",
+        "dbt.checks",
+        "dbt.sources",
+        "dbt.macros",
+        "dbt.groups",
+        "dbt.docs_blocks",
+        "dbt.exposures"
+      ]
+    },
+    {
+      "name": "tests",
+      "tables": [
+        "dbt.data_tests",
+        "dbt.unit_tests"
+      ]
+    },
+    {
+      "name": "semantic_layer",
+      "tables": [
+        "dbt.metrics",
+        "dbt.saved_queries",
+        "dbt.semantic_models",
+        "dbt.semantic_entities",
+        "dbt.semantic_measures",
+        "dbt.semantic_dimensions",
+        "dbt.time_spines"
+      ]
+    },
+    {
+      "name": "graph",
+      "tables": [
+        "dbt.dag_nodes",
+        "dbt.edges",
+        "dbt.node_columns",
+        "dbt.column_lineage"
+      ]
+    },
+    {
+      "name": "runtime",
+      "tables": [
+        "dbt_rt.invocations",
+        "dbt_rt.run_results",
+        "dbt_rt.freshness",
+        "dbt_rt.relations",
+        "dbt_rt.adapter_queries"
+      ]
+    }
+  ],
+  "tables": [
+    {
+      "id": "dbt.project",
+      "namespace": "dbt",
+      "domain": "project",
+      "columns": [
+        {
+          "name": "schema_version",
+          "type": "int",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "project_name",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "dbt_version",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "adapter_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "quoting",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "git_sha",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "git_branch",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "git_uncommitted_changes",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "last_full_parse_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.packages",
+      "namespace": "dbt",
+      "domain": "project",
+      "columns": [
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "package_source",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "git_url",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "git_revision",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "local_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.project_vars",
+      "namespace": "dbt",
+      "domain": "project",
+      "columns": [
+        {
+          "name": "project_name",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "var_name",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "var_value",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.project_env_vars",
+      "namespace": "dbt",
+      "domain": "project",
+      "columns": [
+        {
+          "name": "env_var_name",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.models",
+      "namespace": "dbt",
+      "domain": "resources",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "resource_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "alias",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "node_language",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "raw_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "database_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "schema_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "relation_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "identifier",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "materialized",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "incremental_strategy",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "on_schema_change",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "unique_key",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "full_refresh",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "persist_docs",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "pre_hook",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "post_hook",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grants",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "access",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "group",
+          "type": "string",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "contract_enforced",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "latest_version",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "deprecation_date",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "constraints",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "primary_key",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "docs_show",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "properties_yml_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "time_spine",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "tags",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "classifiers",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "compiled_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "compiled_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain_declared",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain_tested",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain_inferred",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.seeds",
+      "namespace": "dbt",
+      "domain": "resources",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "resource_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "alias",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "database_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "schema_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "relation_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "identifier",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "full_refresh",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "persist_docs",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "pre_hook",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "post_hook",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grants",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "group",
+          "type": "string",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "docs_show",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "properties_yml_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "tags",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain_declared",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain_tested",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain_inferred",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.snapshots",
+      "namespace": "dbt",
+      "domain": "resources",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "resource_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "alias",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "node_language",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "raw_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "database_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "schema_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "relation_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "identifier",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "unique_key",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "persist_docs",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "pre_hook",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "post_hook",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grants",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "group",
+          "type": "string",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "docs_show",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "properties_yml_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "tags",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "compiled_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "compiled_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain_declared",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain_tested",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain_inferred",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.functions",
+      "namespace": "dbt",
+      "domain": "resources",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "resource_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "alias",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "node_language",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "raw_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "database_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "schema_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "relation_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "identifier",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "pre_hook",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "post_hook",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grants",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "access",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "group",
+          "type": "string",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "docs_show",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "properties_yml_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "tags",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "compiled_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "compiled_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.analyses",
+      "namespace": "dbt",
+      "domain": "resources",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "resource_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "node_language",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "raw_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "group",
+          "type": "string",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "docs_show",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "properties_yml_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "tags",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "compiled_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "compiled_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.hooks",
+      "namespace": "dbt",
+      "domain": "resources",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "resource_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "node_language",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "raw_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "phase",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "compiled_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "compiled_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.checks",
+      "namespace": "dbt",
+      "domain": "resources",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "resource_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "node_language",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "raw_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "properties_yml_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "tags",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.sources",
+      "namespace": "dbt",
+      "domain": "resources",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "resource_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "database_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "schema_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "relation_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "identifier",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "tags",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain_declared",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain_tested",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "grain_inferred",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "source_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "source_description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "loader",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "loaded_at_field",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "loaded_at_query",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "freshness",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "external",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "quoting",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.data_tests",
+      "namespace": "dbt",
+      "domain": "tests",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "raw_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "database_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "schema_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "relation_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "materialized",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "tags",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "group",
+          "type": "string",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "properties_yml_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "compiled_code",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "compiled_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "test_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "test_definition_package",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "arguments",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "column_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "node_unique_id",
+          "type": "string",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "severity",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "warn_if",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "error_if",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fail_calc",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "store_failures",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "store_failures_as",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "where",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "limit",
+          "type": "int",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.unit_tests",
+      "namespace": "dbt",
+      "domain": "tests",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "given",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "expect",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "overrides",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "versions",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.macros",
+      "namespace": "dbt",
+      "domain": "resources",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "macro_sql",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "depends_on_macros",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "arguments",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "docs_show",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "properties_yml_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.groups",
+      "namespace": "dbt",
+      "domain": "resources",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "owner_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "owner_email",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.exposures",
+      "namespace": "dbt",
+      "domain": "resources",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "exposure_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "owner_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "owner_email",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "maturity",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "depends_on",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "tags",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "created_at",
+          "type": "float",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.metrics",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "metric_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "type_params",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "metric_filter",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "time_granularity",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "input_metric_names",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "group",
+          "type": "string",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "tags",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "created_at",
+          "type": "float",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.docs_blocks",
+      "namespace": "dbt",
+      "domain": "resources",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.saved_queries",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "query_params",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "exports",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "depends_on",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "group",
+          "type": "string",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "tags",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "created_at",
+          "type": "float",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.semantic_models",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "package_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "original_file_path",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "fqn",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "node_relation",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "primary_entity",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "defaults",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "group",
+          "type": "string",
+          "pk": false,
+          "fk": true
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "created_at",
+          "type": "float",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.semantic_entities",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "entity_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "expr",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.semantic_measures",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "agg",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "expr",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "create_metric",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "agg_time_dimension",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "agg_params",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "non_additive_dimension",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.semantic_dimensions",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "dimension_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "expr",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "is_partition",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "time_granularity",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "validity_params",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "config",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.time_spines",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "primary_column",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "primary_granularity",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "custom_granularities",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "node_relation",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.dag_nodes",
+      "namespace": "dbt",
+      "domain": "graph",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "resource_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.edges",
+      "namespace": "dbt",
+      "domain": "graph",
+      "columns": [
+        {
+          "name": "parent_unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "child_unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.node_columns",
+      "namespace": "dbt",
+      "domain": "graph",
+      "columns": [
+        {
+          "name": "node_unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "column_name",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "column_index",
+          "type": "int",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "data_type_declared",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "data_type_inferred",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "data_type_actual",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "data_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "quote",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "granularity",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "tags",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "classifiers",
+          "type": "string[]",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "meta",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "constraints",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "comment",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt.column_lineage",
+      "namespace": "dbt",
+      "domain": "graph",
+      "columns": [
+        {
+          "name": "parent_node_unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "parent_column_name",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "child_node_unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "child_column_name",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "evolution",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt_rt.invocations",
+      "namespace": "dbt_rt",
+      "domain": "runtime",
+      "columns": [
+        {
+          "name": "invocation_id",
+          "type": "string",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "command",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "selector",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "dbt_version",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "generated_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "elapsed_time",
+          "type": "float",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "args",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "node_count",
+          "type": "int",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "target_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "target_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "target_database",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "target_schema",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "target_threads",
+          "type": "int",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "vars_override",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "git_sha",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "git_branch",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "git_uncommitted_changes",
+          "type": "boolean",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt_rt.run_results",
+      "namespace": "dbt_rt",
+      "domain": "runtime",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "invocation_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "execution_time",
+          "type": "float",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "thread_id",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "failures",
+          "type": "int",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "relation_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "adapter_response",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "timing",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "batch_results",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt_rt.freshness",
+      "namespace": "dbt_rt",
+      "domain": "runtime",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "resource_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "invocation_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "max_loaded_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "snapshotted_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "max_loaded_at_time_ago",
+          "type": "float",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "execution_time",
+          "type": "float",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "thread_id",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "warn_after_count",
+          "type": "int",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "warn_after_period",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "error_after_count",
+          "type": "int",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "error_after_period",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "freshness_filter",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "adapter_response",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "timing",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt_rt.relations",
+      "namespace": "dbt_rt",
+      "domain": "runtime",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "table_type",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "table_owner",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "database_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "schema_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "table_name",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "row_count",
+          "type": "int",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "bytes",
+          "type": "int",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "last_modified",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "ingested_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    },
+    {
+      "id": "dbt_rt.adapter_queries",
+      "namespace": "dbt_rt",
+      "domain": "runtime",
+      "columns": [
+        {
+          "name": "unique_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "invocation_id",
+          "type": "string",
+          "pk": true,
+          "fk": true
+        },
+        {
+          "name": "query_index",
+          "type": "int",
+          "pk": true,
+          "fk": false
+        },
+        {
+          "name": "query_sql",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "query_id",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "rows_affected",
+          "type": "int",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "bytes_scanned",
+          "type": "int",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "query_cost",
+          "type": "float",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "error_message",
+          "type": "string",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "started_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        },
+        {
+          "name": "completed_at",
+          "type": "timestamp",
+          "pk": false,
+          "fk": false
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "from": "dbt.models",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.models",
+      "to": "dbt.groups",
+      "column": "group",
+      "on": [
+        {
+          "from": "group",
+          "to": "name"
+        }
+      ],
+      "kind": "name"
+    },
+    {
+      "from": "dbt.seeds",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.seeds",
+      "to": "dbt.groups",
+      "column": "group",
+      "on": [
+        {
+          "from": "group",
+          "to": "name"
+        }
+      ],
+      "kind": "name"
+    },
+    {
+      "from": "dbt.snapshots",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.snapshots",
+      "to": "dbt.groups",
+      "column": "group",
+      "on": [
+        {
+          "from": "group",
+          "to": "name"
+        }
+      ],
+      "kind": "name"
+    },
+    {
+      "from": "dbt.functions",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.functions",
+      "to": "dbt.groups",
+      "column": "group",
+      "on": [
+        {
+          "from": "group",
+          "to": "name"
+        }
+      ],
+      "kind": "name"
+    },
+    {
+      "from": "dbt.analyses",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.analyses",
+      "to": "dbt.groups",
+      "column": "group",
+      "on": [
+        {
+          "from": "group",
+          "to": "name"
+        }
+      ],
+      "kind": "name"
+    },
+    {
+      "from": "dbt.sources",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.data_tests",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.data_tests",
+      "to": "dbt.groups",
+      "column": "group",
+      "on": [
+        {
+          "from": "group",
+          "to": "name"
+        }
+      ],
+      "kind": "name"
+    },
+    {
+      "from": "dbt.data_tests",
+      "to": "dbt.node_columns",
+      "column": "node_unique_id, column_name",
+      "on": [
+        {
+          "from": "node_unique_id",
+          "to": "node_unique_id"
+        },
+        {
+          "from": "column_name",
+          "to": "column_name"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.data_tests",
+      "to": "dbt.dag_nodes",
+      "column": "node_unique_id",
+      "on": [
+        {
+          "from": "node_unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.unit_tests",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.unit_tests",
+      "to": "dbt.models",
+      "column": "model",
+      "on": [
+        {
+          "from": "model",
+          "to": "name"
+        }
+      ],
+      "kind": "name"
+    },
+    {
+      "from": "dbt.exposures",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.metrics",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.metrics",
+      "to": "dbt.groups",
+      "column": "group",
+      "on": [
+        {
+          "from": "group",
+          "to": "name"
+        }
+      ],
+      "kind": "name"
+    },
+    {
+      "from": "dbt.saved_queries",
+      "to": "dbt.groups",
+      "column": "group",
+      "on": [
+        {
+          "from": "group",
+          "to": "name"
+        }
+      ],
+      "kind": "name"
+    },
+    {
+      "from": "dbt.semantic_models",
+      "to": "dbt.models",
+      "column": "model",
+      "on": [
+        {
+          "from": "model",
+          "to": "name"
+        }
+      ],
+      "kind": "name"
+    },
+    {
+      "from": "dbt.semantic_models",
+      "to": "dbt.semantic_entities",
+      "column": "unique_id, primary_entity",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        },
+        {
+          "from": "primary_entity",
+          "to": "name"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.semantic_models",
+      "to": "dbt.groups",
+      "column": "group",
+      "on": [
+        {
+          "from": "group",
+          "to": "name"
+        }
+      ],
+      "kind": "name"
+    },
+    {
+      "from": "dbt.semantic_entities",
+      "to": "dbt.semantic_models",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.semantic_measures",
+      "to": "dbt.semantic_models",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.semantic_measures",
+      "to": "dbt.semantic_dimensions",
+      "column": "unique_id, agg_time_dimension",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        },
+        {
+          "from": "agg_time_dimension",
+          "to": "name"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.semantic_dimensions",
+      "to": "dbt.semantic_models",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.time_spines",
+      "to": "dbt.models",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.edges",
+      "to": "dbt.dag_nodes",
+      "column": "parent_unique_id",
+      "on": [
+        {
+          "from": "parent_unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.edges",
+      "to": "dbt.dag_nodes",
+      "column": "child_unique_id",
+      "on": [
+        {
+          "from": "child_unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.node_columns",
+      "to": "dbt.dag_nodes",
+      "column": "node_unique_id",
+      "on": [
+        {
+          "from": "node_unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.column_lineage",
+      "to": "dbt.dag_nodes",
+      "column": "parent_node_unique_id",
+      "on": [
+        {
+          "from": "parent_node_unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.column_lineage",
+      "to": "dbt.node_columns",
+      "column": "parent_node_unique_id, parent_column_name",
+      "on": [
+        {
+          "from": "parent_node_unique_id",
+          "to": "node_unique_id"
+        },
+        {
+          "from": "parent_column_name",
+          "to": "column_name"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.column_lineage",
+      "to": "dbt.dag_nodes",
+      "column": "child_node_unique_id",
+      "on": [
+        {
+          "from": "child_node_unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt.column_lineage",
+      "to": "dbt.node_columns",
+      "column": "child_node_unique_id, child_column_name",
+      "on": [
+        {
+          "from": "child_node_unique_id",
+          "to": "node_unique_id"
+        },
+        {
+          "from": "child_column_name",
+          "to": "column_name"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt_rt.run_results",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "may-be-missing"
+    },
+    {
+      "from": "dbt_rt.run_results",
+      "to": "dbt_rt.invocations",
+      "column": "invocation_id",
+      "on": [
+        {
+          "from": "invocation_id",
+          "to": "invocation_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt_rt.freshness",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt_rt.freshness",
+      "to": "dbt_rt.invocations",
+      "column": "invocation_id",
+      "on": [
+        {
+          "from": "invocation_id",
+          "to": "invocation_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt_rt.relations",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt_rt.adapter_queries",
+      "to": "dbt.dag_nodes",
+      "column": "unique_id",
+      "on": [
+        {
+          "from": "unique_id",
+          "to": "unique_id"
+        }
+      ],
+      "kind": "key"
+    },
+    {
+      "from": "dbt_rt.adapter_queries",
+      "to": "dbt_rt.invocations",
+      "column": "invocation_id",
+      "on": [
+        {
+          "from": "invocation_id",
+          "to": "invocation_id"
+        }
+      ],
+      "kind": "key"
+    }
+  ]
+}

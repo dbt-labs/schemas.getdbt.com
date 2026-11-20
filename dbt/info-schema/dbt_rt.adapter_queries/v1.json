@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt_rt.adapter_queries/v1.json",
+  "title": "dbt_rt.adapter_queries",
+  "description": "Primary key: `unique_id`, `invocation_id`, `query_index`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id",
+    "invocation_id",
+    "query_index"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id",
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "invocation_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt_rt.invocations",
+          "column": "invocation_id",
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt_rt.invocations.invocation_id`."
+    },
+    "query_index": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "query_sql": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "query_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "rows_affected": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "bytes_scanned": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "query_cost": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "error_message": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "started_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

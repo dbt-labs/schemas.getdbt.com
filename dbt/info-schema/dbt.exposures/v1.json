@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.exposures/v1.json",
+  "title": "dbt.exposures",
+  "description": "Primary key: `unique_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id",
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "exposure_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "label": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "owner_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "owner_email": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "maturity": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "package_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "original_file_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fqn": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "depends_on": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "config": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "ingested_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

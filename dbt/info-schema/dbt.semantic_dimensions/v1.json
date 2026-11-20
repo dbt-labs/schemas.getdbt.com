@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.semantic_dimensions/v1.json",
+  "title": "dbt.semantic_dimensions",
+  "description": "Primary key: `unique_id`, `name`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id",
+    "name"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.semantic_models",
+          "column": "unique_id",
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.semantic_models.unique_id`."
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "dimension_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "label": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expr": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "is_partition": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "time_granularity": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "validity_params": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "config": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ingested_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

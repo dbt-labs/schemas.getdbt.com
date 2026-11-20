@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt_rt.invocations/v1.json",
+  "title": "dbt_rt.invocations",
+  "description": "Primary key: `invocation_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "invocation_id"
+  ],
+  "properties": {
+    "invocation_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "command": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "selector": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dbt_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "generated_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "elapsed_time": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "args": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "node_count": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "target_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "target_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "target_database": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "target_schema": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "target_threads": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "vars_override": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "git_sha": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "git_branch": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "git_uncommitted_changes": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    }
+  }
+}

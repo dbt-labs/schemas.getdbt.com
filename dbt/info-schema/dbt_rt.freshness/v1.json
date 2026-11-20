@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt_rt.freshness/v1.json",
+  "title": "dbt_rt.freshness",
+  "description": "Primary key: `unique_id`, `invocation_id`.",
+  "type": "object",
+  "x-primary-key": [
+    "unique_id",
+    "invocation_id"
+  ],
+  "properties": {
+    "unique_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt.dag_nodes",
+          "column": "unique_id",
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt.dag_nodes.unique_id`."
+    },
+    "resource_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "invocation_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "x-references": [
+        {
+          "table": "dbt_rt.invocations",
+          "column": "invocation_id",
+          "unique": true
+        }
+      ],
+      "description": "Part of the primary key. References `dbt_rt.invocations.invocation_id`."
+    },
+    "status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "max_loaded_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "snapshotted_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "max_loaded_at_time_ago": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "execution_time": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "thread_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "error": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "warn_after_count": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "warn_after_period": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "error_after_count": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "error_after_period": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "freshness_filter": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "adapter_response": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "timing": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ingested_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

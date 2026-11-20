@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.getdbt.com/dbt/info-schema/dbt.project/v1.json",
+  "title": "dbt.project",
+  "description": "Primary key: `project_name`.",
+  "type": "object",
+  "x-primary-key": [
+    "project_name"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "project_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "x-primary-key": true,
+      "description": "Part of the primary key."
+    },
+    "dbt_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "adapter_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "quoting": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "git_sha": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "git_branch": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "git_uncommitted_changes": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "last_full_parse_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "ingested_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

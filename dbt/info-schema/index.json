@@ -1,0 +1,318 @@
+{
+  "version": 1,
+  "versions": [
+    {
+      "name": "v1",
+      "path": "info-schema/v1.json"
+    }
+  ],
+  "graph": "info-schema/graph.json",
+  "tables": [
+    {
+      "name": "dbt.project",
+      "namespace": "dbt",
+      "domain": "project",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.project/v1.json"
+    },
+    {
+      "name": "dbt.packages",
+      "namespace": "dbt",
+      "domain": "project",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.packages/v1.json"
+    },
+    {
+      "name": "dbt.project_vars",
+      "namespace": "dbt",
+      "domain": "project",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.project_vars/v1.json"
+    },
+    {
+      "name": "dbt.project_env_vars",
+      "namespace": "dbt",
+      "domain": "project",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.project_env_vars/v1.json"
+    },
+    {
+      "name": "dbt.models",
+      "namespace": "dbt",
+      "domain": "resources",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.models/v1.json"
+    },
+    {
+      "name": "dbt.seeds",
+      "namespace": "dbt",
+      "domain": "resources",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.seeds/v1.json"
+    },
+    {
+      "name": "dbt.snapshots",
+      "namespace": "dbt",
+      "domain": "resources",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.snapshots/v1.json"
+    },
+    {
+      "name": "dbt.functions",
+      "namespace": "dbt",
+      "domain": "resources",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.functions/v1.json"
+    },
+    {
+      "name": "dbt.analyses",
+      "namespace": "dbt",
+      "domain": "resources",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.analyses/v1.json"
+    },
+    {
+      "name": "dbt.hooks",
+      "namespace": "dbt",
+      "domain": "resources",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.hooks/v1.json"
+    },
+    {
+      "name": "dbt.checks",
+      "namespace": "dbt",
+      "domain": "resources",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.checks/v1.json"
+    },
+    {
+      "name": "dbt.sources",
+      "namespace": "dbt",
+      "domain": "resources",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.sources/v1.json"
+    },
+    {
+      "name": "dbt.data_tests",
+      "namespace": "dbt",
+      "domain": "tests",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.data_tests/v1.json"
+    },
+    {
+      "name": "dbt.unit_tests",
+      "namespace": "dbt",
+      "domain": "tests",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.unit_tests/v1.json"
+    },
+    {
+      "name": "dbt.macros",
+      "namespace": "dbt",
+      "domain": "resources",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.macros/v1.json"
+    },
+    {
+      "name": "dbt.groups",
+      "namespace": "dbt",
+      "domain": "resources",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.groups/v1.json"
+    },
+    {
+      "name": "dbt.exposures",
+      "namespace": "dbt",
+      "domain": "resources",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.exposures/v1.json"
+    },
+    {
+      "name": "dbt.metrics",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.metrics/v1.json"
+    },
+    {
+      "name": "dbt.docs_blocks",
+      "namespace": "dbt",
+      "domain": "resources",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.docs_blocks/v1.json"
+    },
+    {
+      "name": "dbt.saved_queries",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.saved_queries/v1.json"
+    },
+    {
+      "name": "dbt.semantic_models",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.semantic_models/v1.json"
+    },
+    {
+      "name": "dbt.semantic_entities",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.semantic_entities/v1.json"
+    },
+    {
+      "name": "dbt.semantic_measures",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.semantic_measures/v1.json"
+    },
+    {
+      "name": "dbt.semantic_dimensions",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.semantic_dimensions/v1.json"
+    },
+    {
+      "name": "dbt.time_spines",
+      "namespace": "dbt",
+      "domain": "semantic_layer",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.time_spines/v1.json"
+    },
+    {
+      "name": "dbt.dag_nodes",
+      "namespace": "dbt",
+      "domain": "graph",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.dag_nodes/v1.json"
+    },
+    {
+      "name": "dbt.edges",
+      "namespace": "dbt",
+      "domain": "graph",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.edges/v1.json"
+    },
+    {
+      "name": "dbt.node_columns",
+      "namespace": "dbt",
+      "domain": "graph",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.node_columns/v1.json"
+    },
+    {
+      "name": "dbt.column_lineage",
+      "namespace": "dbt",
+      "domain": "graph",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt.column_lineage/v1.json"
+    },
+    {
+      "name": "dbt_rt.invocations",
+      "namespace": "dbt_rt",
+      "domain": "runtime",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt_rt.invocations/v1.json"
+    },
+    {
+      "name": "dbt_rt.run_results",
+      "namespace": "dbt_rt",
+      "domain": "runtime",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt_rt.run_results/v1.json"
+    },
+    {
+      "name": "dbt_rt.freshness",
+      "namespace": "dbt_rt",
+      "domain": "runtime",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt_rt.freshness/v1.json"
+    },
+    {
+      "name": "dbt_rt.relations",
+      "namespace": "dbt_rt",
+      "domain": "runtime",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt_rt.relations/v1.json"
+    },
+    {
+      "name": "dbt_rt.adapter_queries",
+      "namespace": "dbt_rt",
+      "domain": "runtime",
+      "versions": [
+        "v1"
+      ],
+      "path": "info-schema/dbt_rt.adapter_queries/v1.json"
+    }
+  ]
+}
