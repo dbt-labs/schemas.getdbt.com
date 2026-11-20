@@ -169,6 +169,36 @@
   width: 18px;
 }
 
+/* The sign is drawn with two bars, so it is centred whatever the font does. */
+.col-toggle {
+  flex: none;
+  position: relative;
+}
+
+.col-toggle::before,
+.col-toggle::after {
+  background: currentColor;
+  content: "";
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.col-toggle::before {
+  height: 2px;
+  width: 8px;
+}
+
+.col-toggle::after {
+  height: 8px;
+  width: 2px;
+}
+
+.col-toggle.minus::after {
+  display: none;
+}
+
 .col-toggle:hover {
   background: var(--panel);
 }

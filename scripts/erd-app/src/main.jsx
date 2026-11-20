@@ -64,7 +64,7 @@ function TableNode({ data }) {
         h(
           "button",
           {
-            className: "col-toggle nodrag",
+            className: `col-toggle nodrag${all ? " minus" : ""}`,
             title: all ? "Show key columns only" : "Show all columns",
             "aria-label": all ? "Show key columns only" : "Show all columns",
             onClick: (e) => {
@@ -72,7 +72,6 @@ function TableNode({ data }) {
               onToggle(table.id);
             },
           },
-          all ? "\u2212" : "+",
         ),
     ),
     cols.length === 0
