@@ -15,9 +15,9 @@ const graph = {
     { id: "t.three", domain: "b", columns: [col("one_id", false, true), col("label")] },
   ],
   links: [
-    { from: "t.one", to: "t.two", column: "id", kind: "key", subtype: true },
-    { from: "t.three", to: "t.one", column: "one_id", kind: "name", subtype: false },
-    { from: "t.three", to: "t.two", column: "label", kind: "key", subtype: false },
+    { from: "t.one", to: "t.two", column: "id", kind: "key" },
+    { from: "t.three", to: "t.one", column: "one_id", kind: "name" },
+    { from: "t.three", to: "t.two", column: "label", kind: "key" },
   ],
 };
 
@@ -36,11 +36,10 @@ test("an open domain shows its tables and the links between them", () => {
   assert.deepEqual(ends, ["domain:b>t.one", "domain:b>t.two", "t.one>t.two"]);
 });
 
-test("hiding a kind or subtype links removes those links", () => {
+test("hiding a kind removes those links", () => {
   const open = { ...DEFAULT_STATE, open: ["a", "b"] };
   assert.equal(buildView(graph, open).edges.length, 3);
   assert.equal(buildView(graph, { ...open, hidden: ["name"] }).edges.length, 2);
-  assert.equal(buildView(graph, { ...open, hidden: ["subtype"] }).edges.length, 2);
 });
 
 test("a merged edge is dashed only if every link in it is", () => {
@@ -65,7 +64,7 @@ test("search matches table names first, then columns", () => {
 });
 
 test("the URL hash round-trips the view and ignores unknown values", () => {
-  const state = { open: ["a"], hidden: ["name", "subtype"], columns: "all", selected: "t.one", only: "a" };
+  const state = { open: ["a"], hidden: ["name"], columns: "all", selected: "t.one", only: "a" };
   assert.deepEqual(fromHash(`#${toHash(state)}`, graph), state);
   const junk = fromHash("#t=nope&open=zzz&hide=bogus,name&cols=weird", graph);
   assert.deepEqual(junk, { open: [], hidden: ["name"], columns: "keys", selected: null, only: null });

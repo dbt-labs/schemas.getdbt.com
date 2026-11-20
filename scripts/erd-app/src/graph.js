@@ -17,7 +17,7 @@ export const COLLAPSED_SIZE = { width: 220, height: 64 };
 
 export const DEFAULT_STATE = {
   open: [], // expanded domains
-  hidden: [], // hidden link kinds, plus "subtype" for subtype links
+  hidden: [], // hidden link kinds
   columns: "keys", // "keys" or "all"
   selected: null, // a table id
   only: null, // show just this domain
@@ -63,9 +63,7 @@ export function tableHeight(table, mode) {
 /** Links that pass the filters. */
 export function visibleLinks(graph, state) {
   const hidden = new Set(state.hidden);
-  return graph.links.filter(
-    (l) => !hidden.has(l.kind) && !(l.subtype && hidden.has("subtype")),
-  );
+  return graph.links.filter((l) => !hidden.has(l.kind));
 }
 
 /**
@@ -166,7 +164,7 @@ export function fromHash(hash, graph) {
   const p = new URLSearchParams(hash.replace(/^#/, ""));
   const known = new Set(graph.domains.map((d) => d.name));
   const split = (v) => (v ? v.split(",").filter(Boolean) : []);
-  const validKinds = new Set([...Object.keys(KINDS), "subtype"]);
+  const validKinds = new Set(Object.keys(KINDS));
   const t = p.get("t");
   const table = graph.tables.find((x) => x.id === t);
   return {

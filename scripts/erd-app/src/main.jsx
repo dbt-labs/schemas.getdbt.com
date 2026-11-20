@@ -406,12 +406,6 @@ function Explorer({ graph: fullGraph }) {
             info.label,
           ),
         ),
-        h(
-          "label",
-          { title: "A table whose key is also a link, such as models to dag_nodes" },
-          h("input", { type: "checkbox", checked: !state.hidden.includes("subtype"), onChange: () => toggleKind("subtype") }),
-          "Subtype links",
-        ),
       ),
       h("span", { className: "spacer" }),
       cfg.graph && h("a", { className: "btn", href: cfg.graph, download: true }, "Download JSON"),
