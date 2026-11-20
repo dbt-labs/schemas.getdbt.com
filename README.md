@@ -64,8 +64,12 @@ The `sync-info-schema-to-schemas` workflow in [dbt-labs/fs](https://github.com/d
 
 To build locally from the raw files: `make install && make info_schema_html`.
 
+The ERD page (`dbt/info-schema/erd/index.html`) is an interactive diagram. Its code is not built by the sync workflow: it is bundled from `scripts/erd-app/` into `static/erd/` and committed. After changing anything in `scripts/erd-app/`, run `make erd` and commit the result. See [scripts/erd-app/README.md](scripts/erd-app/README.md), which also explains how to try the page locally.
+
 ## Available Commands:
 - `make install`: installs json-schema-for-humans
+- `make info_schema_html`: builds the info schema HTML from `dbt/info-schema/`
+- `make erd`: rebuilds the interactive ERD bundle in `static/erd/` (needs Node 18 or newer)
 - `make json_schema version=<version number>`: copy JSON schema file from dbt-core into this repo
 - `make html version=<version number>`: generate HTML file from JSON schema file
 - `make info_schema_html`: build the info schema HTML from `dbt/info-schema/`

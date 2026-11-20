@@ -20,3 +20,10 @@ json_schema:
 .PHONY: info_schema_html
 info_schema_html:
 	python scripts/build_info_schema.py
+
+# Rebuild the interactive ERD bundle in static/erd/ from scripts/erd-app/. The
+# output is committed, so run this and commit the result after changing the
+# source. Needs Node 18 or newer. See scripts/erd-app/README.md.
+.PHONY: erd
+erd:
+	cd scripts/erd-app && npm ci && npm test && npm run build
