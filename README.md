@@ -58,7 +58,7 @@
 
 ## Info schema
 
-`dbt/info-schema/` holds the JSON Schemas, Mermaid diagrams and generated HTML for the dbt information schema (`dbt.*`, `dbt_rt.*`), and the "Info Schema" section of the root `index.html`. Do not edit them here.
+`dbt/info-schema/` holds the JSON Schemas, the graph data for the interactive ERD, and generated HTML for the dbt information schema (`dbt.*`, `dbt_rt.*`), and the "Info Schema" section of the root `index.html`. Do not edit them here.
 
 The `sync-info-schema-to-schemas` workflow in [dbt-labs/fs](https://github.com/dbt-labs/fs) generates the raw files from `INFO_SCHEMA`, runs `scripts/build_info_schema.py` on a clone of this repo to build the HTML, and opens one PR with everything. Merging that PR updates the site; there is no step after the merge. The Vercel preview of the PR shows the finished site.
 

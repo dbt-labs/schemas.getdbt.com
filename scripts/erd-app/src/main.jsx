@@ -301,9 +301,7 @@ function Explorer({ graph }) {
         ),
       ),
       h("span", { className: "spacer" }),
-      cfg.mmd && h("a", { className: "btn", href: cfg.mmd, download: true }, "Download .mmd"),
-      cfg.graph && h("a", { className: "btn", href: cfg.graph, download: true }, "Download .json"),
-      cfg.staticUrl && h("a", { className: "btn", href: cfg.staticUrl }, "Static diagrams"),
+      cfg.graph && h("a", { className: "btn", href: cfg.graph, download: true }, "Download JSON"),
       h("button", { onClick: fullscreen }, "Fullscreen"),
     ),
     h(
@@ -343,8 +341,14 @@ function Explorer({ graph }) {
     h(
       "footer",
       { className: "legend" },
-      h("span", null, h("i", { className: "swatch solid" }), "Key: each value matches one row"),
-      h("span", null, h("i", { className: "swatch dashed" }), "Dashed: the join does not pick out a single row (by name, part of a composite key, or may be missing)"),
+      h("span", null, "An arrow goes from a table to the table it refers to."),
+      h("span", null, h("i", { className: "swatch solid" }), "Solid: the column is the whole key of the other table, so a value matches one row."),
+      h(
+        "span",
+        null,
+        h("i", { className: "swatch dashed" }),
+        "Dashed: the join does not pick out one row. By name: a name is not a key and can match several rows. Part of a composite key: match the other key columns too. May be missing: not every value is in the other table, for example a hook in run_results, or a disabled resource, which is not in dag_nodes.",
+      ),
       h("span", null, "Click a table to focus it. Click a domain header to open or close it."),
     ),
   );
