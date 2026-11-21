@@ -21,7 +21,7 @@ The bundle is built by hand, not by CI, and committed:
   `scripts/erd_explorer.html` with paths, so the fs sync workflow needs Python
   and no Node.
 
-React Flow shows a small "React Flow" credit in a corner of the page; keep it.
+The "React Flow" credit in the corner is hidden (`proOptions.hideAttribution`). The library is MIT, which allows that; its licence text is in `node_modules` and the package is named above.
 
 ## Changing it
 

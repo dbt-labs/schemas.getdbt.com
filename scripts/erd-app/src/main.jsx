@@ -552,7 +552,7 @@ function Explorer({ graph: fullGraph }) {
             setState((s) => ({ ...s, selected: null }));
             setEdgeKey(null);
           },
-          proOptions: { hideAttribution: false },
+          proOptions: { hideAttribution: true },
         },
         h(Background, { gap: 24, color: "#0f5566" }),
         h(

@@ -146,14 +146,6 @@
   background: var(--bg);
 }
 
-.react-flow__attribution {
-  background: rgba(0, 43, 54, 0.7) !important;
-}
-
-.react-flow__attribution a {
-  color: var(--text) !important;
-}
-
 .table-node {
   background: var(--panel);
   border: 1px solid var(--text);
