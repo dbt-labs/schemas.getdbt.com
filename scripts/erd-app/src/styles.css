@@ -1,0 +1,529 @@
+:root {
+  --bg: #002b36;
+  --panel: #003645;
+  --line: #0f5566;
+  --text: #93a1a1;
+  --strong: #fff;
+  --accent: #0b4a5c;
+}
+
+.explorer {
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  height: 100%;
+  text-align: left;
+}
+
+.explorer button,
+.explorer .btn,
+.explorer select,
+.explorer input[type="search"] {
+  background: var(--accent);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--strong);
+  cursor: pointer;
+  font: inherit;
+  padding: 5px 10px;
+  text-decoration: none;
+}
+
+.explorer button:hover,
+.explorer .btn:hover {
+  background: var(--line);
+  color: var(--strong);
+}
+
+.toolbar {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  padding: 8px 10px;
+}
+
+
+.search {
+  position: relative;
+}
+
+.search input {
+  cursor: text !important;
+  min-width: 200px;
+}
+
+.hits {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  left: 0;
+  list-style: none;
+  margin: 2px 0 0;
+  max-height: 320px;
+  overflow: auto;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  width: 320px;
+  z-index: 20;
+}
+
+.hits button {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  display: block;
+  text-align: left;
+  width: 100%;
+}
+
+.filters {
+  position: relative;
+}
+
+.filters-button {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+}
+
+.filters-button .caret {
+  font-size: 12px;
+}
+
+.filters-menu {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  left: 0;
+  min-width: 100%;
+  padding: 6px;
+  position: absolute;
+  top: calc(100% + 4px);
+  z-index: 30;
+}
+
+.filters-menu label {
+  align-items: center;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  padding: 5px 8px;
+  white-space: nowrap;
+}
+
+.filters-menu .swatch {
+  margin-right: 0;
+  width: 18px;
+}
+
+.filters-menu label:hover {
+  background: var(--line);
+}
+
+
+.stage {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.canvas {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.stage .react-flow {
+  background: var(--bg);
+}
+
+.table-node {
+  background: var(--panel);
+  border: 1px solid var(--text);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 12px;
+  overflow: hidden;
+}
+
+.table-node.selected {
+  border-color: #ff694a;
+  box-shadow: 0 0 0 2px rgba(255, 105, 74, 0.4);
+}
+
+.table-node.dim,
+.domain-node.dim {
+  opacity: 0.25;
+}
+
+.table-head {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  background: var(--accent);
+  color: var(--strong);
+  font-weight: 600;
+  line-height: 30px;
+  padding: 0 8px;
+}
+
+.col-toggle {
+  background: transparent;
+  border: 1px solid var(--text);
+  border-radius: 3px;
+  color: var(--strong);
+  cursor: pointer;
+  font-size: 13px;
+  height: 18px;
+  line-height: 1;
+  padding: 0;
+  width: 18px;
+}
+
+/* The sign is drawn with two bars, so it is centred whatever the font does. */
+.col-toggle {
+  flex: none;
+  position: relative;
+}
+
+.col-toggle::before,
+.col-toggle::after {
+  background: currentColor;
+  content: "";
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.col-toggle::before {
+  height: 2px;
+  width: 8px;
+}
+
+.col-toggle::after {
+  height: 8px;
+  width: 2px;
+}
+
+.col-toggle.minus::after {
+  display: none;
+}
+
+.col-toggle:hover {
+  background: var(--panel);
+}
+
+.col {
+  display: flex;
+  justify-content: space-between;
+  line-height: 18px;
+  padding: 0 8px;
+}
+
+.col-badges {
+  color: var(--strong);
+  font-size: 10px;
+}
+
+.muted {
+  color: var(--text);
+  opacity: 0.8;
+}
+
+.domain-node {
+  background: rgba(11, 74, 92, 0.25);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
+}
+
+.domain-node:not(.open) {
+  background: var(--accent);
+}
+
+/* React Flow sets pointer-events on a node inline, so this needs !important. */
+.react-flow__node.domain-frame,
+.domain-frame .domain-node {
+  pointer-events: none !important;
+}
+
+.domain-frame .domain-bar {
+  pointer-events: all !important;
+}
+
+.domain-bar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.edge-label {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--strong);
+  font-size: 11px;
+  padding: 1px 5px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.edge-label.tag {
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.edge-label.card {
+  background: var(--panel);
+  border-color: #ff694a;
+  font-size: 12px;
+  padding: 6px 10px;
+  max-width: 460px;
+  pointer-events: all;
+  white-space: normal;
+  width: max-content;
+}
+
+.edge-line + .edge-line {
+  margin-top: 3px;
+}
+
+.domain-head {
+  align-items: center;
+  color: var(--strong);
+  cursor: grab;
+  display: flex;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  text-align: left;
+  width: 100%;
+}
+
+.domain-bar .domain-head {
+  width: auto;
+}
+
+.domain-node:not(.open) .domain-head {
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+}
+
+/* The open/close icon sits at the top left, with some padding, in both states. */
+.domain-node:not(.open) {
+  position: relative;
+}
+
+.domain-node:not(.open) .caret {
+  left: 12px;
+  position: absolute;
+  top: 10px;
+}
+
+.caret {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.react-flow__handle {
+  opacity: 0;
+}
+
+.react-flow__edge-path {
+  stroke: var(--text);
+  stroke-width: 1.4;
+}
+
+.react-flow__edge.dashed .react-flow__edge-path {
+  stroke-dasharray: 6 4;
+}
+
+.react-flow__edge.dim {
+  opacity: 0.12;
+}
+
+.react-flow__edge.active .react-flow__edge-path {
+  stroke: #ff694a;
+  stroke-width: 2;
+}
+
+.react-flow__edge-text {
+  fill: var(--strong);
+  font-size: 11px;
+}
+
+.react-flow__edge-textbg {
+  fill: var(--bg);
+}
+
+.react-flow__controls {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 14px;
+  padding: 4px;
+  background: var(--panel);
+}
+
+/* The general button rule above adds padding that squeezed the icons. */
+.explorer .react-flow__controls button {
+  align-items: center;
+  background: var(--accent);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--strong);
+  display: flex;
+  fill: var(--strong);
+  height: 26px;
+  justify-content: center;
+  padding: 0;
+  width: 26px;
+}
+
+.explorer .react-flow__controls button:hover {
+  background: var(--line);
+}
+
+.react-flow__controls button svg {
+  height: 13px;
+  max-height: none;
+  max-width: none;
+  width: 13px;
+}
+
+.react-flow__controls button svg path {
+  fill: none;
+}
+
+.react-flow__controls button:not(.react-flow__controls-button-custom) svg path {
+  fill: var(--strong);
+}
+
+.react-flow__minimap {
+  background: var(--panel);
+}
+
+.panel {
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  flex: none;
+  overflow: auto;
+  padding: 12px 14px;
+  position: relative;
+  width: min(340px, 45%);
+}
+
+.panel h2 {
+  color: var(--strong);
+  font-size: 16px;
+  margin: 0 24px 2px 0;
+  word-break: break-all;
+}
+
+.panel h3 {
+  color: var(--strong);
+  font-size: 13px;
+  margin: 14px 0 4px;
+}
+
+.panel ul {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.panel .cols {
+  list-style: none;
+  padding: 0;
+}
+
+.panel code {
+  color: var(--strong);
+}
+
+.panel .close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
+.panel button.link {
+  background: none;
+  border: 0;
+  color: var(--strong);
+  padding: 0;
+  text-decoration: underline;
+}
+
+.help-mark {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.legend-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  bottom: 16px;
+  color: var(--text);
+  font-size: 13px;
+  left: 68px;
+  max-width: min(440px, calc(100% - 94px));
+  padding: 12px 16px 6px;
+  position: absolute;
+  z-index: 20;
+}
+
+.legend-card h3 {
+  color: var(--strong);
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+
+.legend-card p {
+  margin: 0 0 8px;
+}
+
+.legend-card ul {
+  margin: 0 0 8px;
+  padding-left: 18px;
+}
+
+.legend-card li {
+  margin-bottom: 4px;
+}
+
+.legend-card .close {
+  padding: 0 7px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
+.swatch {
+  border-top: 2px solid var(--text);
+  display: inline-block;
+  margin-right: 6px;
+  vertical-align: middle;
+  width: 22px;
+}
+
+.swatch.dashed {
+  border-top-style: dashed;
+}

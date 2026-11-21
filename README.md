@@ -58,14 +58,18 @@
 
 ## Info schema
 
-`dbt/info-schema/` holds the JSON Schemas, Mermaid diagrams and generated HTML for the dbt information schema (`dbt.*`, `dbt_rt.*`), and the "Info Schema" section of the root `index.html`. Do not edit them here.
+`dbt/info-schema/` holds the JSON Schemas, the graph data for the interactive ERD, and generated HTML for the dbt information schema (`dbt.*`, `dbt_rt.*`), and the "Info Schema" section of the root `index.html`. Do not edit them here.
 
 The `sync-info-schema-to-schemas` workflow in [dbt-labs/fs](https://github.com/dbt-labs/fs) generates the raw files from `INFO_SCHEMA`, runs `scripts/build_info_schema.py` on a clone of this repo to build the HTML, and opens one PR with everything. Merging that PR updates the site; there is no step after the merge. The Vercel preview of the PR shows the finished site.
 
 To build locally from the raw files: `make install && make info_schema_html`.
 
+The ERD page (`dbt/info-schema/erd/index.html`) is an interactive diagram. Its code is not built by the sync workflow: it is bundled from `scripts/erd-app/` into `static/erd/` and committed. After changing anything in `scripts/erd-app/`, run `make erd` and commit the result. See [scripts/erd-app/README.md](scripts/erd-app/README.md), which also explains how to try the page locally.
+
 ## Available Commands:
 - `make install`: installs json-schema-for-humans
+- `make info_schema_html`: builds the info schema HTML from `dbt/info-schema/`
+- `make erd`: rebuilds the interactive ERD bundle in `static/erd/` (needs Node 18 or newer)
 - `make json_schema version=<version number>`: copy JSON schema file from dbt-core into this repo
 - `make html version=<version number>`: generate HTML file from JSON schema file
 - `make info_schema_html`: build the info schema HTML from `dbt/info-schema/`

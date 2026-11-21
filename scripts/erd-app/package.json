@@ -1,0 +1,20 @@
+{
+  "name": "erd-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Interactive ERD for the dbt info schema. Built output is vendored in static/erd/.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "@xyflow/react": "12.8.4",
+    "elkjs": "0.10.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.9"
+  }
+}
