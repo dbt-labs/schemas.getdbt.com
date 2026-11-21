@@ -82,22 +82,53 @@
 }
 
 .filters {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 12px;
+  position: relative;
 }
 
-.filters label {
+.filters-button {
   align-items: center;
   display: inline-flex;
-  gap: 4px;
+  gap: 8px;
+}
+
+.filters-button .caret {
+  font-size: 12px;
+}
+
+.filters-menu {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  left: 0;
+  min-width: 100%;
+  padding: 6px;
+  position: absolute;
+  top: calc(100% + 4px);
+  z-index: 30;
+}
+
+.filters-menu label {
+  align-items: center;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  padding: 5px 8px;
   white-space: nowrap;
 }
 
-.dashed-key {
-  border-bottom: 1px dashed var(--text);
+.filters-menu .swatch {
+  margin-right: 0;
+  width: 18px;
 }
+
+.filters-menu label:hover {
+  background: var(--line);
+}
+
 
 .stage {
   display: flex;

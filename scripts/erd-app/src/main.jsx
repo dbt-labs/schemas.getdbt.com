@@ -178,6 +178,8 @@ function Explorer({ graph: fullGraph }) {
   const focusing = graph !== scope;
   const [query, setQuery] = useState("");
   const [help, setHelp] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const filtersRef = useRef(null);
   const pendingFit = useRef(null);
 
   // Keyed by content: a new array with the same entries must not trigger a layout,
@@ -358,6 +360,27 @@ function Explorer({ graph: fullGraph }) {
       return { ...s, hidden: [...hidden] };
     });
 
+  // Close the relationship menu on a click anywhere else or on Escape.
+  useEffect(() => {
+    if (!filtersOpen) return;
+    const away = (e) => filtersRef.current && !filtersRef.current.contains(e.target) && setFiltersOpen(false);
+    const esc = (e) => e.key === "Escape" && setFiltersOpen(false);
+    document.addEventListener("mousedown", away, true);
+    document.addEventListener("keydown", esc);
+    return () => {
+      document.removeEventListener("mousedown", away, true);
+      document.removeEventListener("keydown", esc);
+    };
+  }, [filtersOpen]);
+
+  const shownKinds = Object.entries(KINDS).filter(([k]) => !state.hidden.includes(k));
+  const filtersLabel =
+    shownKinds.length === Object.keys(KINDS).length
+      ? "All relationships"
+      : shownKinds.length === 0
+        ? "No relationships"
+        : shownKinds.map(([, i]) => i.label).join(", ");
+
   const hits = search(fullGraph, query);
   const selectedTable = state.selected ? byId.get(state.selected) : null;
   const allOpen = state.open.length === graph.domains.length;
@@ -448,15 +471,33 @@ function Explorer({ graph: fullGraph }) {
       ),
       h(
         "div",
-        { className: "filters", role: "group", "aria-label": "Relationships to show" },
-        Object.entries(KINDS).map(([kind, info]) =>
-          h(
-            "label",
-            { key: kind, className: info.dashed ? "dashed-key" : "solid-key" },
-            h("input", { type: "checkbox", checked: !state.hidden.includes(kind), onChange: () => toggleKind(kind) }),
-            info.label,
-          ),
+        { className: "filters", ref: filtersRef },
+        h(
+          "button",
+          {
+            className: "filters-button",
+            "aria-haspopup": "true",
+            "aria-expanded": filtersOpen,
+            title: "Which relationships to show",
+            onClick: () => setFiltersOpen((v) => !v),
+          },
+          filtersLabel,
+          h("span", { className: "caret" }, "\u25BE"),
         ),
+        filtersOpen &&
+          h(
+            "div",
+            { className: "filters-menu", role: "group", "aria-label": "Relationships to show" },
+            Object.entries(KINDS).map(([kind, info]) =>
+              h(
+                "label",
+                { key: kind },
+                h("input", { type: "checkbox", checked: !state.hidden.includes(kind), onChange: () => toggleKind(kind) }),
+                h("i", { className: `swatch${info.dashed ? " dashed" : ""}` }),
+                info.label,
+              ),
+            ),
+          ),
       ),
     ),
     h(
