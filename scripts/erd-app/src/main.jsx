@@ -373,6 +373,22 @@ function Explorer({ graph: fullGraph }) {
     };
   }, [filtersOpen]);
 
+  // Same for the help card; the button that opens it handles its own click.
+  useEffect(() => {
+    if (!help) return;
+    const away = (e) => {
+      if (e.target.closest(".legend-card") || e.target.closest("[data-help-button]")) return;
+      setHelp(false);
+    };
+    const esc = (e) => e.key === "Escape" && setHelp(false);
+    document.addEventListener("mousedown", away, true);
+    document.addEventListener("keydown", esc);
+    return () => {
+      document.removeEventListener("mousedown", away, true);
+      document.removeEventListener("keydown", esc);
+    };
+  }, [help]);
+
   const shownKinds = Object.entries(KINDS).filter(([k]) => !state.hidden.includes(k));
   const filtersLabel =
     shownKinds.length === Object.keys(KINDS).length
@@ -544,7 +560,7 @@ function Explorer({ graph: fullGraph }) {
           { showInteractive: false, showZoom: false, position: "bottom-left" },
           h(
             ControlButton,
-            { onClick: () => setHelp((v) => !v), title: "What the lines mean", "aria-label": "What the lines mean", "aria-expanded": help },
+            { onClick: () => setHelp((v) => !v), title: "What the lines mean", "aria-label": "What the lines mean", "aria-expanded": help, "data-help-button": true },
             h("span", { className: "help-mark" }, "?"),
           ),
           cfg.graph &&
