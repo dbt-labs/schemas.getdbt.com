@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import {
   BaseEdge,
   Background,
+  ControlButton,
   Controls,
   EdgeLabelRenderer,
   Handle,
@@ -146,6 +147,14 @@ function LinkEdge({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPo
   );
 }
 
+/** A 24px line icon for a control button. */
+const icon = (d) =>
+  h(
+    "svg",
+    { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" },
+    h("path", { d }),
+  );
+
 const nodeTypes = { table: TableNode, domain: DomainNode };
 const edgeTypes = { link: LinkEdge };
 
@@ -168,6 +177,7 @@ function Explorer({ graph: fullGraph }) {
   const graph = useMemo(() => focusGraph(scope, state, state.selected), [scope, state.selected, state.hidden.join(",")]);
   const focusing = graph !== scope;
   const [query, setQuery] = useState("");
+  const [help, setHelp] = useState(false);
   const wrap = useRef(null);
   const pendingFit = useRef(null);
 
@@ -353,6 +363,13 @@ function Explorer({ graph: fullGraph }) {
   const selectedTable = state.selected ? byId.get(state.selected) : null;
   const allOpen = state.open.length === graph.domains.length;
 
+  const download = () => {
+    const a = document.createElement("a");
+    a.href = cfg.graph;
+    a.download = "";
+    a.click();
+  };
+
   const fullscreen = () => {
     const el = wrap.current;
     if (document.fullscreenElement) document.exitFullscreen();
@@ -448,9 +465,6 @@ function Explorer({ graph: fullGraph }) {
           ),
         ),
       ),
-      h("span", { className: "spacer" }),
-      cfg.graph && h("a", { className: "btn", href: cfg.graph, download: true }, "Download JSON"),
-      h("button", { onClick: fullscreen }, "Fullscreen"),
     ),
     h(
       "div",
@@ -491,7 +505,47 @@ function Explorer({ graph: fullGraph }) {
           proOptions: { hideAttribution: false },
         },
         h(Background, { gap: 24, color: "#0f5566" }),
-        h(Controls, { showInteractive: false }),
+        h(
+          Controls,
+          { showInteractive: false, position: "bottom-left" },
+          h(
+            ControlButton,
+            { onClick: fullscreen, title: "Full screen", "aria-label": "Full screen" },
+            icon("M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"),
+          ),
+          h(
+            ControlButton,
+            { onClick: () => setHelp((v) => !v), title: "What the lines mean", "aria-label": "What the lines mean", "aria-expanded": help },
+            h("span", { className: "help-mark" }, "?"),
+          ),
+          cfg.graph &&
+            h(
+              ControlButton,
+              { onClick: download, title: "Download the graph as JSON", "aria-label": "Download the graph as JSON" },
+              icon("M12 4v11M7 11l5 5 5-5M5 20h14"),
+            ),
+        ),
+        help &&
+          h(
+            "aside",
+            { className: "legend-card nodrag nopan", role: "note" },
+            h("button", { className: "close", onClick: () => setHelp(false), "aria-label": "Close" }, "\u00d7"),
+            h("h3", null, "How to read this"),
+            h("p", null, "An arrow goes from a table to the table it refers to."),
+            h("p", null, h("i", { className: "swatch solid" }), h("strong", null, "Solid: "), "the columns are the whole key of the other table (one column, or several together), so a value matches one row."),
+            h(
+              "p",
+              null,
+              h("i", { className: "swatch dashed" }),
+              h("strong", null, "Dashed: "),
+              "the join does not pick out one row.",
+            ),
+            h("ul", null,
+              h("li", null, h("strong", null, "By name: "), "a name is not a key and can match several rows."),
+              h("li", null, h("strong", null, "May be missing: "), "not every value is in the other table, for example a hook in run_results, or a disabled resource, which is not in dag_nodes."),
+            ),
+            h("p", null, "Click a table to show it and its related tables, and click the background to go back. Click a group to open or close it, or pick one group in the list at the top."),
+          ),
         h(MiniMap, { pannable: true, zoomable: true, nodeColor: (n) => (n.type === "table" ? "#93a1a1" : "#0f5566"), nodeStrokeWidth: 0, maskColor: "rgba(0,43,54,.6)" }),
       ),
       ),
@@ -504,19 +558,6 @@ function Explorer({ graph: fullGraph }) {
           onClose: () => setState((s) => ({ ...s, selected: null })),
           pageUrl: `${cfg.base}${selectedTable.id}/v1/index.html`,
         }),
-    ),
-    h(
-      "footer",
-      { className: "legend" },
-      h("span", null, "An arrow goes from a table to the table it refers to."),
-      h("span", null, h("i", { className: "swatch solid" }), "Solid: the columns are the whole key of the other table (one column, or several together), so a value matches one row."),
-      h(
-        "span",
-        null,
-        h("i", { className: "swatch dashed" }),
-        "Dashed: the join does not pick out one row. By name: a name is not a key and can match several rows. May be missing: not every value is in the other table, for example a hook in run_results, or a disabled resource, which is not in dag_nodes.",
-      ),
-      h("span", null, "Click a table to show it and its related tables, and click the background to go back. Click a group to open or close it, or pick one group in the list at the top."),
     ),
   );
 }
