@@ -353,7 +353,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin: 16px;
+  margin: 14px;
   padding: 4px;
   background: var(--panel);
 }
@@ -367,10 +367,10 @@
   color: var(--strong);
   display: flex;
   fill: var(--strong);
-  height: 32px;
+  height: 26px;
   justify-content: center;
   padding: 0;
-  width: 32px;
+  width: 26px;
 }
 
 .explorer .react-flow__controls button:hover {
@@ -378,10 +378,10 @@
 }
 
 .react-flow__controls button svg {
-  height: 18px;
+  height: 13px;
   max-height: none;
   max-width: none;
-  width: 18px;
+  width: 13px;
 }
 
 .react-flow__controls button svg path {
@@ -448,7 +448,7 @@
 }
 
 .help-mark {
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1;
 }
@@ -460,8 +460,8 @@
   bottom: 16px;
   color: var(--text);
   font-size: 13px;
-  left: 84px;
-  max-width: min(440px, calc(100% - 110px));
+  left: 68px;
+  max-width: min(440px, calc(100% - 94px));
   padding: 12px 16px 6px;
   position: absolute;
   z-index: 20;
