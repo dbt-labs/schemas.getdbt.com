@@ -178,7 +178,6 @@ function Explorer({ graph: fullGraph }) {
   const focusing = graph !== scope;
   const [query, setQuery] = useState("");
   const [help, setHelp] = useState(false);
-  const wrap = useRef(null);
   const pendingFit = useRef(null);
 
   // Keyed by content: a new array with the same entries must not trigger a layout,
@@ -370,15 +369,9 @@ function Explorer({ graph: fullGraph }) {
     a.click();
   };
 
-  const fullscreen = () => {
-    const el = wrap.current;
-    if (document.fullscreenElement) document.exitFullscreen();
-    else if (el && el.requestFullscreen) el.requestFullscreen();
-  };
-
   return h(
     "div",
-    { className: "explorer", ref: wrap },
+    { className: "explorer" },
     h(
       "div",
       { className: "toolbar" },
@@ -508,11 +501,6 @@ function Explorer({ graph: fullGraph }) {
         h(
           Controls,
           { showInteractive: false, showZoom: false, position: "bottom-left" },
-          h(
-            ControlButton,
-            { onClick: fullscreen, title: "Full screen", "aria-label": "Full screen" },
-            icon("M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"),
-          ),
           h(
             ControlButton,
             { onClick: () => setHelp((v) => !v), title: "What the lines mean", "aria-label": "What the lines mean", "aria-expanded": help },
