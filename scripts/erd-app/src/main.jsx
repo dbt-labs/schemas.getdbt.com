@@ -507,7 +507,7 @@ function Explorer({ graph: fullGraph }) {
         h(Background, { gap: 24, color: "#0f5566" }),
         h(
           Controls,
-          { showInteractive: false, position: "bottom-left" },
+          { showInteractive: false, showZoom: false, position: "bottom-left" },
           h(
             ControlButton,
             { onClick: fullscreen, title: "Full screen", "aria-label": "Full screen" },
